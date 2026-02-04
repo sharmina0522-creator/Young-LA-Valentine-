@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Be My Valentine?</title>
+<style>
+  body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: #800020; /* Burgundy */
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
+  }
+
+  #noBtn { background-color: #ff4d4d; }
+  #yesBtn { background-color: #ff99cc; }
+
+  .hidden { display: none; }
+
+  /* Popup styling with fade-in */
+  .popup {
+    display: none;
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.5s;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .popup-content {
+    background: #fff;
+    color: #000;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    position: relative;
+    max-width: 90%;
+  }
+
+  .popup-content img {
+    max-width: 80%;
+    border-radius: 10px;
+  }
+
+  /* Gift boxes */
+  .box {
+    display: inline-block;
+    background: #ff99cc;
+    color: #000;
+    padding: 20px;
+    margin: 15px;
+    border-radius: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .box:hover { 
+    transform: scale(1.1) translateY(-5px);
+  }
+
+  /* Envelope flap animation */
+  #envelopeFlap {
+    width:0; height:0; 
+    border-left:100px solid transparent;
+    border-right:100px solid transparent;
+    border-bottom:50px solid #ff69b4;
+    position:absolute; top:0; left:0;
+    transform-origin: top center;
+    transition: transform 0.5s;
+  }
+
+  /* Scrollable letter styling */
+  #letterContent {
+    display:none; 
+    text-align:left; 
+    padding:15px; 
+    font-size:16px; 
+    color:#000; 
+    max-height:300px; 
+    overflow-y:auto; 
+    border:2px solid #ff69b4;
+    border-radius:10px;
+    background:#fff0f5;
+  }
+</style>
+</head>
+<body>
+
+<h1>Will You Be My Valentine? 💖</h1>
+<p id="questionText">Click your answer:</p>
+
+<button id="noBtn">No</button>
+<button id="yesBtn">Yes</button>
+
+<div id="noMessages" class="hidden"></div>
+
+<div id="gifts" class="hidden">
+  <h2>Gifts For You 💝</h2>
+  <div class="box" onclick="openBouquet()">🌹 Bouquet</div>
+  <div class="box" onclick="openChocolate()">🍫 Chocolate</div>
+  <div class="box" onclick="openLetter()">💌 Letter</div>
+  <div class="box" onclick="openPhotos()">📸 Photobooth</div>
+</div>
+
+<!-- Bouquet Popup -->
+<div class="popup" id="bouquetPopup">
+  <div class="popup-content">
+    <h3>For You 💐</h3>
+    <img src="images/bouquet.png" alt="Anime Bouquet">
+    <p style="margin-top:10px; font-size:16px;">Flowers for you 💐</p>
+    <br>
+    <button onclick="closeAll()">Close</button>
+  </div>
+</div>
+
+<!-- Chocolate Popup -->
+<div class="popup" id="chocolatePopup">
+  <div class="popup-content" style="position: relative;">
+    <h3>Sweet Treat! 🍫</h3>
+    <img src="images/chocolate.png" alt="Girly Bear" style="width:200px; border-radius:10px;">
+    <span style="
+      position:absolute;
+      top:20px;
+      left:50%;
+      transform:translateX(-50%);
+      font-size:40px;
+      color:pink;
+    ">🎀</span>
+    <p style="margin-top:10px; font-size:16px;">
+      I know too much chocolate hurts your stomach, so here’s a virtual one!
+    </p>
+    <br>
+    <button onclick="closeAll()">Close</button>
+  </div>
+</div>
+
+<!-- Letter Popup -->
+<div class="popup" id="letterPopup">
+  <div class="popup-content">
+    <h3>Open Your Letter 💌</h3>
+    <!-- Cartoon envelope -->
+    <div id="envelope" style="
+      width:200px; height:120px;
+      background:#ffb6c1; 
+      border-radius:10px;
+      margin:20px auto;
+      position:relative;
+      cursor:pointer;
+      overflow:hidden;
+      border:2px solid #ff69b4;
+    " onclick="openLetterContent()">
+      <!-- Flap triangle -->
+      <div id="envelopeFlap"></div>
+      <p style="position:absolute; bottom:10px; width:100%; text-align:center; font-weight:bold; color:#fff;">Click to open ✨</p>
+    </div>
+    <!-- Letter content -->
+    <div id="letterContent">
+      <p>I know things aren’t simple,</p>
+
+      <p>but you are always special to me.</p>
+
+      <p>
+        I wish I was next to you right now.
+        I miss your kisses, I miss your hugs,
+        but most of all I miss you.
+      </p>
+
+      <p style="margin-top:20px; font-weight:bold;">
+        Happy Valentine’s Day,<br>
+        Young LA 💘
+      </p>
+    </div>
+    <br>
+    <button onclick="closeAll()">Close</button>
+  </div>
+</div>
+
+<!-- Photobooth Popup -->
+<div class="popup" id="photosPopup">
+  <div class="popup-content">
+    <h3>Photobooth Memories 📸</h3>
+    <div id="photoGallery">
+      <img src="images/pic1.jpg" alt="Photo 1">
+      <img src="images/pic2.jpg" alt="Photo 2">
+      <img src="images/pic3.jpg" alt="Photo 3">
+      <img src="images/pic4.jpg" alt="Photo 4">
+      <img src="images/pic5.jpg" alt="Photo 5">
+      <img src="images/pic6.jpg" alt="Photo 6">
+      <img src="images/pic7.jpg" alt="Photo 7">
+      <img src="images/pic8.jpg" alt="Photo 8">
+      <img src="images/pic9.jpg" alt="Photo 9">
+      <img src="images/pic10.jpg" alt="Photo 10">
+    </div>
+    <br>
+    <button onclick="closeAll()">Close</button>
+  </div>
+</div>
+
+<script>
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const noMessagesDiv = document.getElementById("noMessages");
+  const giftsDiv = document.getElementById("gifts");
+
+  const noMessages = [
+    "Hey 😐",
+    "Be serious.",
+    "That’s not nice.",
+    "Stop it…",
+    "You’re playing now.",
+    "Okay just click yes 🙄💗"
+  ];
+  let noIndex = 0;
+
+  noBtn.onclick = () => {
+    noMessagesDiv.innerText = noMessages[noIndex];
+    noMessagesDiv.classList.remove("hidden");
+    noIndex = (noIndex + 1) % noMessages.length;
+  };
+
+  yesBtn.onclick = () => {
+    giftsDiv.classList.remove("hidden");
+    document.getElementById("questionText").innerText = "Yay! Choose your gift:";
+    noBtn.style.display = "none";
+    yesBtn.style.display = "none";
+    noMessagesDiv.classList.add("hidden");
+  };
+
+  function openBouquet() { document.getElementById("bouquetPopup").style.display = "flex"; }
+  function openChocolate() { document.getElementById("chocolatePopup").style.display = "flex"; }
+  function openLetter() { document.getElementById("letterPopup").style.display = "flex"; }
+  function openPhotos() { document.getElementById("photosPopup").style.display = "flex"; }
+
+  function openLetterContent() {
+    const flap = document.getElementById("envelopeFlap");
+    flap.style.transform = "rotateX(180deg)";
+    setTimeout(() => {
+      document.getElementById("letterContent").style.display = "block";
+      document.getElementById("envelope").style.display = "none";
+    }, 500);
+  }
+
+  function closeAll() {
+    document.querySelectorAll(".popup").forEach(p => p.style.display = "none");
+  }
+</script>
+
+</body>
+</html>
