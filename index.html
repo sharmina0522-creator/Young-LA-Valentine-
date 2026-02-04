@@ -4,264 +4,377 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Will You Be My Valentine?</title>
+
 <style>
-  body {
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-    background-color: #800020; /* Burgundy */
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-  }
+/* ---------- General Styles ---------- */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(180deg, #f0c4d7, #ff8db2);
+  color: #fff;
+  text-align: center;
+  overflow-x: hidden;
+}
 
-  button {
-    padding: 10px 20px;
-    font-size: 18px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin: 10px;
-  }
+h1, h2 {
+  margin-top: 30px;
+  text-shadow: 1px 1px 5px #ff5c8a;
+}
 
-  #noBtn { background-color: #ff4d4d; }
-  #yesBtn { background-color: #ff99cc; }
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
 
-  .hidden { display: none; }
+button:hover {
+  transform: scale(1.1);
+}
 
-  /* Popups */
-  .popup {
-    display: none;
-    position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background: rgba(0,0,0,0.7);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    animation: fadeIn 0.5s;
-  }
+/* ---------- Passcode Section ---------- */
+.passcode-images {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
 
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
+.passcode-images img {
+  width: 100px;
+  cursor: pointer;
+  transition: transform 0.3s, filter 0.3s;
+  animation: bounce 2s infinite;
+}
 
-  .popup-content {
-    background: #fff;
-    color: #000;
-    padding: 20px;
-    border-radius: 15px;
-    text-align: center;
-    position: relative;
-    max-width: 90%;
-    animation: bounceIn 0.6s;
-  }
+.passcode-images img:hover {
+  transform: scale(1.2) rotate(-10deg);
+  filter: brightness(1.2);
+}
 
-  @keyframes bounceIn {
-    0% { transform: scale(0.3); opacity:0; }
-    50% { transform: scale(1.1); opacity:1; }
-    70% { transform: scale(0.9); }
-    100% { transform: scale(1); }
-  }
+#pizzaWrapper {
+  position: relative;
+  display: inline-block;
+}
 
-  .popup-content img {
-    max-width: 80%;
-    border-radius: 10px;
-  }
+#pizzaWrapper::after {
+  content: "✨";
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  font-size: 24px;
+  animation: sparkle 1.5s infinite alternate;
+}
 
-  /* Gift boxes */
-  .box {
-    display: inline-block;
-    background: #ff99cc;
-    color: #000;
-    padding: 20px;
-    margin: 15px;
-    border-radius: 15px;
-    font-size: 24px;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
+#pizzaWrapper::before {
+  content: "✨";
+  position: absolute;
+  bottom: -10px;
+  right: 15px;
+  font-size: 24px;
+  animation: sparkle 1.5s infinite alternate-reverse;
+}
 
-  .box:hover { 
-    transform: scale(1.1) translateY(-5px);
-  }
+@keyframes sparkle {
+  0% { opacity: 0; transform: translateY(0) scale(0.8); }
+  50% { opacity: 1; transform: translateY(-5px) scale(1.2); }
+  100% { opacity: 0; transform: translateY(0) scale(0.8); }
+}
 
-  /* Envelope flap animation */
-  #envelopeFlap {
-    width:0; height:0; 
-    border-left:100px solid transparent;
-    border-right:100px solid transparent;
-    border-bottom:50px solid #ff69b4;
-    position:absolute; top:0; left:0;
-    transform-origin: top center;
-    transition: transform 0.5s;
-  }
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
 
-  /* Scrollable letter styling */
-  #letterContent {
-    display:none; 
-    text-align:left; 
-    padding:15px; 
-    font-size:16px; 
-    color:#000; 
-    max-height:300px; 
-    overflow-y:auto; 
-    border:2px solid #ff69b4;
-    border-radius:10px;
-    background:#fff0f5;
-  }
+/* ---------- Hidden Class ---------- */
+.hidden { display: none; }
+
+/* ---------- Cards Section ---------- */
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.card {
+  background: #ff5c8a;
+  border-radius: 20px;
+  padding: 20px;
+  width: 120px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.1) translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+/* ---------- Popups ---------- */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: #fff;
+  color: #000;
+  padding: 20px;
+  border-radius: 25px;
+  max-width: 90%;
+  max-height: 80%;
+  overflow-y: auto;
+  animation: pop 0.4s ease;
+  position: relative;
+}
+
+@keyframes pop {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.bouquet {
+  width: 200px;
+  animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0); }
+}
+
+/* ---------- Valentine Question with Floating Hearts ---------- */
+.valentine-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.floating-hearts {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.floating-hearts .heart {
+  position: absolute;
+  font-size: 20px;
+  animation: floatHeart 6s linear infinite;
+}
+
+.floating-hearts .heart:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+.floating-hearts .heart:nth-child(2) { top: 50%; left: 70%; animation-delay: 1s; }
+.floating-hearts .heart:nth-child(3) { top: 70%; left: 40%; animation-delay: 2s; }
+.floating-hearts .heart:nth-child(4) { top: 30%; left: 60%; animation-delay: 3s; }
+.floating-hearts .heart:nth-child(5) { top: 60%; left: 25%; animation-delay: 4s; }
+
+@keyframes floatHeart {
+  0% { transform: translateY(0) scale(0.8); opacity: 0.7; }
+  50% { transform: translateY(-30px) scale(1); opacity: 1; }
+  100% { transform: translateY(0) scale(0.8); opacity: 0.7; }
+}
+
+/* ---------- Photobooth ---------- */
+.popup-content.gallery {
+  background: linear-gradient(135deg, #ffe0e5, #ff9cb8);
+  border: 2px solid #ff5c8a;
+  border-radius: 25px;
+  padding: 20px;
+  max-width: 90%;
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+.photo-container img {
+  width: 90%;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  border: 3px solid #ffb3c6;
+  box-shadow: 0 4px 10px rgba(255, 92, 138, 0.4);
+}
+
+/* Floating hearts and pizzas in photobooth */
+.floating-icons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.floating-icons .heart, .floating-icons .pizza {
+  position: absolute;
+  font-size: 24px;
+  animation: floatIcon 5s linear infinite;
+}
+
+.floating-icons .heart:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+.floating-icons .heart:nth-child(2) { top: 50%; left: 80%; animation-delay: 2s; }
+.floating-icons .heart:nth-child(3) { top: 70%; left: 40%; animation-delay: 4s; }
+.floating-icons .pizza:nth-child(1) { top: 30%; left: 10%; animation-delay: 1s; }
+.floating-icons .pizza:nth-child(2) { top: 60%; left: 70%; animation-delay: 3s; }
+
+@keyframes floatIcon {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+  50% { transform: translateY(-50px) rotate(20deg); opacity: 1; }
+  100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+}
 </style>
 </head>
+
 <body>
 
-<h1>Will You Be My Valentine? 💖</h1>
-<p id="questionText">Click your answer:</p>
-
-<button id="noBtn">No</button>
-<button id="yesBtn">Yes</button>
-
-<div id="noMessages" class="hidden"></div>
-
-<div id="gifts" class="hidden">
-  <h2>Gifts For You 💝</h2>
-  <div class="box" onclick="openBouquet()">🌹 Bouquet</div>
-  <div class="box" onclick="openChocolate()">🍫 Chocolate</div>
-  <div class="box" onclick="openLetter()">💌 Letter</div>
-  <div class="box" onclick="openPhotos()">📸 Photobooth</div>
+<!-- ---------- Passcode Section ---------- -->
+<div id="passcodeSection">
+  <h2>Enter the Secret Code 💌</h2>
+  <p>Click the correct food to complete the code: "____ for life"</p>
+  <div class="passcode-images">
+    <img src="burger.png" alt="Burger" onclick="selectPasscode('wrong')">
+    <img src="fried_chicken.png" alt="Fried Chicken" onclick="selectPasscode('wrong')">
+    <div id="pizzaWrapper">
+      <img src="pizza.png" alt="Pizza" onclick="selectPasscode('correct')">
+    </div>
+  </div>
+  <p id="passcodeMsg" style="margin-top:15px;"></p>
 </div>
 
-<!-- Bouquet Popup -->
+<!-- ---------- Valentine Question ---------- -->
+<div id="valentine" class="hidden">
+  <div class="valentine-wrapper">
+    <h1>Will you be my Valentine? 💘</h1>
+    <p id="noText"></p>
+    <button id="yesBtn" onclick="showGifts()">Yes 💖</button>
+    <button id="noBtn" onclick="noClicked()">No 😐</button>
+    <div class="floating-hearts">
+      <div class="heart">💖</div>
+      <div class="heart">💘</div>
+      <div class="heart">❤️</div>
+      <div class="heart">💝</div>
+      <div class="heart">💓</div>
+    </div>
+  </div>
+</div>
+
+<!-- ---------- Gifts Section ---------- -->
+<div id="gifts" class="hidden">
+  <h2>Presents for You 🎁</h2>
+  <div class="cards">
+    <div class="card" onclick="openPopup('bouquetPopup')">🌹</div>
+    <div class="card" onclick="openPopup('bearPopup')">🧸</div>
+    <div class="card" onclick="openPopup('letterPopup')">💌</div>
+    <div class="card" onclick="openPopup('photoPopup')">📸</div>
+  </div>
+</div>
+
+<!-- ---------- Popups ---------- -->
 <div class="popup" id="bouquetPopup">
   <div class="popup-content">
-    <h3>For You 💐</h3>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAYAAAA..." alt="Anime Bouquet">
-    <p style="margin-top:10px; font-size:16px;">Flowers for you 💐</p>
-    <br>
+    <img src="https://imgbin.com/png/ULSicKXv/red-roses-bouquet-romantic-red-rose-bouquet-illustration-png.png" class="bouquet">
+    <p><strong>Flowers for you 🌹</strong></p>
     <button onclick="closeAll()">Close</button>
   </div>
 </div>
 
-<!-- Chocolate Popup -->
-<div class="popup" id="chocolatePopup">
-  <div class="popup-content" style="position: relative;">
-    <h3>Sweet Treat! 🍫</h3>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAP4AAAD2CAYAAAC..." alt="Girly Bear" style="width:200px; border-radius:10px;">
-    <span style="
-      position:absolute;
-      top:20px;
-      left:50%;
-      transform:translateX(-50%);
-      font-size:40px;
-      color:pink;
-    ">🎀</span>
-    <p style="margin-top:10px; font-size:16px;">
-      I know too much chocolate hurts your stomach, so here’s a virtual one!
-    </p>
-    <br>
+<div class="popup" id="bearPopup">
+  <div class="popup-content">
+    <img src="https://imgbin.com/png/DRuPTmN0/adorable-teddy-holding-chocolate-bar-png.png" width="200">
+    <p>I know too much chocolate hurts your stomach,<br>so here’s some virtual one 🍫💖</p>
     <button onclick="closeAll()">Close</button>
   </div>
 </div>
 
-<!-- Letter Popup -->
 <div class="popup" id="letterPopup">
   <div class="popup-content">
-    <h3>Open Your Letter 💌</h3>
-    <!-- Cartoon envelope -->
-    <div id="envelope" style="
-      width:200px; height:120px;
-      background:#ffb6c1; 
-      border-radius:10px;
-      margin:20px auto;
-      position:relative;
-      cursor:pointer;
-      overflow:hidden;
-      border:2px solid #ff69b4;
-    " onclick="openLetterContent()">
-      <!-- Flap triangle -->
-      <div id="envelopeFlap"></div>
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAYAAAA..." alt="Envelope Option A" style="width:100%; height:100%; object-fit:cover;">
-      <p style="position:absolute; bottom:10px; width:100%; text-align:center; font-weight:bold; color:#fff;">Click to open ✨</p>
-    </div>
-    <!-- Letter content -->
-    <div id="letterContent">
-      <p>I know things aren’t simple,</p>
-
-      <p>but you are always special to me.</p>
-
-      <p>
-        I wish I was next to you right now.
-        I miss your kisses, I miss your hugs,
-        but most of all I miss you.
-      </p>
-
-      <p style="margin-top:20px; font-weight:bold;">
-        Happy Valentine’s Day,<br>
-        Young LA 💘
-      </p>
-    </div>
-    <br>
+    <p>I know things aren’t simple,</p>
+    <p>but you are always special to me.</p>
+    <p>I wish I was next to you right now.
+      I miss your kisses, I miss your hugs,
+      but most of all I miss you.
+    </p>
+    <p><strong>Happy Valentine’s Day,<br>Young LA 💘</strong></p>
     <button onclick="closeAll()">Close</button>
   </div>
 </div>
 
-<!-- Photobooth Popup -->
-<div class="popup" id="photosPopup">
-  <div class="popup-content">
-    <h3>Photobooth Memories 📸</h3>
-    <div id="photoGallery">
-      <!-- Add your photobooth pics here if you want them embedded later -->
+<!-- ---------- Photobooth ---------- -->
+<div class="popup" id="photoPopup">
+  <div class="popup-content gallery">
+    <h3>Photobooth Memories 📸💘</h3>
+    <div class="photo-container">
+      <!-- Replace src with YOUR own images -->
+      <img src="IMG_1.jpeg" alt="Memory 1">
+      <img src="IMG_2.jpeg" alt="Memory 2">
+      <img src="IMG_3.jpeg" alt="Memory 3">
+      <img src="IMG_4.jpeg" alt="Memory 4">
+      <img src="IMG_5.jpeg" alt="Memory 5">
+      <img src="IMG_6.jpeg" alt="Memory 6">
+      <img src="IMG_7.jpeg" alt="Memory 7">
+      <img src="IMG_8.jpeg" alt="Memory 8">
+      <img src="IMG_9.jpeg" alt="Memory 9">
+      <img src="IMG_10.jpeg" alt="Memory 10">
     </div>
-    <br>
     <button onclick="closeAll()">Close</button>
+  </div>
+  <div class="floating-icons">
+    <div class="heart">💖</div>
+    <div class="heart">💘</div>
+    <div class="pizza">🍕</div>
+    <div class="pizza">🍕</div>
+    <div class="heart">❤️</div>
   </div>
 </div>
 
 <script>
-  const noBtn = document.getElementById("noBtn");
-  const yesBtn = document.getElementById("yesBtn");
-  const noMessagesDiv = document.getElementById("noMessages");
-  const giftsDiv = document.getElementById("gifts");
-
-  const noMessages = [
-    "Hey 😐",
-    "Be serious.",
-    "That’s not nice.",
-    "Stop it…",
-    "You’re playing now.",
-    "Okay just click yes 🙄💗"
-  ];
-  let noIndex = 0;
-
-  noBtn.onclick = () => {
-    noMessagesDiv.innerText = noMessages[noIndex];
-    noMessagesDiv.classList.remove("hidden");
-    noIndex = (noIndex + 1) % noMessages.length;
-  };
-
-  yesBtn.onclick = () => {
-    giftsDiv.classList.remove("hidden");
-    document.getElementById("questionText").innerText = "Yay! Choose your gift:";
-    noBtn.style.display = "none";
-    yesBtn.style.display = "none";
-    noMessagesDiv.classList.add("hidden");
-  };
-
-  function openBouquet() { document.getElementById("bouquetPopup").style.display = "flex"; }
-  function openChocolate() { document.getElementById("chocolatePopup").style.display = "flex"; }
-  function openLetter() { document.getElementById("letterPopup").style.display = "flex"; }
-  function openPhotos() { document.getElementById("photosPopup").style.display = "flex"; }
-
-  function openLetterContent() {
-    const flap = document.getElementById("envelopeFlap");
-    flap.style.transform = "rotateX(180deg)";
-    setTimeout(() => {
-      document.getElementById("letterContent").style.display = "block";
-      document.getElementById("envelope").style.display = "none";
-    }, 500);
+/* Passcode logic */
+function selectPasscode(choice) {
+  const msg = document.getElementById("passcodeMsg");
+  if(choice === 'correct') {
+    document.getElementById("passcodeSection").classList.add("hidden");
+    document.getElementById("valentine").classList.remove("hidden");
+  } else {
+    msg.innerText = "Oops! Try again 💖";
+    msg.style.color = "#ff5c8a";
   }
+}
 
-  function closeAll() {
-    document.querySelectorAll(".popup").forEach(p => p.style.display = "none");
-  }
+/* Valentine question logic */
+let noCount = 0;
+const noMessages = ["Hey 😐","Be serious.","That’s not nice.","Stop it…","You’re playing now.","Okay just click yes 🙄💗"];
+
+function noClicked() {
+  document.getElementById("noText").innerText =
+    noMessages[Math.min(noCount, noMessages.length - 1)];
+  noCount++;
+}
+
+function showGifts() {
+  document.getElementById("valentine").classList.add("hidden");
+  document.getElementById("gifts").classList.remove("hidden");
+}
+
+function openPopup(id) {
+  document.getElementById(id).style.display = "flex";
+}
+
+function closeAll() {
+  document.querySelectorAll(".popup").forEach(p => p.style.display = "none");
+}
 </script>
 
 </body>
