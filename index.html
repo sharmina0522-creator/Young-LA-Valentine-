@@ -27,7 +27,7 @@
 
   .hidden { display: none; }
 
-  /* Popup styling with fade-in */
+  /* Popups */
   .popup {
     display: none;
     position: fixed;
@@ -53,6 +53,14 @@
     text-align: center;
     position: relative;
     max-width: 90%;
+    animation: bounceIn 0.6s;
+  }
+
+  @keyframes bounceIn {
+    0% { transform: scale(0.3); opacity:0; }
+    50% { transform: scale(1.1); opacity:1; }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); }
   }
 
   .popup-content img {
@@ -125,7 +133,7 @@
 <div class="popup" id="bouquetPopup">
   <div class="popup-content">
     <h3>For You 💐</h3>
-    <img src="images/bouquet.png" alt="Anime Bouquet">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAYAAAA..." alt="Anime Bouquet">
     <p style="margin-top:10px; font-size:16px;">Flowers for you 💐</p>
     <br>
     <button onclick="closeAll()">Close</button>
@@ -136,7 +144,7 @@
 <div class="popup" id="chocolatePopup">
   <div class="popup-content" style="position: relative;">
     <h3>Sweet Treat! 🍫</h3>
-    <img src="images/chocolate.png" alt="Girly Bear" style="width:200px; border-radius:10px;">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAP4AAAD2CAYAAAC..." alt="Girly Bear" style="width:200px; border-radius:10px;">
     <span style="
       position:absolute;
       top:20px;
@@ -170,6 +178,7 @@
     " onclick="openLetterContent()">
       <!-- Flap triangle -->
       <div id="envelopeFlap"></div>
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAYAAAA..." alt="Envelope Option A" style="width:100%; height:100%; object-fit:cover;">
       <p style="position:absolute; bottom:10px; width:100%; text-align:center; font-weight:bold; color:#fff;">Click to open ✨</p>
     </div>
     <!-- Letter content -->
@@ -199,16 +208,7 @@
   <div class="popup-content">
     <h3>Photobooth Memories 📸</h3>
     <div id="photoGallery">
-      <img src="images/pic1.jpg" alt="Photo 1">
-      <img src="images/pic2.jpg" alt="Photo 2">
-      <img src="images/pic3.jpg" alt="Photo 3">
-      <img src="images/pic4.jpg" alt="Photo 4">
-      <img src="images/pic5.jpg" alt="Photo 5">
-      <img src="images/pic6.jpg" alt="Photo 6">
-      <img src="images/pic7.jpg" alt="Photo 7">
-      <img src="images/pic8.jpg" alt="Photo 8">
-      <img src="images/pic9.jpg" alt="Photo 9">
-      <img src="images/pic10.jpg" alt="Photo 10">
+      <!-- Add your photobooth pics here if you want them embedded later -->
     </div>
     <br>
     <button onclick="closeAll()">Close</button>
