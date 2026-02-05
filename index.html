@@ -1,177 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Happy Valentine’s Day 💕</title>
+<meta charset="UTF-8">
+<title>For You 💗</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Cute + cursive fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Sacramento&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<style>
+body {
+  background: #ffe6ef;
+  font-family: 'Comic Sans MS', cursive;
+  text-align: center;
+  padding: 20px;
+}
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+h1, h2 {
+  color: #b1124c;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(#ffe6f0, #fff);
-      font-family: 'Poppins', sans-serif;
-    }
+/* GIFT MENU */
+.gifts {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
 
-    .container {
-      width: 100%;
-      max-width: 420px;
-      padding: 30px 20px;
-      text-align: center;
-    }
+.gift {
+  font-size: 42px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
 
-    /* ===== Photobooth ===== */
-    .gallery h3 {
-      font-family: 'Pacifico', cursive;
-      color: #d94f87;
-      margin-bottom: 20px;
-    }
+.gift:hover {
+  transform: scale(1.2);
+}
 
-    .photobooth-strip {
-      background: white;
-      padding: 12px;
-      border-radius: 18px;
-      width: 140px;
-      margin: 0 auto 40px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-    }
+/* POP SECTIONS */
+.section {
+  margin-top: 30px;
+}
 
-    .photobooth-strip img {
-      width: 100%;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      display: block;
-    }
+.hidden {
+  display: none;
+}
 
-    .photobooth-strip img:last-child {
-      margin-bottom: 0;
-    }
+/* PRINTER */
+.printer {
+  width: 220px;
+  margin: 20px auto;
+}
 
-    /* ===== Quiz ===== */
-    h1 {
-      font-family: 'Pacifico', cursive;
-      color: #c23a6f;
-      margin-bottom: 20px;
-    }
+.printer img {
+  width: 100%;
+}
 
-    .choices {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-bottom: 40px;
-    }
+/* PHOTO STRIP */
+#photo-strip {
+  width: 200px;
+  background: white;
+  padding: 10px;
+  border-radius: 12px;
+  transform: rotate(-4deg);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  margin: 0 auto;
+}
 
-    .choice {
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
+.photo {
+  width: 100%;
+  margin-bottom: 8px;
+  opacity: 0;
+  animation: print 0.6s ease forwards;
+}
 
-    .choice:hover {
-      transform: scale(1.08);
-    }
+@keyframes print {
+  from { transform: translateY(-40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
 
-    .choice img {
-      width: 90px;
-    }
+/* IMAGES */
+.popup-img {
+  width: 220px;
+  animation: pop 0.4s ease;
+}
 
-    /* ===== Letter ===== */
-    .letter {
-      background: #fff;
-      padding: 25px 20px;
-      border-radius: 18px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      font-family: 'Sacramento', cursive;
-      font-size: 26px;
-      line-height: 1.4;
-      color: #6b1f3b;
-    }
+@keyframes pop {
+  from { transform: scale(0.6); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
 
-    .letter p {
-      margin: 0;
-    }
+/* LETTER */
+.envelope {
+  font-size: 80px;
+  cursor: pointer;
+}
 
-    /* ===== Decorations ===== */
-    .decor {
-      margin-top: 25px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
+.letter {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 280px;
+  margin: 10px auto;
+  font-family: 'cursive';
+}
 
-    .decor img {
-      width: 90px;
-    }
-  </style>
+/* QUIZ */
+.quiz-options button,
+.valentine button {
+  background: #ff9bbd;
+  border: none;
+  padding: 10px 15px;
+  margin: 8px;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.quiz-msg {
+  margin-top: 10px;
+  color: #b1124c;
+}
+</style>
 </head>
 
 <body>
-  <div class="container">
 
-    <!-- Photobooth -->
-    <div class="gallery">
-      <h3>Photobooth Memories 📸</h3>
-      <div class="photobooth-strip">
-        <img src="IMG_1799.jpeg">
-        <img src="IMG_4866.jpeg">
-        <img src="IMG_4974.jpeg">
-        <img src="IMG_4979.jpeg">
-        <img src="IMG_4984.jpeg">
-        <img src="IMG_5008.jpeg">
-        <img src="IMG_5009.jpeg">
-        <img src="IMG_5011.jpeg">
-        <img src="IMG_5730.jpeg">
-        <img src="IMG_5743.jpeg">
-      </div>
-    </div>
+<h1>Gifts For You 💝</h1>
 
-    <!-- Quiz -->
-    <h1>___ for life?</h1>
-
-    <div class="choices">
-      <div class="choice" onclick="alert('Correct 😌🍕')">
-        <img src="pizza.png" alt="Pizza">
-      </div>
-
-      <div class="choice" onclick="alert('Wrong 😭')">
-        <img src="burger.png" alt="Burger">
-      </div>
-
-      <div class="choice" onclick="alert('Wrong 😭')">
-        <img src="waffle.png" alt="Waffle">
-      </div>
-    </div>
-
-    <!-- Letter -->
-    <div class="letter">
-      <p>
-        I know things aren’t simple,<br>
-        but you are always special to me.<br><br>
-
-        I wish I was next to you right now.<br>
-        I miss your kisses,<br>
-        I miss your hugs,<br>
-        but most of all I miss you.<br><br>
-
-        Happy Valentine’s Day,<br>
-        my love 🤍
-      </p>
-    </div>
-
-    <!-- Decorations -->
-    <div class="decor">
-      <img src="bear.png" alt="Bear">
-      <img src="bouquet.png" alt="Bouquet">
-    </div>
-
+<!-- PRINTER -->
+<div id="printer-area" class="hidden section">
+  <div class="printer">
+    <img src="printer.png">
   </div>
+  <div id="photo-strip"></div>
+</div>
+
+<!-- GIFTS -->
+<div class="gifts">
+  <div class="gift" onclick="showBouquet()">🌹</div>
+  <div class="gift" onclick="showBear()">🧸</div>
+  <div class="gift" onclick="showLetter()">💌</div>
+  <div class="gift" onclick="printPhotos()">📷</div>
+</div>
+
+<!-- BOUQUET -->
+<div id="bouquet" class="section hidden">
+  <img src="bouquet.png" class="popup-img">
+</div>
+
+<!-- BEAR -->
+<div id="bear" class="section hidden">
+  <img src="bear.png" class="popup-img">
+</div>
+
+<!-- LETTER -->
+<div id="letter-section" class="section hidden">
+  <div class="envelope" onclick="toggleLetter()">✉️</div>
+  <div id="letter" class="letter hidden">
+    I know things aren’t simple,<br>
+    but you are always special to me.<br><br>
+    I wish I was next to you right now.<br>
+    I miss your kisses, I miss your hugs,<br>
+    but most of all I miss you.<br><br>
+    <b>Happy Valentine’s Day, my love 💗</b>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="section">
+  <h2>___ for life 💕</h2>
+  <div class="quiz-options">
+    <button onclick="wrong()">Burger 🍔</button>
+    <button onclick="correct()">Pizza 🍕</button>
+    <button onclick="wrong()">Waffle 🧇</button>
+  </div>
+  <div id="quiz-msg" class="quiz-msg"></div>
+</div>
+
+<!-- VALENTINE -->
+<div id="valentine" class="section hidden">
+  <h2>Will you be my Valentine? 💖</h2>
+  <div class="valentine">
+    <button onclick="yes()">YES 💗</button>
+    <button onclick="no()">NO</button>
+  </div>
+  <p id="no-msg"></p>
+</div>
+
+<script>
+const photos = [
+  "IMG_1799.jpeg","IMG_4866.jpeg","IMG_4974.jpeg","IMG_4979.jpeg",
+  "IMG_4984.jpeg","IMG_5008.jpeg","IMG_5009.jpeg","IMG_5011.jpeg",
+  "IMG_5730.jpeg","IMG_5743.jpeg"
+];
+
+let noTexts = [
+  "Hey 😐","Be serious.","That’s not nice.","Stop it…",
+  "You’re playing now.","Okay just click yes 🙄💗"
+];
+let noIndex = 0;
+
+function hideAll() {
+  document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+}
+
+function showBouquet() { hideAll(); bouquet.classList.remove("hidden"); }
+function showBear() { hideAll(); bear.classList.remove("hidden"); }
+function showLetter() { hideAll(); letterSection.classList.remove("hidden"); }
+
+function toggleLetter() {
+  document.getElementById("letter").classList.toggle("hidden");
+}
+
+function printPhotos() {
+  hideAll();
+  printerArea.classList.remove("hidden");
+  photoStrip.innerHTML = "";
+  photos.forEach((src,i)=>{
+    setTimeout(()=>{
+      let img=document.createElement("img");
+      img.src=src;
+      img.className="photo";
+      photoStrip.appendChild(img);
+    }, i*450);
+  });
+}
+
+function wrong() {
+  quizMsg.innerText = "Nope 😅 try again";
+}
+
+function correct() {
+  quizMsg.innerText = "";
+  valentine.classList.remove("hidden");
+}
+
+function no() {
+  if(noIndex < noTexts.length){
+    noMsg.innerText = noTexts[noIndex++];
+  }
+}
+
+function yes() {
+  noMsg.innerText = "💗💗💗";
+}
+</script>
+
 </body>
 </html>
