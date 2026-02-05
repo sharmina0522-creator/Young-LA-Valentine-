@@ -6,8 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+/* THEME */
 body {
-  background: #ffe6ef;
+  background: #f9e6e6; /* soft blush red */
   font-family: 'Comic Sans MS', cursive;
   text-align: center;
   padding: 20px;
@@ -15,132 +16,84 @@ body {
 }
 
 /* HEADINGS */
-h1, h2 {
-  color: #b1124c;
-}
+h1, h2 { color: #800020; } /* deep burgundy */
 
 /* FLOATING ANIMATION */
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
 }
-
 @keyframes pop {
-  from { transform: scale(0.6); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from { transform: scale(0.6); opacity:0; }
+  to { transform: scale(1); opacity:1; }
 }
 
-/* BUTTONS */
-button {
-  border: none;
-  background: none;
-  cursor: pointer;
-  margin: 10px;
-  padding: 0;
+/* BUTTONS & CARDS */
+button { border:none; background:none; margin:10px; cursor:pointer; padding:0; }
+button img { width:150px; border-radius:20px; transition: transform 0.3s; }
+button img:hover { transform: scale(1.2); }
+
+/* BUBBLY BUTTONS */
+.bubbly-btn { 
+  background:#800020; color:#fff; font-size:20px; padding:12px 24px; border-radius:20px; 
+  margin:10px; border:none; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.2s, background 0.2s;
 }
-button img {
-  width: 150px;
-  height: auto;
-  border-radius: 20px;
-  transition: transform 0.2s;
-}
-button img:hover {
-  transform: scale(1.2);
-}
+.bubbly-btn:hover { transform:scale(1.1); background:#b1124c; }
 
 /* GIFTS */
-.gift {
-  width: 80px;
-  height: 80px;
-  margin: 20px;
-  display: inline-block;
-  animation: float 2s ease-in-out infinite;
-  cursor: pointer;
-}
+.gift { width:80px; height:80px; margin:20px; display:inline-block; animation: float 2s ease-in-out infinite; cursor:pointer; border-radius:16px; transition: transform 0.3s;}
+.gift:hover { transform: translateY(-5px) scale(1.1); }
 
 /* POPUP IMAGES */
-.popup-img {
-  width: 220px;
-  animation: pop 0.4s ease;
-  margin-top: 20px;
-}
+.popup-img { width:220px; animation: pop 0.4s ease; margin-top:20px; }
 
 /* ENVELOPE */
-.envelope {
-  width: 100px;
-  margin: 20px auto;
-  cursor: pointer;
-  animation: float 2s ease-in-out infinite;
-}
-.letter {
-  background: #fff7f9;
-  padding: 20px;
-  border-radius: 12px;
-  width: 280px;
-  margin: 10px auto;
-  font-family: 'cursive';
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+.envelope-container { position:relative; width:120px; margin:20px auto; cursor:pointer; }
+.envelope { width:100%; }
+.flap { width:100%; height:60px; background:#f2c1c1; position:absolute; top:0; left:0; transform-origin:top center; transition: transform 0.5s; border-top-left-radius:12px; border-top-right-radius:12px; }
+.flap.open { transform:rotateX(180deg); }
+
+/* LETTER */
+.letter { 
+  font-family:'Old English Text MT', cursive; font-weight:bold; background:#fff7f9; padding:20px; border-radius:12px; 
+  width:280px; margin:10px auto; box-shadow:0 4px 10px rgba(0,0,0,0.2); display:none; 
 }
 
 /* PHOTOSTRIP */
-.printer {
-  width: 220px;
-  margin: 20px auto;
-}
-#photo-strip {
-  width: 200px;
-  background: white;
-  padding: 10px;
-  border-radius: 12px;
-  transform: rotate(-4deg);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  margin: 0 auto;
-}
-.photo {
-  width: 100%;
-  margin-bottom: 8px;
-  opacity: 0;
-  animation: print 0.6s ease forwards;
-}
-@keyframes print {
-  from { transform: translateY(-40px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
+#photo-strip { width:220px; background:white; padding:10px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.2); margin:0 auto; }
+.photo { width:100%; margin-bottom:8px; opacity:0; animation: print 0.6s ease forwards; }
+@keyframes print { from { transform: translateY(-40px); opacity:0;} to { transform: translateY(0); opacity:1;} }
 
 /* HIDDEN SECTIONS */
-.hidden { display: none; }
+.hidden { display:none; }
 
-.quiz-msg, #no-msg {
-  color: #b1124c;
-  margin-top: 10px;
-  font-size: 18px;
-}
+.quiz-msg, #no-msg, #choco-msg { color:#800020; margin-top:10px; font-size:18px; }
 </style>
 </head>
 
 <body>
-
 <h1>💖 Your Valentine Adventure 💖</h1>
 
-<!-- STEP 1: QUIZ -->
+<!-- QUIZ -->
 <div id="quiz-section" class="section">
-  <h2>___ for life 💕</h2>
-  <button onclick="wrong()"><img src="burger.png.PNG" alt="Burger"></button>
+  <h2>Select the correct answer to unlock</h2>
+  <button onclick="wrong()"><img src="burger.png" alt="Burger"></button>
   <button onclick="correct()"><img src="pizza.png" alt="Pizza"></button>
   <button onclick="wrong()"><img src="waffle.png" alt="Waffle"></button>
   <div id="quiz-msg" class="quiz-msg"></div>
 </div>
 
-<!-- STEP 2: WILL YOU BE MY VALENTINE -->
+<!-- WILL YOU BE MY VALENTINE -->
 <div id="valentine" class="section hidden">
   <h2>Will you be my Valentine?</h2>
-  <button onclick="yes()">YES</button>
-  <button onclick="no()">NO</button>
+  <button class="bubbly-btn" onclick="yes()">YES</button>
+  <button class="bubbly-btn" onclick="no()">NO</button>
   <p id="no-msg"></p>
 </div>
 
-<!-- STEP 3: GIFTS -->
+<!-- GIFTS -->
 <div id="gifts-section" class="section hidden">
   <h2>Gifts For You 🎁</h2>
   <div>
@@ -154,17 +107,22 @@ button img:hover {
 <!-- BOUQUET -->
 <div id="bouquet" class="section hidden">
   <img src="bouquet.png" class="popup-img">
+  <p>Flowers For You 🌸</p>
 </div>
 
 <!-- BEAR -->
 <div id="bear" class="section hidden">
   <img src="bear.png" class="popup-img">
+  <p id="choco-msg">I know chocolate hurts your stomach, so here’s a virtual one 💝</p>
 </div>
 
 <!-- LETTER -->
 <div id="letter-section" class="section hidden">
-  <div class="envelope" onclick="toggleLetter()">✉️</div>
-  <div id="letter" class="letter hidden">
+  <div class="envelope-container" onclick="toggleLetter()">
+    <div class="flap" id="flap"></div>
+    <img src="envelope.png" class="envelope">
+  </div>
+  <div id="letter" class="letter">
     I know things aren’t simple,<br>
     but you are always special to me.<br><br>
     I wish I was next to you right now.<br>
@@ -176,88 +134,58 @@ button img:hover {
 
 <!-- PHOTOSTRIP -->
 <div id="printer-area" class="section hidden">
-  <div class="printer">
-    <img src="printer.png">
-  </div>
+  <div class="printer"><img src="printer.png"></div>
   <div id="photo-strip"></div>
 </div>
 
 <script>
 // PHOTOBOTH IMAGES
-const photos = [
-  "IMG_1799.jpeg","IMG_4866.jpeg","IMG_4974.jpeg","IMG_4979.jpeg",
-  "IMG_4984.jpeg","IMG_5008.jpeg","IMG_5009.jpeg","IMG_5011.jpeg",
-  "IMG_5730.jpeg","IMG_5743.jpeg"
-];
+const photos = ["IMG_1799.jpeg","IMG_4866.jpeg","IMG_4974.jpeg","IMG_4979.jpeg","IMG_4984.jpeg","IMG_5008.jpeg","IMG_5009.jpeg","IMG_5011.jpeg","IMG_5730.jpeg","IMG_5743.jpeg"];
 
-// BUBBLY NO TEXTS
-let noTexts = [
-  "Hey 😐","Be serious.","That’s not nice.","Stop it…",
-  "You’re playing now.","Okay just click yes 🙄💗"
-];
-let noIndex = 0;
+// NO BUTTON MESSAGES
+let noTexts=["Hey 😐","Be serious.","That’s not nice.","Stop it…","You’re playing now.","Okay just click yes 🙄💗"];
+let noIndex=0;
 
 // ELEMENTS
-const quizMsg = document.getElementById("quiz-msg");
-const valentineSection = document.getElementById("valentine");
-const noMsg = document.getElementById("no-msg");
-const giftsSection = document.getElementById("gifts-section");
-const bouquet = document.getElementById("bouquet");
-const bear = document.getElementById("bear");
-const letterSection = document.getElementById("letter-section");
-const letter = document.getElementById("letter");
-const printerArea = document.getElementById("printer-area");
-const photoStrip = document.getElementById("photo-strip");
+const quizMsg=document.getElementById("quiz-msg");
+const valentineSection=document.getElementById("valentine");
+const noMsg=document.getElementById("no-msg");
+const giftsSection=document.getElementById("gifts-section");
+const bouquet=document.getElementById("bouquet");
+const bear=document.getElementById("bear");
+const letterSection=document.getElementById("letter-section");
+const letter=document.getElementById("letter");
+const flap=document.getElementById("flap");
+const printerArea=document.getElementById("printer-area");
+const photoStrip=document.getElementById("photo-strip");
 
-// HIDE ALL SECTIONS EXCEPT QUIZ
-function hideAll() {
-  document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+// HIDE ALL EXCEPT QUIZ
+function hideAll(){document.querySelectorAll('.section').forEach(s=>s.classList.add('hidden'));}
+
+// QUIZ
+function wrong(){quizMsg.innerText="Nope 😅 try again";}
+function correct(){quizMsg.innerText=""; hideAll(); valentineSection.classList.remove("hidden");}
+
+// VALENTINE
+function no(){if(noIndex<noTexts.length){noMsg.innerText=noTexts[noIndex++];}}
+function yes(){noMsg.innerText=""; hideAll(); giftsSection.classList.remove("hidden");}
+
+// GIFTS
+function showBouquet(){hideAll(); giftsSection.classList.remove("hidden"); bouquet.classList.remove("hidden");}
+function showBear(){hideAll(); giftsSection.classList.remove("hidden"); bear.classList.remove("hidden");}
+function showLetter(){hideAll(); giftsSection.classList.remove("hidden"); letterSection.classList.remove("hidden");}
+
+// LETTER ENVELOPE
+function toggleLetter(){
+  if(letter.style.display==="none" || letter.style.display===""){letter.style.display="block"; flap.classList.add("open");}
+  else{letter.style.display="none"; flap.classList.remove("open");}
 }
 
-// QUIZ FUNCTIONS
-function wrong() {
-  quizMsg.innerText = "Nope 😅 try again";
-}
-function correct() {
-  quizMsg.innerText = "";
-  hideAll();
-  valentineSection.classList.remove("hidden");
-}
-
-// VALENTINE FUNCTIONS
-function no() {
-  if(noIndex < noTexts.length){
-    noMsg.innerText = noTexts[noIndex++];
-  }
-}
-function yes() {
-  noMsg.innerText = "";
-  hideAll();
-  giftsSection.classList.remove("hidden");
-}
-
-// GIFTS FUNCTIONS
-function showBouquet() { hideAll(); giftsSection.classList.remove("hidden"); bouquet.classList.remove("hidden"); }
-function showBear() { hideAll(); giftsSection.classList.remove("hidden"); bear.classList.remove("hidden"); }
-function showLetter() { hideAll(); giftsSection.classList.remove("hidden"); letterSection.classList.remove("hidden"); }
-function toggleLetter() { letter.classList.toggle("hidden"); }
-
-// PHOTOBOTH FUNCTION
-function printPhotos() {
-  hideAll();
-  giftsSection.classList.remove("hidden");
-  printerArea.classList.remove("hidden");
-  photoStrip.innerHTML = "";
-  photos.forEach((src,i)=>{
-    setTimeout(()=>{
-      let img=document.createElement("img");
-      img.src=src;
-      img.className="photo";
-      photoStrip.appendChild(img);
-    }, i*450);
-  });
+// PHOTOBOTH
+function printPhotos(){
+  hideAll(); giftsSection.classList.remove("hidden"); printerArea.classList.remove("hidden"); photoStrip.innerHTML="";
+  photos.forEach((src,i)=>{setTimeout(()=>{let img=document.createElement("img"); img.src=src; img.className="photo"; photoStrip.appendChild(img);}, i*450);});
 }
 </script>
-
 </body>
 </html>
