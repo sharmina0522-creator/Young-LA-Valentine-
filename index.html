@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For You 💗</title>
+<title>Your Valentine 💖</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -11,51 +11,83 @@ body {
   font-family: 'Comic Sans MS', cursive;
   text-align: center;
   padding: 20px;
+  overflow-x: hidden;
 }
 
+/* HEADINGS */
 h1, h2 {
   color: #b1124c;
 }
 
-/* GIFT MENU */
-.gifts {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  flex-wrap: wrap;
-  margin-top: 20px;
+/* FLOATING ANIMATION */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
 }
 
-.gift {
-  font-size: 42px;
+@keyframes pop {
+  from { transform: scale(0.6); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* BUTTONS */
+button {
+  border: none;
+  background: none;
   cursor: pointer;
+  margin: 10px;
+  padding: 0;
+}
+button img {
+  width: 150px;
+  height: auto;
+  border-radius: 20px;
   transition: transform 0.2s;
 }
-
-.gift:hover {
+button img:hover {
   transform: scale(1.2);
 }
 
-/* POP SECTIONS */
-.section {
-  margin-top: 30px;
+/* GIFTS */
+.gift {
+  width: 80px;
+  height: 80px;
+  margin: 20px;
+  display: inline-block;
+  animation: float 2s ease-in-out infinite;
+  cursor: pointer;
 }
 
-.hidden {
-  display: none;
+/* POPUP IMAGES */
+.popup-img {
+  width: 220px;
+  animation: pop 0.4s ease;
+  margin-top: 20px;
 }
 
-/* PRINTER */
+/* ENVELOPE */
+.envelope {
+  width: 100px;
+  margin: 20px auto;
+  cursor: pointer;
+  animation: float 2s ease-in-out infinite;
+}
+.letter {
+  background: #fff7f9;
+  padding: 20px;
+  border-radius: 12px;
+  width: 280px;
+  margin: 10px auto;
+  font-family: 'cursive';
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* PHOTOSTRIP */
 .printer {
   width: 220px;
   margin: 20px auto;
 }
-
-.printer img {
-  width: 100%;
-}
-
-/* PHOTO STRIP */
 #photo-strip {
   width: 200px;
   background: white;
@@ -65,82 +97,58 @@ h1, h2 {
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
   margin: 0 auto;
 }
-
 .photo {
   width: 100%;
   margin-bottom: 8px;
   opacity: 0;
   animation: print 0.6s ease forwards;
 }
-
 @keyframes print {
   from { transform: translateY(-40px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 
-/* IMAGES */
-.popup-img {
-  width: 220px;
-  animation: pop 0.4s ease;
-}
+/* HIDDEN SECTIONS */
+.hidden { display: none; }
 
-@keyframes pop {
-  from { transform: scale(0.6); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-/* LETTER */
-.envelope {
-  font-size: 80px;
-  cursor: pointer;
-}
-
-.letter {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 280px;
-  margin: 10px auto;
-  font-family: 'cursive';
-}
-
-/* QUIZ */
-.quiz-options button,
-.valentine button {
-  background: #ff9bbd;
-  border: none;
-  padding: 10px 15px;
-  margin: 8px;
-  border-radius: 20px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.quiz-msg {
-  margin-top: 10px;
+.quiz-msg, #no-msg {
   color: #b1124c;
+  margin-top: 10px;
+  font-size: 18px;
 }
 </style>
 </head>
 
 <body>
 
-<h1>Gifts For You 💝</h1>
+<h1>💖 Your Valentine Adventure 💖</h1>
 
-<!-- PRINTER -->
-<div id="printer-area" class="hidden section">
-  <div class="printer">
-    <img src="printer.png">
-  </div>
-  <div id="photo-strip"></div>
+<!-- STEP 1: QUIZ -->
+<div id="quiz-section" class="section">
+  <h2>___ for life 💕</h2>
+  <button onclick="wrong()"><img src="burger.png.PNG" alt="Burger"></button>
+  <button onclick="correct()"><img src="pizza.png" alt="Pizza"></button>
+  <button onclick="wrong()"><img src="waffle.png" alt="Waffle"></button>
+  <div id="quiz-msg" class="quiz-msg"></div>
 </div>
 
-<!-- GIFTS -->
-<div class="gifts">
-  <div class="gift" onclick="showBouquet()">🌹</div>
-  <div class="gift" onclick="showBear()">🧸</div>
-  <div class="gift" onclick="showLetter()">💌</div>
-  <div class="gift" onclick="printPhotos()">📷</div>
+<!-- STEP 2: WILL YOU BE MY VALENTINE -->
+<div id="valentine" class="section hidden">
+  <h2>Will you be my Valentine?</h2>
+  <button onclick="yes()">YES</button>
+  <button onclick="no()">NO</button>
+  <p id="no-msg"></p>
+</div>
+
+<!-- STEP 3: GIFTS -->
+<div id="gifts-section" class="section hidden">
+  <h2>Gifts For You 🎁</h2>
+  <div>
+    <img src="bouquet.png" class="gift" onclick="showBouquet()">
+    <img src="bear.png" class="gift" onclick="showBear()">
+    <img src="letter.png" class="gift" onclick="showLetter()">
+    <img src="camera.png" class="gift" onclick="printPhotos()">
+  </div>
 </div>
 
 <!-- BOUQUET -->
@@ -166,54 +174,78 @@ h1, h2 {
   </div>
 </div>
 
-<!-- QUIZ -->
-<div class="section">
-  <h2>___ for life 💕</h2>
-  <div class="quiz-options">
-    <button onclick="wrong()">Burger 🍔</button>
-    <button onclick="correct()">Pizza 🍕</button>
-    <button onclick="wrong()">Waffle 🧇</button>
+<!-- PHOTOSTRIP -->
+<div id="printer-area" class="section hidden">
+  <div class="printer">
+    <img src="printer.png">
   </div>
-  <div id="quiz-msg" class="quiz-msg"></div>
-</div>
-
-<!-- VALENTINE -->
-<div id="valentine" class="section hidden">
-  <h2>Will you be my Valentine? 💖</h2>
-  <div class="valentine">
-    <button onclick="yes()">YES 💗</button>
-    <button onclick="no()">NO</button>
-  </div>
-  <p id="no-msg"></p>
+  <div id="photo-strip"></div>
 </div>
 
 <script>
+// PHOTOBOTH IMAGES
 const photos = [
   "IMG_1799.jpeg","IMG_4866.jpeg","IMG_4974.jpeg","IMG_4979.jpeg",
   "IMG_4984.jpeg","IMG_5008.jpeg","IMG_5009.jpeg","IMG_5011.jpeg",
   "IMG_5730.jpeg","IMG_5743.jpeg"
 ];
 
+// BUBBLY NO TEXTS
 let noTexts = [
   "Hey 😐","Be serious.","That’s not nice.","Stop it…",
   "You’re playing now.","Okay just click yes 🙄💗"
 ];
 let noIndex = 0;
 
+// ELEMENTS
+const quizMsg = document.getElementById("quiz-msg");
+const valentineSection = document.getElementById("valentine");
+const noMsg = document.getElementById("no-msg");
+const giftsSection = document.getElementById("gifts-section");
+const bouquet = document.getElementById("bouquet");
+const bear = document.getElementById("bear");
+const letterSection = document.getElementById("letter-section");
+const letter = document.getElementById("letter");
+const printerArea = document.getElementById("printer-area");
+const photoStrip = document.getElementById("photo-strip");
+
+// HIDE ALL SECTIONS EXCEPT QUIZ
 function hideAll() {
   document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
 }
 
-function showBouquet() { hideAll(); bouquet.classList.remove("hidden"); }
-function showBear() { hideAll(); bear.classList.remove("hidden"); }
-function showLetter() { hideAll(); letterSection.classList.remove("hidden"); }
-
-function toggleLetter() {
-  document.getElementById("letter").classList.toggle("hidden");
+// QUIZ FUNCTIONS
+function wrong() {
+  quizMsg.innerText = "Nope 😅 try again";
+}
+function correct() {
+  quizMsg.innerText = "";
+  hideAll();
+  valentineSection.classList.remove("hidden");
 }
 
+// VALENTINE FUNCTIONS
+function no() {
+  if(noIndex < noTexts.length){
+    noMsg.innerText = noTexts[noIndex++];
+  }
+}
+function yes() {
+  noMsg.innerText = "";
+  hideAll();
+  giftsSection.classList.remove("hidden");
+}
+
+// GIFTS FUNCTIONS
+function showBouquet() { hideAll(); giftsSection.classList.remove("hidden"); bouquet.classList.remove("hidden"); }
+function showBear() { hideAll(); giftsSection.classList.remove("hidden"); bear.classList.remove("hidden"); }
+function showLetter() { hideAll(); giftsSection.classList.remove("hidden"); letterSection.classList.remove("hidden"); }
+function toggleLetter() { letter.classList.toggle("hidden"); }
+
+// PHOTOBOTH FUNCTION
 function printPhotos() {
   hideAll();
+  giftsSection.classList.remove("hidden");
   printerArea.classList.remove("hidden");
   photoStrip.innerHTML = "";
   photos.forEach((src,i)=>{
@@ -224,25 +256,6 @@ function printPhotos() {
       photoStrip.appendChild(img);
     }, i*450);
   });
-}
-
-function wrong() {
-  quizMsg.innerText = "Nope 😅 try again";
-}
-
-function correct() {
-  quizMsg.innerText = "";
-  valentine.classList.remove("hidden");
-}
-
-function no() {
-  if(noIndex < noTexts.length){
-    noMsg.innerText = noTexts[noIndex++];
-  }
-}
-
-function yes() {
-  noMsg.innerText = "💗💗💗";
 }
 </script>
 
