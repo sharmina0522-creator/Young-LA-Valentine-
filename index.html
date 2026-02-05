@@ -1,274 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<title>Valentine 💌</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prince's Valentine</title>
-<style>
-/* General Styles */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #fbe4e6;
-  color: #4b0012;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-}
-.card {
-  background-color: #fff0f2;
-  border-radius: 20px;
-  padding: 30px;
-  margin: 20px auto;
-  width: 90%;
-  max-width: 600px;
-  box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
-  transition: transform 0.3s;
-}
-.card:hover { transform: translateY(-5px) scale(1.02); }
-button {
-  background-color: #b0002e;
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  padding: 10px 20px;
-  margin: 10px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-button:hover { transform: scale(1.1); }
 
-/* Quiz */
-#quiz-card .quiz-row {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 15px;
+<style>
+/* ---------- GLOBAL ---------- */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #5b1a28;
+  color: #fff;
+  overflow: hidden;
 }
-#quiz-card .quiz-row img {
-  width: 120px;
-  cursor: pointer;
-  border-radius: 15px;
+
+section {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+section.active {
+  display: flex;
+}
+
+/* ---------- FLOATING ---------- */
+.float {
   animation: float 3s ease-in-out infinite;
 }
-#quiz-card .quiz-row img:hover { transform: translateY(-5px) scale(1.05); }
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
 }
-#quiz-card .quiz-text {
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 5px;
-}
-#valentine-message { display: none; font-size: 24px; margin-top: 20px; }
-.no-message { font-weight: bold; font-size: 18px; margin: 5px 0; }
 
-/* Gifts */
-.gifts-grid {
+/* ---------- CARDS ---------- */
+.card {
+  background: #7a1f32;
+  border-radius: 28px;
+  padding: 40px;
+  text-align: center;
+  width: 90%;
+  max-width: 520px;
+}
+
+/* ---------- QUIZ ---------- */
+.quiz-images {
+  display: flex;
+  gap: 24px;
+}
+.quiz-images img {
+  width: 110px;
+  cursor: pointer;
+}
+
+/* ---------- VALENTINE ---------- */
+.buttons button {
+  padding: 14px 26px;
+  margin: 10px;
+  border-radius: 20px;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+.yes { background: #ff9fb7; }
+.no { background: #fff; }
+
+/* ---------- GIFTS GRID ---------- */
+.gifts {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  justify-items: center;
-  margin-top: 20px;
+  gap: 22px;
 }
-.gift-logo {
-  width: 100px; height: 100px;
+.gift {
+  background: #8c253a;
+  border-radius: 24px;
+  padding: 30px;
   cursor: pointer;
-  border-radius: 15px;
-  background-color: #ffe0e5;
-  display: flex; justify-content: center; align-items: center;
-  font-size: 50px;
-  transition: transform 0.3s;
+  transform: scale(0); /* start hidden */
+  animation: pop 0.5s forwards;
 }
-.gift-logo:hover { transform: translateY(-5px) scale(1.1); }
-#gift-overlay {
-  display: none;
-  position: fixed; top:0; left:0; width:100%; height:100%;
-  background: rgba(251,228,230,0.95);
-  z-index: 999;
-  flex-direction: column; justify-content:center; align-items:center;
-}
-#gift-overlay img { max-width: 80%; max-height: 60%; border-radius:20px; margin-bottom:15px; }
-#gift-overlay button { margin-top:20px; }
+.gift:nth-child(1) { animation-delay: 0.2s; }
+.gift:nth-child(2) { animation-delay: 0.4s; }
+.gift:nth-child(3) { animation-delay: 0.6s; }
+.gift:nth-child(4) { animation-delay: 0.8s; }
+.gift:hover { transform: scale(1.1); }
+.gift img { width: 70px; }
 
-/* Envelope */
-.envlope-wrapper { position: relative; width: 300px; margin: 30px auto; }
-#main-branch-msg { font-size:16px; opacity:0.85; margin-bottom:10px; font-style: italic; }
-#envelope { position: relative; width: 100%; height: 200px; cursor: pointer; margin:0 auto; }
-#envelope .flap { position:absolute; width:100%; height:50px; background-color:#b0002e; top:0; border-top-left-radius:20px; border-top-right-radius:20px; transform-origin:top; transition: transform 0.5s; }
-#envelope.open .flap { transform: rotateX(180deg); }
-#envelope .pocket { position:absolute; top:50px; width:100%; height:150px; background-color:#fff0f2; border-radius:0 0 20px 20px; }
-#envelope .letter {
-  position:absolute; top:50px; width:100%; height:150px; padding:20px;
-  font-family:'Old English Text MT', cursive; font-weight:bold; color:#4b0012;
-  text-align:center; line-height:1.4; background-color:transparent;
-  transform: translateY(100%); transition: transform 0.5s;
+@keyframes pop {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
-#envelope.open .letter { transform: translateY(0); }
 
-/* Photobooth */
-#printer { display:block; margin:30px auto; width:150px; }
-#photo-strip {
+/* ---------- PHOTObooth ---------- */
+#photobooth {
+  flex-direction: column;
+  background: #4a141f;
+}
+#printer {
+  width: 160px;
+}
+#strip {
+  margin-top: 10px;
   display: flex;
-  flex-direction: column; /* stack vertically */
+  flex-direction: column;
   align-items: center;
 }
-#photo-strip img {
-  width: 150px;
+#strip img {
+  width: 220px;
   margin-top: 10px;
-  opacity:0;
-  transform: translateY(-30px);
-  transition: transform 0.5s, opacity 0.5s;
-  display: block; /* ensures each img is its own row */
+  animation: print 0.5s ease-out forwards;
+}
+@keyframes print {
+  from { transform: translateY(-40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ---------- ENVELOPE ---------- */
+.envelope {
+  position: relative;
+  width: 280px;
+  height: 180px;
+  cursor: pointer;
+  background: url('envelope.png') no-repeat center/cover;
+}
+.letter {
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  width: 260px;
+  height: 240px;
+  background: #fff;
+  color: #000;
+  padding: 20px;
+  transform: translateY(100%);
+  transition: transform .8s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* smooth spring */
+  font-family: "Old English Text MT", cursive;
+}
+.envelope.open .letter {
+  transform: translateY(-40px);
 }
 </style>
 </head>
+
 <body>
 
-<!-- Quiz -->
-<div class="card" id="quiz-card">
-  <h2>Pick the correct answer to unlock!</h2>
-  <div class="quiz-row">
-    <img src="burger.png" alt="Burger" onclick="checkAnswer('burger')">
-    <img src="pizza.png" alt="Pizza" onclick="checkAnswer('pizza')">
-    <img src="waffle.png" alt="Waffle" onclick="checkAnswer('waffle')">
+<!-- QUIZ -->
+<section id="quiz" class="active">
+  <div class="card float">
+    <h2>Select the correct answer to unlock</h2>
+    <div class="quiz-images">
+      <img src="pizza.png" onclick="next('valentine')">
+      <img src="waffle.png">
+      <img src="burger.png.PNG">
+    </div>
+    <p>___ for life</p>
   </div>
-  <div class="quiz-text">___ for life</div>
-  <div id="valentine-message">
-    <div style="font-size:26px; font-weight:bold;">Will you be my Valentine?</div>
-    <button onclick="clickYes()">YES</button>
-    <button onclick="clickNo()">NO</button>
+</section>
+
+<!-- VALENTINE -->
+<section id="valentine">
+  <div class="card">
+    <h2>Will you be my Valentine?</h2>
+    <div class="buttons">
+      <button class="yes" onclick="next('yesBears')">YES</button>
+      <button class="no" onclick="noClick()">NO</button>
+    </div>
+    <p id="noText"></p>
   </div>
-  <div id="no-messages"></div>
-</div>
+</section>
 
-<!-- Gifts -->
-<div class="card" id="gifts-card" style="display:none;">
-  <h2>Gifts For You</h2>
-  <div class="gifts-grid">
-    <div class="gift-logo" onclick="showGift('camera.png')">📷</div>
-    <div class="gift-logo" onclick="showGift('bear.png')">🧸</div>
-    <div class="gift-logo" onclick="showGift('bouquet.png')">💐</div>
-    <div class="gift-logo" onclick="showGift('letter.png')">✉️</div>
+<!-- KISSING BEARS -->
+<section id="yesBears">
+  <div class="card">
+    <h2>Yay! 💖</h2>
+    <img src="kissing_bears.png" style="width:200px; margin:20px 0;" class="float">
+    <button class="yes" onclick="next('gifts')">Next</button>
   </div>
-</div>
+</section>
 
-<div id="gift-overlay">
-  <img id="gift-full" src="">
-  <div id="gift-text"></div>
-  <button onclick="closeGift()">Close</button>
-</div>
-
-<!-- Envelope -->
-<div class="card envlope-wrapper" id="envelope-card" style="display:none;">
-  <div id="main-branch-msg">You’re my main branch 🌱</div>
-  <div id="envelope" class="close">
-    <div class="flap"></div>
-    <div class="pocket"></div>
-    <div class="letter">
-      <div class="words line1">I know things aren’t simple,</div>
-      <div class="words line2">but you are always special to me.</div>
-      <div class="words line3">I wish I was next to you right now.</div>
-      <div class="words line4">I miss your kisses, I miss your hugs but most of all I miss you.</div>
-      <div class="words line5">Happy Valentine’s Day, my love 💖</div>
-      <div class="words line6">P.S. You’re the HTML to my CSS</div>
+<!-- GIFTS -->
+<section id="gifts">
+  <div class="card">
+    <h2>Gifts for you 💝</h2>
+    <div class="gifts">
+      <div class="gift" onclick="openPhotobooth()"><img src="camera.png"></div>
+      <div class="gift"><img src="bear.png"></div>
+      <div class="gift"><img src="bouquet.png"></div>
+      <div class="gift" onclick="next('letterScreen')"><img src="letter.png"></div>
     </div>
   </div>
-  <div class="reset">
-    <button id="open">Open</button>
-    <button id="reset">Reset</button>
-  </div>
-</div>
+</section>
 
-<!-- Photobooth -->
-<div class="card" id="photobooth-card" style="display:none;">
-  <h2>Photobooth</h2>
-  <img src="printer.png" id="printer" alt="Photobooth Printer">
-  <div id="photo-strip"></div>
-</div>
+<!-- PHOTOBOOTH -->
+<section id="photobooth">
+  <img id="printer" src="printer.png">
+  <div id="strip"></div>
+</section>
+
+<!-- LETTER -->
+<section id="letterScreen">
+  <div class="envelope" onclick="this.classList.toggle('open')">
+    <div class="letter">
+      I know things aren’t simple,<br><br>
+      but you are always special to me.<br>
+      I wish I was next to you right now.<br><br>
+      I miss your kisses, I miss your hugs,
+      but most of all I miss you.<br><br>
+      Happy Valentine’s Day, my love 💖<br><br>
+      <b>P.S. You’re the HTML to my CSS</b>
+    </div>
+  </div>
+</section>
 
 <script>
-const correctAnswer = 'pizza';
-const noResponses = [
-  "Hey 😐",
-  "Be serious.",
-  "That’s not nice.",
-  "Stop it Pookie…",
-  "You’re playing now boo.",
-  "Okay just click yes 🙄💗"
+const screens = document.querySelectorAll('section');
+function next(id){
+  screens.forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+const noMessages = [
+ "Hey 😐","Be serious.","That’s not nice.",
+ "Stop it Pookie…","You’re playing now boo.",
+ "Okay just click yes 🙄💗"
 ];
 let noIndex = 0;
-
-function checkAnswer(answer){
-  if(answer === correctAnswer){
-    document.getElementById('valentine-message').style.display = 'block';
-  } else {
-    alert('Try again!');
-  }
+function noClick(){
+  document.getElementById('noText').innerText =
+    noMessages[noIndex++ % noMessages.length];
 }
 
-function clickYes(){
-  document.getElementById('gifts-card').style.display = 'block';
-  document.getElementById('quiz-card').style.display = 'none';
-}
-
-function clickNo(){
-  const div = document.getElementById('no-messages');
-  div.innerHTML = '<div class="no-message">' + noResponses[noIndex] + '</div>';
-  noIndex = (noIndex + 1) % noResponses.length;
-}
-
-/* Gifts overlay */
-function showGift(giftFile){
-  document.getElementById('gift-full').src = giftFile;
-  const text = document.getElementById('gift-text');
-  if(giftFile==='bear.png') text.innerText="I know chocolate hurts your stomach so here’s a virtual one 🍫🧸";
-  else if(giftFile==='bouquet.png') text.innerText="Flowers for you 💐";
-  else text.innerText="";
-  document.getElementById('gift-overlay').style.display='flex';
-}
-function closeGift(){ document.getElementById('gift-overlay').style.display='none'; }
-
-/* Envelope */
-const envelope = document.getElementById('envelope');
-document.getElementById('open').onclick = () => envelope.classList.add('open');
-document.getElementById('reset').onclick = () => envelope.classList.remove('open');
-
-/* Photobooth */
 const photos = [
-  "IMG_1799.jpeg",
-  "IMG_4866.jpeg",
-  "IMG_4974.jpeg",
-  "IMG_4979.jpeg",
-  "IMG_4984.jpeg",
-  "IMG_5008.jpeg",
-  "IMG_5009.jpeg",
-  "IMG_5011.jpeg",
-  "IMG_5730.jpeg",
-  "IMG_5743.jpeg"
+ "IMG_1799.jpeg","IMG_4866.jpeg","IMG_4974.jpeg","IMG_4979.jpeg",
+ "IMG_4984.jpeg","IMG_5008.jpeg","IMG_5009.jpeg","IMG_5011.jpeg",
+ "IMG_5730.jpeg","IMG_5743.jpeg"
 ];
 
-function printPhotoStrip(){
-  const strip = document.getElementById('photo-strip');
+function openPhotobooth(){
+  next('photobooth');
+  const strip = document.getElementById('strip');
   strip.innerHTML = "";
-  let delay = 0;
-  photos.forEach(photo=>{
+  photos.forEach((src,i)=>{
     setTimeout(()=>{
       const img = document.createElement('img');
-      img.src = photo;
-      img.style.opacity=0;
-      img.style.transform='translateY(-30px)';
+      img.src = src;
       strip.appendChild(img);
-      setTimeout(()=>{ img.style.opacity=1; img.style.transform='translateY(0)'; },50);
-    }, delay);
-    delay += 700; // one by one
+    }, i*700);
   });
 }
-
-// When camera gift clicked
-document.querySelector('.gift-logo[onclick="showGift(\'camera.png\')"]').onclick = printPhotoStrip;
 </script>
+
 </body>
 </html>
