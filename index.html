@@ -39,13 +39,13 @@ section.active { display:flex; }
 /* ---------- PHOTObooth ---------- */
 #photobooth { flex-direction:column; }
 #strip { display:flex; flex-direction:column; align-items:center; overflow:hidden; max-height:500px; margin-top:10px; }
-#strip img { width:120px; margin-bottom:10px; border:1px solid #fff; transform:translateY(-100%); opacity:0; animation:slideDown 0.6s forwards; }
+#strip img { width:120px; margin-bottom:10px; border:2px solid #fff; border-radius:4px; transform:translateY(-100%); opacity:0; animation:slideDown 0.6s forwards; }
 @keyframes slideDown { to { transform:translateY(0); opacity:1; } }
 
 /* ---------- ENVELOPE ---------- */
-#envelope .card { min-height:500px; display:flex; flex-direction:column; justify-content:flex-start; align-items:center; }
+#envelope .card { min-height:520px; display:flex; flex-direction:column; justify-content:flex-start; align-items:center; }
 .envelope-wrapper { perspective:800px; display:flex; justify-content:center; align-items:center; margin-top:20px; }
-#envelopeLetter { position:relative; width:240px; height:150px; cursor:pointer; }
+#envelopeLetter { position:relative; width:240px; height:180px; cursor:pointer; }
 .flap{ position:absolute; top:0; left:0; width:100%; height:80px; background:#b03a4b; transform-origin:top; transition:transform 0.8s ease; z-index:2; border-top-left-radius:12px; border-top-right-radius:12px; }
 .pocket{ position:absolute; bottom:0; left:0; width:100%; height:70px; background:#b03a4b; border-radius:0 0 12px 12px; z-index:1; }
 .letter{ position:absolute; bottom:0; left:10px; width:220px; height:220px; background:#fff; color:#800020; font-weight:bold; padding:15px; transform:translateY(100%); transition:transform 0.8s cubic-bezier(0.68,-0.55,0.265,1.55); font-family:"Old English Text MT",cursive; font-size:16px; line-height:1.3; z-index:1; }
@@ -54,6 +54,9 @@ section.active { display:flex; }
 .close{ position:absolute; top:5px; right:10px; background:none; border:none; font-size:20px; cursor:pointer; }
 .reset{ text-align:center; margin-top:20px; }
 .reset button{ padding:10px 20px; border-radius:20px; border:none; cursor:pointer; background:#ff9fb7; color:#fff; margin:0 5px; font-size:16px; }
+
+/* ---------- CELEBRATION YAAAY ---------- */
+@keyframes floatUp { to { transform:translate(-50%, -150px); opacity:0; } }
 </style>
 </head>
 <body>
@@ -175,6 +178,7 @@ function noClick(){ document.getElementById('noText').innerText = noMessages[noI
 function valentineYes(){
   const yayContainer = document.getElementById('yayGifContainer');
   next('gifts');
+
   // Confetti
   for(let i=0;i<50;i++){
     const c = document.createElement('div');
@@ -184,12 +188,52 @@ function valentineYes(){
     document.body.appendChild(c);
     setTimeout(()=>c.remove(),3000);
   }
+
   // Kissing bears GIF
   const img = document.createElement('img');
   img.src='kissing_bears.gif';
   img.id='yayGif';
   yayContainer.innerHTML='';
   yayContainer.appendChild(img);
+
+  // Call extra celebrate function
+  celebrate();
+}
+
+// CELEBRATE CONFETTI + YAAAY
+function celebrate(){
+  // Floating YAAAY
+  const yay=document.createElement('div');
+  yay.innerText="YAAAY! 🎉";
+  yay.style.position='absolute';
+  yay.style.top='30%';
+  yay.style.left='50%';
+  yay.style.transform='translateX(-50%)';
+  yay.style.fontSize='40px';
+  yay.style.fontWeight='bold';
+  yay.style.color='#ffeb3b';
+  yay.style.textShadow='2px 2px 8px #fff';
+  yay.style.opacity='1';
+  yay.style.animation='floatUp 2s ease-out forwards';
+  document.body.appendChild(yay);
+  setTimeout(()=>{ yay.remove(); },2000);
+
+  // Extra confetti
+  for(let i=0;i<100;i++){
+    const conf=document.createElement('div');
+    conf.style.position='absolute';
+    conf.style.width='8px';
+    conf.style.height='8px';
+    conf.style.background=['#ff3d68','#ffeb3b','#3dffbd','#3d86ff'][Math.floor(Math.random()*4)];
+    conf.style.left=Math.random()*window.innerWidth+'px';
+    conf.style.top='-10px';
+    conf.style.opacity=Math.random();
+    conf.style.borderRadius='50%';
+    conf.style.pointerEvents='none';
+    conf.style.animation=`fall ${1+Math.random()*2}s linear forwards`;
+    document.body.appendChild(conf);
+    setTimeout(()=>{ conf.remove(); },3000);
+  }
 }
 
 // OPEN/CLOSE ENVELOPE
