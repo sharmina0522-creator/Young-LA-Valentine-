@@ -3,377 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Will You Be My Valentine?</title>
+<title>My Valentine 💌</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 
 <style>
-/* ---------- General Styles ---------- */
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(180deg, #f0c4d7, #ff8db2);
-  color: #fff;
+  min-height: 100vh;
+  background: #ffe6f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Baloo 2', cursive;
+}
+
+/* MAIN CONTAINER */
+.container {
   text-align: center;
-  overflow-x: hidden;
+  padding: 20px;
 }
 
-h1, h2 {
-  margin-top: 30px;
-  text-shadow: 1px 1px 5px #ff5c8a;
+/* QUIZ */
+h1 {
+  font-size: 2.5rem;
+  color: #8b2f3c;
+  margin-bottom: 30px;
 }
 
-button {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 25px;
-  font-size: 16px;
+.quiz {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.quiz img {
+  width: 140px;
   cursor: pointer;
-  transition: transform 0.3s;
+  transition: transform 0.2s ease;
 }
 
-button:hover {
+.quiz img:hover {
   transform: scale(1.1);
 }
 
-/* ---------- Passcode Section ---------- */
-.passcode-images {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.passcode-images img {
-  width: 100px;
-  cursor: pointer;
-  transition: transform 0.3s, filter 0.3s;
-  animation: bounce 2s infinite;
-}
-
-.passcode-images img:hover {
-  transform: scale(1.2) rotate(-10deg);
-  filter: brightness(1.2);
-}
-
-#pizzaWrapper {
-  position: relative;
-  display: inline-block;
-}
-
-#pizzaWrapper::after {
-  content: "✨";
-  position: absolute;
-  top: -10px;
-  left: 10px;
-  font-size: 24px;
-  animation: sparkle 1.5s infinite alternate;
-}
-
-#pizzaWrapper::before {
-  content: "✨";
-  position: absolute;
-  bottom: -10px;
-  right: 15px;
-  font-size: 24px;
-  animation: sparkle 1.5s infinite alternate-reverse;
-}
-
-@keyframes sparkle {
-  0% { opacity: 0; transform: translateY(0) scale(0.8); }
-  50% { opacity: 1; transform: translateY(-5px) scale(1.2); }
-  100% { opacity: 0; transform: translateY(0) scale(0.8); }
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-}
-
-/* ---------- Hidden Class ---------- */
-.hidden { display: none; }
-
-/* ---------- Cards Section ---------- */
-.cards {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  flex-wrap: wrap;
-  margin-top: 30px;
-}
-
-.card {
-  background: #ff5c8a;
-  border-radius: 20px;
-  padding: 20px;
-  width: 120px;
-  cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.card:hover {
-  transform: scale(1.1) translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-}
-
-/* ---------- Popups ---------- */
+/* POPUP */
 .popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
   display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
   justify-content: center;
   align-items: center;
-  z-index: 1000;
 }
 
-.popup-content {
+.popup-box {
   background: #fff;
-  color: #000;
-  padding: 20px;
-  border-radius: 25px;
-  max-width: 90%;
-  max-height: 80%;
-  overflow-y: auto;
-  animation: pop 0.4s ease;
-  position: relative;
+  border-radius: 20px;
+  padding: 25px;
+  max-width: 320px;
+  text-align: center;
 }
 
-@keyframes pop {
-  from { transform: scale(0.7); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+/* LETTER */
+.letter {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.4rem;
+  color: #5a2a2a;
+  line-height: 1.6;
+  margin-top: 15px;
 }
 
-.bouquet {
-  width: 200px;
-  animation: float 2s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-  100% { transform: translateY(0); }
-}
-
-/* ---------- Valentine Question with Floating Hearts ---------- */
-.valentine-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-.floating-hearts {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.floating-hearts .heart {
-  position: absolute;
-  font-size: 20px;
-  animation: floatHeart 6s linear infinite;
-}
-
-.floating-hearts .heart:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
-.floating-hearts .heart:nth-child(2) { top: 50%; left: 70%; animation-delay: 1s; }
-.floating-hearts .heart:nth-child(3) { top: 70%; left: 40%; animation-delay: 2s; }
-.floating-hearts .heart:nth-child(4) { top: 30%; left: 60%; animation-delay: 3s; }
-.floating-hearts .heart:nth-child(5) { top: 60%; left: 25%; animation-delay: 4s; }
-
-@keyframes floatHeart {
-  0% { transform: translateY(0) scale(0.8); opacity: 0.7; }
-  50% { transform: translateY(-30px) scale(1); opacity: 1; }
-  100% { transform: translateY(0) scale(0.8); opacity: 0.7; }
-}
-
-/* ---------- Photobooth ---------- */
-.popup-content.gallery {
-  background: linear-gradient(135deg, #ffe0e5, #ff9cb8);
-  border: 2px solid #ff5c8a;
-  border-radius: 25px;
-  padding: 20px;
-  max-width: 90%;
-  max-height: 80%;
-  overflow-y: auto;
-}
-
-.photo-container img {
-  width: 90%;
-  margin-bottom: 10px;
-  border-radius: 15px;
-  border: 3px solid #ffb3c6;
-  box-shadow: 0 4px 10px rgba(255, 92, 138, 0.4);
-}
-
-/* Floating hearts and pizzas in photobooth */
-.floating-icons {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.floating-icons .heart, .floating-icons .pizza {
-  position: absolute;
-  font-size: 24px;
-  animation: floatIcon 5s linear infinite;
-}
-
-.floating-icons .heart:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
-.floating-icons .heart:nth-child(2) { top: 50%; left: 80%; animation-delay: 2s; }
-.floating-icons .heart:nth-child(3) { top: 70%; left: 40%; animation-delay: 4s; }
-.floating-icons .pizza:nth-child(1) { top: 30%; left: 10%; animation-delay: 1s; }
-.floating-icons .pizza:nth-child(2) { top: 60%; left: 70%; animation-delay: 3s; }
-
-@keyframes floatIcon {
-  0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
-  50% { transform: translateY(-50px) rotate(20deg); opacity: 1; }
-  100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+.close-btn {
+  margin-top: 15px;
+  border: none;
+  background: #ff99cc;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
 }
 </style>
 </head>
 
 <body>
 
-<!-- ---------- Passcode Section ---------- -->
-<div id="passcodeSection">
-  <h2>Enter the Secret Code 💌</h2>
-  <p>Click the correct food to complete the code: "____ for life"</p>
-  <div class="passcode-images">
-    <img src="burger.png" alt="Burger" onclick="selectPasscode('wrong')">
-    <img src="fried_chicken.png" alt="Fried Chicken" onclick="selectPasscode('wrong')">
-    <div id="pizzaWrapper">
-      <img src="pizza.png" alt="Pizza" onclick="selectPasscode('correct')">
+<div class="container">
+  <h1>___ for life? 💕</h1>
+
+  <div class="quiz">
+    <img src="pizza.png" onclick="correct()">
+    <img src="waffle.png" onclick="wrong()">
+    <img src="burger.png" onclick="wrong()">
+  </div>
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-box">
+
+    <div class="letter">
+      I know things aren’t simple,<br>
+      but you are always special to me.<br><br>
+
+      I wish I was next to you right now.<br>
+      I miss your kisses, I miss your hugs<br>
+      but most of all I miss you.<br><br>
+
+      Happy Valentine’s Day,<br>
+      My love 💖
     </div>
-  </div>
-  <p id="passcodeMsg" style="margin-top:15px;"></p>
-</div>
 
-<!-- ---------- Valentine Question ---------- -->
-<div id="valentine" class="hidden">
-  <div class="valentine-wrapper">
-    <h1>Will you be my Valentine? 💘</h1>
-    <p id="noText"></p>
-    <button id="yesBtn" onclick="showGifts()">Yes 💖</button>
-    <button id="noBtn" onclick="noClicked()">No 😐</button>
-    <div class="floating-hearts">
-      <div class="heart">💖</div>
-      <div class="heart">💘</div>
-      <div class="heart">❤️</div>
-      <div class="heart">💝</div>
-      <div class="heart">💓</div>
-    </div>
-  </div>
-</div>
-
-<!-- ---------- Gifts Section ---------- -->
-<div id="gifts" class="hidden">
-  <h2>Presents for You 🎁</h2>
-  <div class="cards">
-    <div class="card" onclick="openPopup('bouquetPopup')">🌹</div>
-    <div class="card" onclick="openPopup('bearPopup')">🧸</div>
-    <div class="card" onclick="openPopup('letterPopup')">💌</div>
-    <div class="card" onclick="openPopup('photoPopup')">📸</div>
-  </div>
-</div>
-
-<!-- ---------- Popups ---------- -->
-<div class="popup" id="bouquetPopup">
-  <div class="popup-content">
-    <img src="https://imgbin.com/png/ULSicKXv/red-roses-bouquet-romantic-red-rose-bouquet-illustration-png.png" class="bouquet">
-    <p><strong>Flowers for you 🌹</strong></p>
-    <button onclick="closeAll()">Close</button>
-  </div>
-</div>
-
-<div class="popup" id="bearPopup">
-  <div class="popup-content">
-    <img src="https://imgbin.com/png/DRuPTmN0/adorable-teddy-holding-chocolate-bar-png.png" width="200">
-    <p>I know too much chocolate hurts your stomach,<br>so here’s some virtual one 🍫💖</p>
-    <button onclick="closeAll()">Close</button>
-  </div>
-</div>
-
-<div class="popup" id="letterPopup">
-  <div class="popup-content">
-    <p>I know things aren’t simple,</p>
-    <p>but you are always special to me.</p>
-    <p>I wish I was next to you right now.
-      I miss your kisses, I miss your hugs,
-      but most of all I miss you.
-    </p>
-    <p><strong>Happy Valentine’s Day,<br>Young LA 💘</strong></p>
-    <button onclick="closeAll()">Close</button>
-  </div>
-</div>
-
-<!-- ---------- Photobooth ---------- -->
-<div class="popup" id="photoPopup">
-  <div class="popup-content gallery">
-    <h3>Photobooth Memories 📸💘</h3>
-    <div class="photo-container">
-      <!-- Replace src with YOUR own images -->
-      <img src="IMG_1799.jpeg" alt="Memory 1">
-      <img src="IMG_2.jpeg" alt="Memory 2">
-      <img src="IMG_3.jpeg" alt="Memory 3">
-      <img src="IMG_4.jpeg" alt="Memory 4">
-      <img src="IMG_5.jpeg" alt="Memory 5">
-      <img src="IMG_6.jpeg" alt="Memory 6">
-      <img src="IMG_7.jpeg" alt="Memory 7">
-      <img src="IMG_8.jpeg" alt="Memory 8">
-      <img src="IMG_9.jpeg" alt="Memory 9">
-      <img src="IMG_10.jpeg" alt="Memory 10">
-    </div>
-    <button onclick="closeAll()">Close</button>
-  </div>
-  <div class="floating-icons">
-    <div class="heart">💖</div>
-    <div class="heart">💘</div>
-    <div class="pizza">🍕</div>
-    <div class="pizza">🍕</div>
-    <div class="heart">❤️</div>
+    <button class="close-btn" onclick="closePopup()">Close</button>
   </div>
 </div>
 
 <script>
-/* Passcode logic */
-function selectPasscode(choice) {
-  const msg = document.getElementById("passcodeMsg");
-  if(choice === 'correct') {
-    document.getElementById("passcodeSection").classList.add("hidden");
-    document.getElementById("valentine").classList.remove("hidden");
-  } else {
-    msg.innerText = "Oops! Try again 💖";
-    msg.style.color = "#ff5c8a";
-  }
+function correct() {
+  document.getElementById("popup").style.display = "flex";
 }
 
-/* Valentine question logic */
-let noCount = 0;
-const noMessages = ["Hey 😐","Be serious.","That’s not nice.","Stop it…","You’re playing now.","Okay just click yes 🙄💗"];
-
-function noClicked() {
-  document.getElementById("noText").innerText =
-    noMessages[Math.min(noCount, noMessages.length - 1)];
-  noCount++;
+function wrong() {
+  alert("Try again 😌");
 }
 
-function showGifts() {
-  document.getElementById("valentine").classList.add("hidden");
-  document.getElementById("gifts").classList.remove("hidden");
-}
-
-function openPopup(id) {
-  document.getElementById(id).style.display = "flex";
-}
-
-function closeAll() {
-  document.querySelectorAll(".popup").forEach(p => p.style.display = "none");
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
 }
 </script>
 
