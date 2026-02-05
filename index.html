@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <title>Valentine 💌</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
 /* ---------- GLOBAL ---------- */
-* { box-sizing: border-box; }
+* { box-sizing: border-box; margin:0; padding:0; }
 body {
-  margin: 0;
   font-family: 'Poppins', sans-serif;
   background: #5b1a28;
   color: #fff;
   overflow: hidden;
 }
-
 section {
   position: fixed;
   inset: 0;
@@ -23,19 +20,13 @@ section {
   align-items: center;
   justify-content: center;
 }
-
-section.active {
-  display: flex;
-}
+section.active { display: flex; }
 
 /* ---------- FLOATING ---------- */
-.float {
-  animation: float 3s ease-in-out infinite;
-}
+.float { animation: float 3s ease-in-out infinite; }
 @keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-  100% { transform: translateY(0); }
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-12px);}
 }
 
 /* ---------- CARDS ---------- */
@@ -49,104 +40,109 @@ section.active {
 }
 
 /* ---------- QUIZ ---------- */
-.quiz-images {
-  display: flex;
-  gap: 24px;
-}
+.quiz-images { display:flex; gap:20px; justify-content:center; }
 .quiz-images img {
-  width: 110px;
-  cursor: pointer;
+  width: 100px; cursor:pointer;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%,20%,50%,80%,100%{transform:translateY(0);}
+  40%{transform:translateY(-15px);}
+  60%{transform:translateY(-8px);}
 }
 
 /* ---------- VALENTINE ---------- */
 .buttons button {
-  padding: 14px 26px;
+  padding: 14px 28px;
   margin: 10px;
-  border-radius: 20px;
+  border-radius: 50px;
   border: none;
   font-size: 18px;
   cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-.yes { background: #ff9fb7; }
-.no { background: #fff; }
+.buttons button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(255,255,255,0.3);
+}
+.yes { background: #ff9fb7; color: #fff; }
+.no { background: #fff; color: #7a1f32; }
 
-/* ---------- GIFTS GRID ---------- */
+/* ---------- KISSING BEARS ---------- */
+#yesBears img { width:200px; margin:20px 0; }
+
+/* ---------- GIFTS ---------- */
 .gifts {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 22px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:22px;
+  justify-items:center;
 }
 .gift {
-  background: #8c253a;
-  border-radius: 24px;
-  padding: 30px;
-  cursor: pointer;
-  transform: scale(0); /* start hidden */
+  width:120px;
+  height:120px;
+  cursor:pointer;
+  transform: scale(0);
   animation: pop 0.5s forwards;
 }
-.gift:nth-child(1) { animation-delay: 0.2s; }
-.gift:nth-child(2) { animation-delay: 0.4s; }
-.gift:nth-child(3) { animation-delay: 0.6s; }
-.gift:nth-child(4) { animation-delay: 0.8s; }
-.gift:hover { transform: scale(1.1); }
-.gift img { width: 70px; }
-
-@keyframes pop {
-  from { transform: scale(0); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
+.gift:nth-child(1){animation-delay:0.2s;}
+.gift:nth-child(2){animation-delay:0.4s;}
+.gift:nth-child(3){animation-delay:0.6s;}
+.gift:nth-child(4){animation-delay:0.8s;}
+.gift img{width:100%; transition:transform 0.3s;}
+.gift img.bounce{animation:bounceClick 0.6s forwards;}
+@keyframes pop{0%{transform:scale(0);opacity:0;}100%{transform:scale(1);opacity:1;}}
+@keyframes bounceClick{0%{transform:scale(1);}30%{transform:scale(1.2);}50%{transform:scale(0.95);}70%{transform:scale(1.1);}100%{transform:scale(1);}}
 
 /* ---------- PHOTObooth ---------- */
-#photobooth {
-  flex-direction: column;
-  background: #4a141f;
-}
-#printer {
-  width: 160px;
-}
-#strip {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-#strip img {
-  width: 220px;
-  margin-top: 10px;
-  animation: print 0.5s ease-out forwards;
-}
-@keyframes print {
-  from { transform: translateY(-40px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
+#photobooth { flex-direction:column; background:#4a141f; }
+#printer { width:160px; }
+#strip { margin-top:10px; display:flex; flex-direction:column; align-items:center; }
+#strip img { width:220px; margin-top:10px; transform:translateY(-50px); opacity:0; animation:slideIn 0.6s forwards; }
+@keyframes slideIn { to {transform:translateY(0); opacity:1;} }
 
 /* ---------- ENVELOPE ---------- */
+.envelope-wrapper { perspective:800px; }
 .envelope {
-  position: relative;
-  width: 280px;
-  height: 180px;
-  cursor: pointer;
-  background: url('envelope.png') no-repeat center/cover;
+  position:relative;
+  width:280px;
+  height:180px;
 }
+.flap {
+  position:absolute; top:0; left:0; width:100%; height:100px;
+  background:url('envelope.png') no-repeat center/cover;
+  transform-origin:top;
+  transition:transform 0.8s ease;
+  border-top-left-radius:12px;
+  border-top-right-radius:12px;
+  z-index:2;
+}
+.envelope.open .flap { transform:rotateX(-180deg); }
 .letter {
-  position: absolute;
-  bottom: 0;
-  left: 10px;
-  width: 260px;
-  height: 240px;
-  background: #fff;
-  color: #000;
-  padding: 20px;
-  transform: translateY(100%);
-  transition: transform .8s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* smooth spring */
-  font-family: "Old English Text MT", cursive;
+  position:absolute; bottom:0; left:10px;
+  width:260px; height:240px;
+  background:#fff; color:#000; padding:20px;
+  transform:translateY(100%);
+  transition: transform 0.8s cubic-bezier(0.68,-0.55,0.265,1.55);
+  font-family:"Old English Text MT", cursive; font-size:18px; line-height:1.5;
+  z-index:1;
 }
-.envelope.open .letter {
-  transform: translateY(-40px);
+.envelope.open .letter { transform:translateY(-40px); }
+.close {
+  position:absolute; top:5px; right:10px;
+  background:none; border:none; font-size:20px; cursor:pointer;
+}
+
+/* ---------- CONFETTI + YAAAY ---------- */
+@keyframes floatUp{
+  0%{transform:translate(-50%,0); opacity:1;}
+  100%{transform:translate(-50%, -150px); opacity:0;}
+}
+@keyframes fall{
+  to{ transform: translateY(110vh) rotate(360deg);}
 }
 </style>
 </head>
-
 <body>
 
 <!-- QUIZ -->
@@ -155,8 +151,8 @@ section.active {
     <h2>Select the correct answer to unlock</h2>
     <div class="quiz-images">
       <img src="pizza.png" onclick="next('valentine')">
-      <img src="waffle.png">
       <img src="burger.png.PNG">
+      <img src="waffle.png">
     </div>
     <p>___ for life</p>
   </div>
@@ -167,7 +163,7 @@ section.active {
   <div class="card">
     <h2>Will you be my Valentine?</h2>
     <div class="buttons">
-      <button class="yes" onclick="next('yesBears')">YES</button>
+      <button class="yes" onclick="next('yesBears'); celebrate();">YES</button>
       <button class="no" onclick="noClick()">NO</button>
     </div>
     <p id="noText"></p>
@@ -178,7 +174,7 @@ section.active {
 <section id="yesBears">
   <div class="card">
     <h2>Yay! 💖</h2>
-    <img src="kissing_bears.png" style="width:200px; margin:20px 0;" class="float">
+    <img src="kissing_bears.gif" class="float">
     <button class="yes" onclick="next('gifts')">Next</button>
   </div>
 </section>
@@ -188,10 +184,10 @@ section.active {
   <div class="card">
     <h2>Gifts for you 💝</h2>
     <div class="gifts">
-      <div class="gift" onclick="openPhotobooth()"><img src="camera.png"></div>
-      <div class="gift"><img src="bear.png"></div>
-      <div class="gift"><img src="bouquet.png"></div>
-      <div class="gift" onclick="next('letterScreen')"><img src="letter.png"></div>
+      <div class="gift" onclick="showGift(this,'camera.png')"><img src="camera-logo.png"></div>
+      <div class="gift" onclick="showGift(this,'bear.png')"><img src="bear-logo.png"></div>
+      <div class="gift" onclick="showGift(this,'bouquet.png')"><img src="bouquet-logo.png"></div>
+      <div class="gift" onclick="showGift(this,'letter.png')"><img src="letter-logo.png"></div>
     </div>
   </div>
 </section>
@@ -202,17 +198,21 @@ section.active {
   <div id="strip"></div>
 </section>
 
-<!-- LETTER -->
+<!-- ENVELOPE -->
 <section id="letterScreen">
-  <div class="envelope" onclick="this.classList.toggle('open')">
-    <div class="letter">
-      I know things aren’t simple,<br><br>
-      but you are always special to me.<br>
-      I wish I was next to you right now.<br><br>
-      I miss your kisses, I miss your hugs,
-      but most of all I miss you.<br><br>
-      Happy Valentine’s Day, my love 💖<br><br>
-      <b>P.S. You’re the HTML to my CSS</b>
+  <div class="envelope-wrapper">
+    <div class="envelope">
+      <div class="flap"></div>
+      <div class="letter">
+        <button class="close" onclick="closeLetter()">✖</button>
+        I know things aren’t simple,<br><br>
+        but you are always special to me.<br>
+        I wish I was next to you right now.<br><br>
+        I miss your kisses, I miss your hugs,
+        but most of all I miss you.<br><br>
+        Happy Valentine’s Day, my love 💖<br><br>
+        <b>P.S. You’re the HTML to my CSS</b>
+      </div>
     </div>
   </div>
 </section>
@@ -224,36 +224,80 @@ function next(id){
   document.getElementById(id).classList.add('active');
 }
 
-const noMessages = [
- "Hey 😐","Be serious.","That’s not nice.",
- "Stop it Pookie…","You’re playing now boo.",
- "Okay just click yes 🙄💗"
-];
-let noIndex = 0;
+// NO button
+const noMessages=["Hey 😐","Be serious.","That’s not nice.","Stop it Pookie…","You’re playing now boo.","Okay just click yes 🙄💗"];
+let noIndex=0;
 function noClick(){
-  document.getElementById('noText').innerText =
-    noMessages[noIndex++ % noMessages.length];
+  document.getElementById('noText').innerText=noMessages[noIndex++%noMessages.length];
 }
 
-const photos = [
- "IMG_1799.jpeg","IMG_4866.jpeg","IMG_4974.jpeg","IMG_4979.jpeg",
- "IMG_4984.jpeg","IMG_5008.jpeg","IMG_5009.jpeg","IMG_5011.jpeg",
- "IMG_5730.jpeg","IMG_5743.jpeg"
-];
+// GIFTS click
+function showGift(el,imgSrc){
+  const img = el.querySelector('img');
+  img.src=imgSrc;
+  img.classList.remove('bounce');
+  void img.offsetWidth;
+  img.classList.add('bounce');
+}
 
+// PHOTOBOOTH
+const photos=["IMG_1799.jpeg","IMG_4866.jpeg","IMG_4974.jpeg","IMG_4979.jpeg","IMG_4984.jpeg","IMG_5008.jpeg","IMG_5009.jpeg","IMG_5011.jpeg","IMG_5730.jpeg","IMG_5743.jpeg"];
 function openPhotobooth(){
   next('photobooth');
-  const strip = document.getElementById('strip');
-  strip.innerHTML = "";
+  const strip=document.getElementById('strip');
+  strip.innerHTML="";
   photos.forEach((src,i)=>{
     setTimeout(()=>{
-      const img = document.createElement('img');
-      img.src = src;
+      const img=document.createElement('img');
+      img.src=src;
+      img.style.animationDelay=`${i*0.3}s`;
       strip.appendChild(img);
     }, i*700);
   });
 }
-</script>
 
+// ENVELOPE
+const envelope=document.querySelector('.envelope');
+envelope.addEventListener('click',function(e){
+  if(!e.target.classList.contains('close')) this.classList.add('open');
+});
+function closeLetter(){ envelope.classList.remove('open'); }
+
+// CELEBRATE CONFETTI + YAAAY
+function celebrate(){
+  // Floating YAAAY
+  const yay=document.createElement('div');
+  yay.innerText="YAAAY! 🎉";
+  yay.style.position='absolute';
+  yay.style.top='30%';
+  yay.style.left='50%';
+  yay.style.transform='translateX(-50%)';
+  yay.style.fontSize='40px';
+  yay.style.fontWeight='bold';
+  yay.style.color='#ffeb3b';
+  yay.style.textShadow='2px 2px 8px #fff';
+  yay.style.opacity='1';
+  yay.style.animation='floatUp 2s ease-out forwards';
+  document.body.appendChild(yay);
+  setTimeout(()=>{ yay.remove(); },2000);
+
+  // Confetti
+  for(let i=0;i<100;i++){
+    const conf=document.createElement('div');
+    conf.style.position='absolute';
+    conf.style.width='8px';
+    conf.style.height='8px';
+    conf.style.background=['#ff3d68','#ffeb3b','#3dffbd','#3d86ff'][Math.floor(Math.random()*4)];
+    conf.style.left=Math.random()*window.innerWidth+'px';
+    conf.style.top='-10px';
+    conf.style.opacity=Math.random();
+    conf.style.borderRadius='50%';
+    conf.style.pointerEvents='none';
+    conf.style.animation=`fall ${1+Math.random()*2}s linear forwards`;
+    document.body.appendChild(conf);
+    setTimeout(()=>{ conf.remove(); },3000);
+  }
+}
+</script>
 </body>
 </html>
