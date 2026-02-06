@@ -204,6 +204,25 @@ button {
   text-align: center;
   margin-bottom: 20px;  /* pushes gifts down so YAAAY doesn’t overlap */
 }
+  /* QUIZ HEADING FONT */
+#quiz h2 {
+  font-family: 'Brush Script MT', cursive;  /* cute cursive */
+  font-weight: 900;                         /* thick */
+  font-size: 32px;                           /* bigger so it stands out */
+  color: #ff9fb7;                            /* cute pink */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* QUIZ IMAGE BOUNCE */
+#quiz .quiz-images img {
+  animation: bounceQuiz 1s infinite;
+}
+
+@keyframes bounceQuiz {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
 </style>
 </head>
 
