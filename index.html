@@ -27,11 +27,11 @@ section {
 section.active { display:flex; }
 
 .card {
-  background:#7a1f32;
-  border-radius:28px;
-  padding:30px;
-  width:90%;
-  max-width:520px;
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  width:100%;
+  max-width: none;
   text-align:center;
 }
 
@@ -253,7 +253,7 @@ button {
  animation: bounce 3s infinite,sparkle 8s infinite alternate,glow 2s ease-in-out infinite;
  position: relative;
  border: none; 
- box-shadow: none;
+  box-shadow: 0 0 10px rgba(255, 182, 193, 0.8), 0 0 30px rgba(255, 182, 193, 0.5); /* Soft glowing effect */
 }
  
 @keyframes glow {
@@ -394,11 +394,10 @@ button {
 
 <!-- BOUQUET -->
 <section id="bouquet">
-  <div class="card">
     <h2>Bouquet for you 💐</h2>
     <img src="bouquet.png" alt="Bouquet">
     <button onclick="next('gifts')">Back</button>
-  </div>
+  
 </section>
 
 <!-- PHOTObooth -->
