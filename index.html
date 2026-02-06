@@ -221,10 +221,17 @@ button {
     <h2>Will you be my Valentine?</h2>
     <button class="yes" onclick="yes()">YES</button>
     <button class="no" onclick="nope()">NO</button>
-    <p id="noText"></p>
+   
   </div>
 </section>
-
+<!-- YAAAY SCREEN -->
+<section id="yay">
+  <div class="card">
+    <h2>YAAAY 🎉</h2>
+    <img src="kissing_bears.gif" width="140">
+    <button onclick="next('gifts')">Back to Gifts</button>
+  </div>
+</section>
 <!-- GIFTS -->
 <section id="gifts">
   <div class="card">
@@ -307,9 +314,7 @@ let ni=0;
 function nope(){ document.getElementById('noText').innerText=noMsgs[ni++%noMsgs.length]; }
 
 function yes(){
-  next('gifts');
-  const overlay=document.getElementById('yayOverlay');
-  overlay.innerHTML="<h2>YAAAY 🎉</h2><img src='kissing_bears.gif' width='140'>";
+  next('yay'); // go to the new YAAAY page
   for(let i=0;i<60;i++){
     const c=document.createElement('div');
     c.className='confetti';
