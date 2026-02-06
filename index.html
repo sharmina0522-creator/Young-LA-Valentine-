@@ -149,6 +149,26 @@ button {
   transform:translateY(100%);
   transition:.8s;
   z-index:2;
+  /* BOUQUET CENTER & BOUNCE */
+#bouquet img {
+  display: block;
+  margin: 20px auto; /* centers it */
+  width: 200px;      /* keeps your current size */
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+ /* ENVELOPE OLD ENGLISH */
+#envelope .letter {
+  font-family: "Old English Text MT", "Cloister Black", serif;
+  font-weight: bold;
+  font-size: 16px;
+   color: #800020;
+  line-height: 1.5;
+}
 }
 
 #envelopeBox.open .flap {
@@ -167,9 +187,15 @@ button {
   font-size:18px;
 }
 
-/* YAY OVERLAY */
+/* YAY OVERLAY - Old English, thick, bigger, not overlapping gifts */
 #yayOverlay {
   margin-top:10px;
+  font-family: "Old English Text MT", "Cloister Black", serif; /* OLD ENGLISH */
+  font-weight: bolder; /* thick text */
+  font-size: 28px;      /* bigger so it’s visible */
+  color: #ffeb3b;
+  text-align: center;
+  margin-bottom: 20px;  /* pushes gifts down so YAAAY doesn’t overlap */
 }
 </style>
 </head>
@@ -227,7 +253,7 @@ button {
 <section id="bouquet">
   <div class="card">
     <h2>Bouquet for you 💐</h2>
-    <img src="bouquet.png" width="200">
+    <img src="bouquet.png" alt="Bouquet">
     <button onclick="next('gifts')">Back</button>
   </div>
 </section>
