@@ -147,9 +147,9 @@ button {
 .flap::after {
   content: "❤️";
   position: absolute;
-  top: -55px;
+  top: 20px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%);rotateX(180deg)
   font-size: 28px;
   z-index: 4;
 }
@@ -172,7 +172,7 @@ button {
   bottom: 15px;
   left: 15px;
   width: 250px;
-  height: 230px;
+  height: 260px;
   background: #fff;
   padding: 15px;
   line-height: 1.5;
@@ -208,7 +208,8 @@ button {
 
 /* Letter slides up when open */
 #envelopeBox.open .letter {
-  transform: translateY(0);
+  transform: translateY(-20px);
+  z-index: 5;
 }
 
 /* Close button on letter */
