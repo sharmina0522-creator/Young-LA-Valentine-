@@ -299,7 +299,7 @@ button {
     <button onclick="next('gifts')">Back</button>
   </div>
 </section>
-
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script>
 const screens=document.querySelectorAll('section');
 function next(id){
@@ -313,16 +313,16 @@ const noMsgs=["Hey 😐","Be serious","Stoppp","Just say yes 🙄"];
 let ni=0;
 function nope(){ document.getElementById('noText').innerText=noMsgs[ni++%noMsgs.length]; }
 
-function yes(){
+function yes() {
   next('yay'); // go to the new YAAAY page
-  for(let i=0;i<60;i++){
-    const c=document.createElement('div');
-    c.className='confetti';
-    c.style.left=Math.random()*100+'vw';
-    c.style.background=['#ff3d68','#ffeb3b','#3dffbd','#3d86ff'][Math.floor(Math.random()*4)];
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),3000);
-  }
+
+  // confetti burst
+  confetti({
+    particleCount: 150,
+    spread: 70,
+    origin: { y: 0.6 },
+    colors: ['#ff3d68', '#ff9fb7'] // red and pink
+  });
 }
 
 const photos=["IMG_1799.jpeg","IMG_4866.jpeg","IMG_4974.jpeg","IMG_4979.jpeg","IMG_4984.jpeg","IMG_5008.jpeg","IMG_5009.jpeg","IMG_5011.jpeg","IMG_5730.jpeg","IMG_5743.jpeg"];
