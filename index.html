@@ -101,6 +101,20 @@ button {
        2px 2px 0 #800020,
        0 0 6px #800020;
 }
+/* Buttons: Next, Open, Close, Back */
+#yay .card button,
+#envelope .card button {
+    background: #800020;      /* Dark red background */
+    color: #ff9fb7;           /* Soft pink text */
+    font-weight: bold;
+    font-family: 'Pacifico', cursive;
+    font-size: 16px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 15px; 
+}
 
 #valentine h2 {
   font-family: 'Brush Script MT', cursive;
@@ -322,8 +336,8 @@ button {
 <section id="yay">
   <div class="card">
     <h2>YAAAY 🎉</h2>
-    <img src="kissing_bears.gif" width="140">
-    <button onclick="next('gifts')">Next</button>
+    <img src="kissing_bears.gif" width="180">
+    <button class="next"onclick="next('gifts')">Next</button>
   </div>
 </section>
 <!-- GIFTS -->
