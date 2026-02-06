@@ -181,6 +181,8 @@ button {
   height: 190px;
   margin: auto;
   overflow: hidden;
+  background-color: #a83245;
+  border-radius: 6px;
 }
 
 /* Envelope flap with heart stamp */
@@ -192,7 +194,7 @@ button {
   border-left: 140px solid transparent;
   border-right: 140px solid transparent;
   border-bottom: 90px solid #a83245;
-  transform-origin: top;
+  transform-origin: bottom;
   transition: transform 0.8s ease;
   z-index: 3;
 }
@@ -265,7 +267,7 @@ button {
 
 /* Open flap animation */
 #envelopeBox.open .flap {
-  transform: rotateX(-180deg);
+  transform: rotateX(180deg);
 }
 
 /* Letter when open */
