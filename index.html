@@ -80,7 +80,7 @@ button {
   cursor: pointer;
   margin-top: 15px;         
 }
-  
+
 #yay .card {
   display: flex;
   flex-direction: column;
@@ -180,32 +180,33 @@ button {
   width: 280px;
   height: 190px;
   margin: auto;
-  overflow: hidden; 
-  perspective: 1000px;
+  overflow: hidden;
+  background-color: #a83245;
+  border-radius: 6px;
 }
 
 /* Envelope flap with heart stamp */
 .flap {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #a83245;
-  clip-path: polygon(0 0, 50% 55%, 100% 0);
-  transform-origin: top;
+  width: 0;
+  height: 0;
+  border-left: 140px solid transparent;
+  border-right: 140px solid transparent;
+  border-bottom: 90px solid #a83245;
+  transform-origin: bottom;
   transition: transform 0.8s ease;
-  z-index: 5;
-  backface-visibility: hidden;
+  z-index: 3;
 }
 
 .flap::after {
-.stamp {
+  content: "❤️";
   position: absolute;
-  top: 18px;
+  top: 20px;
   left: 50%;
-  transform: translateX(-50%);
-  font-size: 18px;
+  transform: translateX(-50%);rotateX(180deg)
+  font-size: 28px;
+  z-index: 4;
 }
 
 /* Envelope pocket */
@@ -251,11 +252,13 @@ button {
  animation: bounce 3s infinite,sparkle 8s infinite alternate,glow 2s ease-in-out infinite;
  position: relative;
  border: none; 
- box-shadow: none;
-  #bouquet .card {
-  background: none;
-  padding: 0;
+ box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
 }
+  #bouquet .card {
+  background: none; 
+  padding: 0; 
+  border: none; 
+ box-shadow: none;
 }
  
 @keyframes glow {
@@ -285,7 +288,7 @@ button {
 
 /* Open flap animation */
 #envelopeBox.open .flap {
-  transform: rotateX(-140deg);
+  transform: rotateX(180deg);
 }
 
 /* Letter when open */
@@ -359,7 +362,7 @@ button {
     <h2>Will you be my Valentine?</h2>
     <button class="yes" onclick="yes()">YES</button>
     <button class="no" onclick="nope()">NO</button>
-   
+
   </div>
 </section>
 <!-- YAAAY SCREEN -->
@@ -415,12 +418,10 @@ button {
 <!-- ENVELOPE -->
 <section id="envelope">
   <div class="card">
-    <h2>You’re my main branch 💻🤍</h2>
+    <h2>You’re my main branch 💻❤️</h2>
     <div class="envelope-wrapper">
       <div id="envelopeBox">
         <div class="flap"></div>
-         <div class="stamp">❤️</div>
-     </div>
         <div class="pocket"></div>
         <div class="letter">
           <button class="close" onclick="closeLetter()">✖</button>
