@@ -67,28 +67,24 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   --letter: #ffccd5;
 }
 
-.container {
-  perspective: 800px;
+.envelope-wrapper {
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 220px;
+  margin: 20px 0;
 }
 
 .content {
   position: relative;
   width: 300px;
   height: 180px;
-  transform-style: preserve-3d;
 }
 
 .envelope {
   position: absolute;
   width: 300px;
   height: 180px;
-  background: linear-gradient(#a83245 0.5px, #a83245 0.5px);
-  cursor: pointer;
-  z-index: 50;
+  background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px);
+  z-index: 30;
 }
 
 .envelope::before {
@@ -102,27 +98,41 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   border-right: 150px solid transparent;
   transform-origin: top;
   transition: transform 0.6s ease;
-  z-index: 100;
+  z-index: 50;
+}
+
+.envelope::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 180px;
+  z-index: 25;
+  background:
+    linear-gradient(30deg, var(--base-dark) 47%, var(--shadow) 50%, var(--base) 50%) 150px 90px/150px 90px no-repeat,
+    linear-gradient(31deg, var(--base) 49%, var(--shadow) 50%, transparent 50%) 0 0/152px 90px no-repeat,
+    linear-gradient(150deg, var(--base) 50%, var(--shadow) 50%, var(--base-dark) 53%) 0 90px/151px 90px no-repeat,
+    linear-gradient(148deg, transparent 50%, var(--shadow) 50%, var(--base) 51%) 150px 0/150px 90px no-repeat;
 }
 
 .letter {
   position: absolute;
-  bottom: 15px;
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%) translateY(100%);
   width: 260px;
   max-height: 150px;
   background: var(--letter);
   padding: 15px;
-  color: var(--base);
   border-radius: 6px;
-  font-family:'Brush Script MT', cursive;
-  font-weight:900;
-  overflow-y:auto;
+  font-family: 'Brush Script MT', cursive;
+  font-weight: 900;
+  color: #fff;
+  overflow-y: auto;
   transition: transform 0.7s ease;
   z-index: 40;
 }
 
+/* OPEN STATE */
 .content.open .letter {
   transform: translateX(-50%) translateY(-140px);
 }
@@ -131,26 +141,12 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   transform: rotateX(180deg);
 }
 
-.letter .close {
-  position: absolute;
-  top: 5px;
-  right: 8px;
-  cursor: pointer;
-}
-
-.envelope-btn {
-  background: var(--base);
-  color: var(--letter);
-  font-family: 'Pacifico', cursive;
-  font-weight: bold;
-  border: none;
-  border-radius: 20px;
-  padding: 12px 22px;
-  cursor: pointer;
-  margin-top: 15px;
-  font-size: 16px;
-  position: relative;
-  z-index: 100;
+/* BUTTONS */
+.envelope-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
 }
 
 .envelope-btn:hover {
@@ -237,9 +233,11 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
 <section id="envelope">
   <div class="card">
     <h2>You’re my main branch 💻🖤</h2>
-    <div class="container">
+
+    <div class="envelope-wrapper">
       <div class="content">
         <div class="envelope"></div>
+
         <div class="letter">
           <span class="close" onclick="closeCard()">×</span>
           <div class="message">
@@ -255,9 +253,11 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
       </div>
     </div>
 
-    <button class="envelope-btn" onclick="openCard()">Open</button>
-    <button class="envelope-btn" onclick="closeCard()">Close</button>
-    <button class="envelope-btn" onclick="next('gifts')">Back</button>
+    <div class="envelope-buttons">
+      <button class="envelope-btn" onclick="openCard()">Open</button>
+      <button class="envelope-btn" onclick="closeCard()">Close</button>
+      <button class="envelope-btn" onclick="next('gifts')">Back</button>
+    </div>
   </div>
 </section>
 
