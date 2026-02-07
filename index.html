@@ -140,7 +140,6 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   bottom:15px;
   left:50%;
   transform:translateX(-50%) translateY(100%);
-  transform:translateX(-50%) translateY(0);
   width:260px;
   max-height:150px;
   background:var(--letter);
@@ -310,12 +309,12 @@ function openGift(id){ if(id==='camera'){ next('camera'); const strip=document.g
 
 // ===== Envelope functions =====
 const envelopeContent = document.querySelector('#envelope .content');
-const flap = envelopeContent.querySelector('.flap');
+const flap = CSSRulePlugin.getRule('#envelope .envelope::before');
 const letter = envelopeContent.querySelector('.letter');
 const shadow = envelopeContent.querySelector('.shadow');
 
 let t1 = gsap.timeline({ paused: true });
-t1.to(flap, { rotateX: -180, duration: 0.6, ease: "power2.inOut" })
+t1.to(flap, { cssRule: -180, duration: 0.6, ease: "power2.inOut" })
   .to(letter, { translateY: -180, duration: 0.8, ease: "back.out(1.2)" }, "-=0.3");
 
 let t2 = gsap.timeline({ paused: true });
@@ -337,10 +336,11 @@ document.querySelector("#envelope .envelope").addEventListener("click", () => {
   else closeCard();
 });
   
-document.querySelector("#envelope .envelope-btn:nth-child(1)").addEventListener("click", openCard); // Open
-document.querySelector("#envelope .envelope-btn:nth-child(2)").addEventListener("click", closeCard); // Close
-document.querySelector("#envelope .envelope-btn:nth-child(3)").addEventListener("click", () => next('gifts')); // Back
-</script>
+const buttons = document.querySelectorAll("#envelope .envelope-btn");
+buttons[0].addEventListener("click", openCard); // Open
+buttons[1].addEventListener("click", closeCard); // Close
+buttons[2].addEventListener("click", () => next('gifts')); // Back
 
+</script>
 </body>
 </html>
