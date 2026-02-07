@@ -54,7 +54,11 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
 
 /* ===== QUIZ ===== */
 #quiz h2 { font-family: 'Brush Script MT', cursive; font-weight:900; font-size:32px; color:#ff9fb7; margin-bottom:20px; text-align:center; }
-.quiz-images { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; }
+.quiz-images { display:flex; 
+              justify-content:center;
+              gap:20px; 
+              flex-wrap:nowrap; 
+             }
 .quiz-images img { width:90px; cursor:pointer; animation:bounceQuiz 1s infinite; }
 @keyframes bounceQuiz { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
 
