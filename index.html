@@ -54,11 +54,7 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
 
 /* ===== QUIZ ===== */
 #quiz h2 { font-family: 'Brush Script MT', cursive; font-weight:900; font-size:32px; color:#ff9fb7; margin-bottom:20px; text-align:center; }
-.quiz-images { display:flex; 
-              justify-content:center;
-              gap:20px; 
-              flex-wrap:nowrap; 
-             }
+.quiz-images { display:flex; justify-content:center; gap:20px; flex-wrap:nowrap; }
 .quiz-images img { width:90px; cursor:pointer; animation:bounceQuiz 1s infinite; }
 @keyframes bounceQuiz { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
 
@@ -71,13 +67,12 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   --letter: #ffccd5;
 }
 
-#envelope h2 {
-  font-family: 'Pacifico', cursive;
-  font-size: 24px;
-  color: #ffccd5;
-  text-align: center;
-  margin-bottom: 20px;
-  white-space: nowrap;
+.container {
+  perspective: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 220px;
 }
 
 .content {
@@ -85,14 +80,14 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   width: 300px;
   height: 180px;
   transform-style: preserve-3d;
-  perspective: 800px;
 }
 
 .envelope {
   position: absolute;
   width: 300px;
   height: 180px;
-  background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px);
+  background: linear-gradient(#a83245 0.5px, #a83245 0.5px);
+  cursor: pointer;
   z-index: 50;
 }
 
@@ -106,22 +101,8 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   border-left: 150px solid transparent;
   border-right: 150px solid transparent;
   transform-origin: top;
-  z-index: 55;
   transition: transform 0.6s ease;
-}
-
-.envelope::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 300px;
-  height: 180px;
-  z-index: 25;
-  background: linear-gradient(30deg, var(--base-dark) 47%, var(--shadow) 50%, var(--base) 50%) 150px 90px/150px 90px no-repeat,
-              linear-gradient(31deg, var(--base) 49%, var(--shadow) 50%, transparent 50%) 0px 0px/152px 90px no-repeat,
-              linear-gradient(150deg, var(--base) 50%, var(--shadow) 50%, var(--base-dark) 53%) 0px 90px/151px 90px no-repeat,
-              linear-gradient(148.7deg, transparent 50%, var(--shadow) 50%, var(--base) 51%) 150px 0px/150px 90px no-repeat;
+  z-index: 100;
 }
 
 .letter {
@@ -133,13 +114,13 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   max-height: 150px;
   background: var(--letter);
   padding: 15px;
-  color: #fff;
+  color: var(--base);
   border-radius: 6px;
-  font-family: 'Brush Script MT', cursive;
-  font-weight: 900;
-  overflow-y: auto;
+  font-family:'Brush Script MT', cursive;
+  font-weight:900;
+  overflow-y:auto;
   transition: transform 0.7s ease;
-  z-index: 70;
+  z-index: 40;
 }
 
 .content.open .letter {
@@ -150,10 +131,16 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   transform: rotateX(180deg);
 }
 
-/* BUTTONS */
+.letter .close {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  cursor: pointer;
+}
+
 .envelope-btn {
-  background: #800020;
-  color: #ffccd5;
+  background: var(--base);
+  color: var(--letter);
   font-family: 'Pacifico', cursive;
   font-weight: bold;
   border: none;
@@ -165,8 +152,10 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   position: relative;
   z-index: 100;
 }
-.envelope-btn:hover { transform: scale(1.05); }
 
+.envelope-btn:hover {
+  transform: scale(1.05);
+}
 </style>
 </head>
 <body>
@@ -248,23 +237,23 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
 <section id="envelope">
   <div class="card">
     <h2>You’re my main branch 💻🖤</h2>
-    <div class="content">
-      <div class="envelope"></div>
-      <div class="letter">
-        <span class="close" onclick="closeCard()">×</span>
-        <div class="message">
-          I know things aren’t simple,<br>
-          but you are always special to me.<br><br>
-          I wish I was next to you right now.<br><br>
-          I miss your kisses, I miss your hugs,<br>
-          but most of all I miss you.<br><br>
-          Happy Valentine’s Day, my love 💖<br>
-          <b>P.S. You’re the HTML to my CSS</b>.
+    <div class="container">
+      <div class="content">
+        <div class="envelope"></div>
+        <div class="letter">
+          <span class="close" onclick="closeCard()">×</span>
+          <div class="message">
+            I know things aren’t simple,<br>
+            but you are always special to me.<br><br>
+            I wish I was next to you right now.<br><br>
+            I miss your kisses, I miss your hugs,<br>
+            but most of all I miss you.<br><br>
+            Happy Valentine’s Day, my love 💖<br>
+            <b>P.S. You’re the HTML to my CSS</b>.
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="shadow"></div>
 
     <button class="envelope-btn" onclick="openCard()">Open</button>
     <button class="envelope-btn" onclick="closeCard()">Close</button>
@@ -289,7 +278,7 @@ function openGift(id){
     next('camera'); 
     const strip=document.getElementById('strip'); 
     strip.innerHTML=''; 
-    photos.forEach((p,i)=>{
+    photos.forEach((p,i)=>{ 
       const img=document.createElement('img'); 
       img.src=p; 
       img.style.animationDelay=i*0.25+'s'; 
@@ -299,10 +288,8 @@ function openGift(id){
 }
 
 const content = document.querySelector('#envelope .content');
-
 function openCard() { content.classList.add('open'); }
 function closeCard() { content.classList.remove('open'); }
 </script>
-
 </body>
 </html>
