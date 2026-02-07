@@ -126,9 +126,9 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
 
 .letter {
   position:absolute;
-  bottom:15px;
+  bottom:0px;
   left:50%;
-  transform:translateX(-50%) translateY(0);
+  transform:translateX(-50%) translateY(100%);
   width:260px;
   max-height:150px;
   background:var(--letter);
@@ -249,10 +249,12 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
 <!-- ENVELOPE -->
 <section id="envelope">
   <div class="card">
-    <h2>You’re my main branch 💻❤️</h2>
+    <h2>You’re my main branch 💻🖤</h2>
     <div class="container">
   <div class="content">
     <div class="envelope" onclick="openCard()"></div>
+     <div class="flap"></div>
+  </div>
     <div class="letter">
       <div class="body">
         <span class="close" onclick="event.stopPropagation(); closeCard()">x</span>
@@ -291,20 +293,16 @@ function yes(){ next('yay'); confetti({particleCount:150,spread:70,origin:{y:0.6
 const photos=["IMG_1799.jpeg","IMG_4866.jpeg","IMG_4974.jpeg","IMG_4979.jpeg","IMG_4984.jpeg","IMG_5008.jpeg","IMG_5009.jpeg","IMG_5011.jpeg","IMG_5730.jpeg","IMG_5743.jpeg"];
 function openGift(id){ if(id==='camera'){ next('camera'); const strip=document.getElementById('strip'); strip.innerHTML=''; photos.forEach((p,i)=>{ const img=document.createElement('img'); img.src=p; img.style.animationDelay=i*0.25+'s'; strip.appendChild(img); }); } else next(id); }
 
-// ===== Envelope functions =====
-let t1 = gsap.timeline({ paused: true }); 
-let flap = CSSRulePlugin.getRule(".envelope:before"); 
-t1.to(flap, { duration: 0.5, cssRule: { rotateX: -180 } })
-  .set(flap, { cssRule: { zIndex: 10 } })
-  .to('.letter', { translateY: -120, duration: 0.9, ease: "back.inOut(1.5)" })
-  .set('.letter', { zIndex: 40 })
-  .to('.letter', { duration: 0.7, ease: "back.out(.4)", translateY: -5, translateZ: 250 });
+  // ===== Envelope functions =====
+	let t1 = gsap.timeline({ paused: true }); 
+// Animate the letter sliding up
+	t1.to('.letter', { translateY: -200, duration: 0.8, ease: "back.inOut(1.5)" });
+	
+	let t2 = gsap.timeline({ paused: true }); 
+	t2.to('.shadow', { delay: 0.5, width: 450, boxShadow: "-75px 150px 10px 5px #eeeef3", ease: "back.out(.2)", duration: 0.7 }); 
 
-let t2 = gsap.timeline({ paused: true }); 
-t2.to('.shadow', { delay: 1.4, width: 450, boxShadow: "-75px 150px 10px 5px #eeeef3", ease: "back.out(.2)", duration: 0.7 }); 
-
-function openCard() { t1.play(); t2.play(); }
-function closeCard() { t1.reverse(); t2.reverse(); }
+  function openCard() { t1.play(); t2.play(); }
+  function closeCard() { t1.reverse(); t2.reverse(); }
 </script>
 
 </body>
