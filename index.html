@@ -62,30 +62,22 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
 .quiz-images img { width:90px; cursor:pointer; animation:bounceQuiz 1s infinite; }
 @keyframes bounceQuiz { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
 
-</style>
-     <style>
-       #envelope h2 {
-  font-family: 'Pacifico', cursive;
-  font-size: 24px;       /* adjust if needed to fit one line */
-  color: #ffccd5;        /* pink like your buttons */
-  text-align: center;
-  margin-bottom: 20px;   /* space between heading and envelope */
-  white-space: nowrap;    /* prevents it from wrapping to two lines */
-}
-      :root {
-  --base: #800020;        /* burgundy */
-  --base-light: #a83245;  /* lighter burgundy */
-  --base-dark: #4d0014;   /* darker burgundy */
+/* ===== ENVELOPE ===== */
+:root {
+  --base: #800020;
+  --base-light: #a83245;
+  --base-dark: #4d0014;
   --shadow: #3a0010;
-  --letter: #ffccd5;       /* light pink */
+  --letter: #ffccd5;
 }
 
-.container {
-  min-height: 220px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  perspective: 800px;
+#envelope h2 {
+  font-family: 'Pacifico', cursive;
+  font-size: 24px;
+  color: #ffccd5;
+  text-align: center;
+  margin-bottom: 20px;
+  white-space: nowrap;
 }
 
 .content {
@@ -93,41 +85,39 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   width: 300px;
   height: 180px;
   transform-style: preserve-3d;
-}
-.flip {
-  transform-style: preserve-3d;
+  perspective: 800px;
 }
 
 .envelope {
-  position: relative;
+  position: absolute;
   width: 300px;
   height: 180px;
   background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px);
-  cursor: pointer;
+  z-index: 50;
 }
 
 .envelope::before {
   content: '';
-  position:absolute;
-  top:0;
-  left:0;
-  width:300px;
-  border-top:115px solid var(--base-light);
-  border-left:150px solid transparent;
-  border-right:150px solid transparent;
-  box-sizing:border-box;
-  z-index:60;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  border-top: 115px solid var(--base-light);
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent;
   transform-origin: top;
+  z-index: 55;
+  transition: transform 0.6s ease;
 }
 
 .envelope::after {
   content: '';
-  position:absolute;
-  top:0;
-  left:0;
-  width:300px;
-  height:180px;
-  z-index:25;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 180px;
+  z-index: 25;
   background: linear-gradient(30deg, var(--base-dark) 47%, var(--shadow) 50%, var(--base) 50%) 150px 90px/150px 90px no-repeat,
               linear-gradient(31deg, var(--base) 49%, var(--shadow) 50%, transparent 50%) 0px 0px/152px 90px no-repeat,
               linear-gradient(150deg, var(--base) 50%, var(--shadow) 50%, var(--base-dark) 53%) 0px 90px/151px 90px no-repeat,
@@ -135,50 +125,35 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
 }
 
 .letter {
-  position:absolute;
-  bottom:15px;
-  left:50%;
-  transform:translateX(-50%) translateY(100%);
-  width:260px;
-  max-height:150px;
-  background:var(--letter);
-  padding:15px;
-  color:#fff;
-  border-radius:6px;
-  font-family:'Brush Script MT', cursive;
-  font-weight:900;
-  overflow-y:auto;
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  width: 260px;
+  max-height: 150px;
+  background: var(--letter);
+  padding: 15px;
+  color: #fff;
+  border-radius: 6px;
+  font-family: 'Brush Script MT', cursive;
+  font-weight: 900;
+  overflow-y: auto;
   transition: transform 0.7s ease;
-  z-index: 50;
+  z-index: 70;
 }
 
-/* OPEN STATE */
 .content.open .letter {
   transform: translateX(-50%) translateY(-140px);
 }
 
 .content.open .envelope::before {
   transform: rotateX(180deg);
-  transition: transform 0.6s ease;
 }
 
-
-.shadow {
-  position:absolute;
-  bottom:0;
-  width:0;
-  height:0;
-}
-
-.letter .close {
-  position:absolute;
-  top:5px;
-  right:8px;
-  cursor:pointer;
-} 
- .envelope-btn {
-  background: #800020;      /* burgundy */
-  color: #ffccd5;           /* light pink */
+/* BUTTONS */
+.envelope-btn {
+  background: #800020;
+  color: #ffccd5;
   font-family: 'Pacifico', cursive;
   font-weight: bold;
   border: none;
@@ -190,9 +165,8 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   position: relative;
   z-index: 100;
 }
-.envelope-btn:hover {
-  transform: scale(1.05);
-}
+.envelope-btn:hover { transform: scale(1.05); }
+
 </style>
 </head>
 <body>
@@ -274,30 +248,27 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
 <section id="envelope">
   <div class="card">
     <h2>You’re my main branch 💻🖤</h2>
-  <div class="content">
-  <div class="envelope"></div>
-
-  <div class="letter">
-    <span class="close" onclick="closeCard()">×</span>
-    <div class="message">
-      I know things aren’t simple,<br>
-      but you are always special to me.<br><br>
-      I wish I was next to you right now.<br><br>
-      I miss your kisses, I miss your hugs,<br>
-      but most of all I miss you.<br><br>
-      Happy Valentine’s Day, my love 💖<br>
-      <b>P.S. You’re the HTML to my CSS</b>.
+    <div class="content">
+      <div class="envelope"></div>
+      <div class="letter">
+        <span class="close" onclick="closeCard()">×</span>
+        <div class="message">
+          I know things aren’t simple,<br>
+          but you are always special to me.<br><br>
+          I wish I was next to you right now.<br><br>
+          I miss your kisses, I miss your hugs,<br>
+          but most of all I miss you.<br><br>
+          Happy Valentine’s Day, my love 💖<br>
+          <b>P.S. You’re the HTML to my CSS</b>.
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
     <div class="shadow"></div>
-  </div>
-</div>
 
-<button class="envelope-btn" onclick="openCard()">Open</button>
-<button class="envelope-btn" onclick="closeCard()">Close</button>
-<button class="envelope-btn" onclick="next('gifts')">Back</button>
+    <button class="envelope-btn" onclick="openCard()">Open</button>
+    <button class="envelope-btn" onclick="closeCard()">Close</button>
+    <button class="envelope-btn" onclick="next('gifts')">Back</button>
   </div>
 </section>
 
@@ -313,18 +284,25 @@ function nope(){ document.getElementById('noText').innerText=noMsgs[ni++%noMsgs.
 function yes(){ next('yay'); confetti({particleCount:150,spread:70,origin:{y:0.6},colors:['#ff3d68','#ff9fb7']}); }
 
 const photos=["IMG_1799.jpeg","IMG_4866.jpeg","IMG_4974.jpeg","IMG_4979.jpeg","IMG_4984.jpeg","IMG_5008.jpeg","IMG_5009.jpeg","IMG_5011.jpeg","IMG_5730.jpeg","IMG_5743.jpeg"];
-function openGift(id){ if(id==='camera'){ next('camera'); const strip=document.getElementById('strip'); strip.innerHTML=''; photos.forEach((p,i)=>{ const img=document.createElement('img'); img.src=p; img.style.animationDelay=i*0.25+'s'; strip.appendChild(img); }); } else next(id); }
+function openGift(id){ 
+  if(id==='camera'){ 
+    next('camera'); 
+    const strip=document.getElementById('strip'); 
+    strip.innerHTML=''; 
+    photos.forEach((p,i)=>{
+      const img=document.createElement('img'); 
+      img.src=p; 
+      img.style.animationDelay=i*0.25+'s'; 
+      strip.appendChild(img); 
+    }); 
+  } else next(id); 
+}
 
 const content = document.querySelector('#envelope .content');
 
-function openCard() {
-  content.classList.add('open');
-}
-
-function closeCard() {
-  content.classList.remove('open');
-}
-
+function openCard() { content.classList.add('open'); }
+function closeCard() { content.classList.remove('open'); }
 </script>
+
 </body>
 </html>
