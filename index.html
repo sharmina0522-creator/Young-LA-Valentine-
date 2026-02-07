@@ -251,7 +251,7 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
 <!-- ENVELOPE -->
 <section id="envelope">
   <div class="card">
-    <h2>You’re my main branch 💻❤️</h2>
+    <h2>You’re my main branch 💻🖤</h2>
     <div class="container">
   <div class="content">
     <div class="envelope" onclick="openCard()"></div>
@@ -295,20 +295,21 @@ function openGift(id){ if(id==='camera'){ next('camera'); const strip=document.g
 
 // ===== Envelope functions =====
 let t1 = gsap.timeline({ paused: true }); 
-let flap = CSSRulePlugin.getRule(".envelope:before"); 
-t1.to(flap, { duration: 0.5, cssRule: { rotateX: 180 } })
-t1.to(flap, { duration: 0.5, cssRule: { rotateX: -180 } })
-  .set(flap, { cssRule: { zIndex: 10 } })
-  .to('.letter', { translateY: -180, duration: 0.9, ease: "back.inOut(1.5)" })
-  .to('.letter', { translateY: -120, duration: 0.9, ease: "back.inOut(1.5)" })
-  .set('.letter', { zIndex: 40 })
-  .to('.letter', { duration: 0.7, ease: "back.out(.4)", translateY: -5, translateZ: 250 });
+// Animate the letter sliding up
+t1.to('.letter', { translateY: -180, duration: 0.8, ease: "back.inOut(1.5)" });
 
 let t2 = gsap.timeline({ paused: true }); 
-t2.to('.shadow', { delay: 1.4, width: 450, boxShadow: "-75px 150px 10px 5px #eeeef3", ease: "back.out(.2)", duration: 0.7 }); 
+t2.to('.shadow', { delay: 0.5, width: 450, boxShadow: "-75px 150px 10px 5px #eeeef3", ease: "back.out(.2)", duration: 0.7 }); 
 
-function openCard() { t1.play(); t2.play(); }
-function closeCard() { t1.reverse(); t2.reverse(); }
+function openCard() { 
+  t1.play(); 
+  t2.play(); 
+}
+
+function closeCard() { 
+  t1.reverse(); 
+  t2.reverse(); 
+}
 </script>
 
 </body>
