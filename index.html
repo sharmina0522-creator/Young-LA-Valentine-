@@ -116,7 +116,7 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   border-left:150px solid transparent;
   border-right:150px solid transparent;
   box-sizing:border-box;
-  z-index:30;
+  z-index:60;
   transform-origin: top;
 }
 
@@ -139,7 +139,7 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   bottom:0;
   bottom:15px;
   left:50%;
-  transform:translateX(-50%) translateY(100%);
+  transform:translateX(-50%) translateY(0);
   width:260px;
   max-height:150px;
   background:var(--letter);
@@ -150,6 +150,7 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   font-weight:900;
   overflow-y:auto;
   transition: transform 0.7s ease;
+  z-index: 50;
 }
 
 .shadow {
@@ -265,7 +266,8 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
     <h2>You’re my main branch 💻🖤</h2>
     <div class="container">
   <div class="content">
-    <div class="envelope" onclick="openCard()"></div>
+  <div class="envelope"></div>
+
     <div class="flap"></div>
 
     <div class="letter">
@@ -315,7 +317,8 @@ const shadow = envelopeContent.querySelector('.shadow');
 
 let t1 = gsap.timeline({ paused: true });
 t1.to(flap, { cssRule: -180, duration: 0.6, ease: "power2.inOut" })
-  .to(letter, { translateY: -180, duration: 0.8, ease: "back.out(1.2)" }, "-=0.3");
+  .to(letter, { y: -180, duration: 0.8, ease: "back.out(1.2)" }, "-=0.3");
+
 
 let t2 = gsap.timeline({ paused: true });
 t2.to(shadow, { delay: 0.5, width: 450, boxShadow: "-75px 150px 10px 5px #eeeef3", ease: "back.out(.2)", duration: 0.7 });
