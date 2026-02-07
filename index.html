@@ -9,174 +9,66 @@
 <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
 
 <style>
+/* gifts font */
+#noText { font-family: 'Pacifico', cursive; font-size: 22px; color: #ffffff; text-align: center; margin-top: 20px;}
+#noText:hover { transform: scale(1.05); }
+
+#gifts h2, #bear h2, #bouquet h2 { font-family:'Pacifico', cursive; color:#ff9fb7; font-weight:950; padding:10px; text-align:center; }
+#bear p { font-family: 'Satisfy', cursive; color: #ffffff; font-weight: 925; }
+
 * { box-sizing:border-box; }
-
-body {
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  background:#5b1a28;
-  color:#fff;
-}
-
-section {
-  display:none;
-  min-height:100vh;
-  justify-content:center;
-  align-items:center;
-}
+body { margin:0; font-family:'Poppins',sans-serif; background:#5b1a28; color:#fff; }
+section { display:none; min-height:100vh; justify-content:center; align-items:center; }
 section.active { display:flex; }
+.card { background:#7a1f32; border-radius:28px; padding:30px; width:90%; max-width:520px; text-align:center; }
+button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; font-size:16px; }
+.yes, .no, .next { background:#ff9fb7; color:#800020; font-weight:bold; font-family:'Pacifico', cursive; font-size:20px; border-radius:20px; margin-top:15px; cursor:pointer; }
+.next { font-size:16px; padding:10px 18px; }
+#yay .card { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:15px; text-align:center; }
+#yay h2 { font-family:'Pacifico', cursive; font-size:40px; color:#ffffff; text-align:center; text-shadow: -2px -2px 0 #800020,2px -2px 0 #800020,-2px 2px 0 #800020,2px 2px 0 #800020,0 0 6px #800020; }
 
-.card {
-  background:#7a1f32;
-  border-radius:28px;
-  padding:30px;
-  width:90%;
-  max-width:520px;
-  text-align:center;
-}
+#valentine h2 { font-family: 'Brush Script MT', cursive; font-weight:900; font-size:32px; color:#ff9fb7; margin-bottom:20px; text-align:center; }
 
-/* HEADINGS */
-#gifts h2, #bear h2, #bouquet h2 {
-  font-family:'Pacifico', cursive;
-  color:#ff9fb7;
-  font-weight:950;
-}
+/* ===== Confetti ===== */
+.confetti { position:fixed; width:8px; height:8px; top:-10px; animation:fall 3s linear forwards; }
+@keyframes fall { to { transform:translateY(110vh) rotate(360deg); } }
 
-/* BUTTONS */
-button {
-  padding:12px 22px;
-  border:none;
-  border-radius:20px;
-  cursor:pointer;
-  font-family:'Pacifico', cursive;
-  background:#ff9fb7;
-  color:#800020;
-  font-weight:bold;
-}
+/* ===== Gifts grid ===== */
+.gifts { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; width:260px; margin:auto; }
+.gift { display:flex; justify-content:center; align-items:center; }
+.gift img { width:90px; height:90px; object-fit:contain; cursor:pointer; }
+.gifts .gift:nth-child(4) img { width:120px; height:120px; }
 
-/* QUIZ */
-.quiz-images {
-  display:flex;
-  justify-content:center;
-  gap:20px;
-}
-.quiz-images img {
-  width:90px;
-  cursor:pointer;
-  animation:bounceQuiz 1s infinite;
-}
-@keyframes bounceQuiz {
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-15px);}
-}
+/* ===== PHOTObooth ===== */
+#strip { display:flex; flex-direction:column; align-items:center; gap:8px; margin-top:10px; }
+#strip img { width:130px; border:3px solid #fff; opacity:0; transform:translateY(-40px); animation:slide 0.6s forwards; }
+@keyframes slide { to { opacity:1; transform:translateY(0); } }
 
-/* GIFTS GRID FIX */
-.gifts {
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
-  width:260px;
-  margin:auto;
-}
-.gift {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-.gift img {
-  width:90px;
-  height:90px;
-  object-fit:contain;
-  cursor:pointer;
-}
+/* ===== Bounce Bouquet ===== */
+#bouquet img { display:block; margin:0 auto; width:200px; animation:bounce 3s infinite,sparkle 8s infinite alternate,glow 2s ease-in-out infinite; position:relative; border:none; box-shadow:none; }
+@keyframes bounce { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-20px); } }
+@keyframes glow { 0%,100%{ box-shadow:0 0 5px rgba(255,255,255,0.5),0 0 15px rgba(255,255,255,0.3); } 50%{ box-shadow:0 0 15px rgba(255,255,255,0.8),0 0 25px rgba(255,255,255,0.5); } }
+@keyframes sparkle { 0%{ box-shadow:0 0 5px rgba(255,255,255,0.7),0 0 10px rgba(255,255,255,0.3); } 100%{ box-shadow:0 0 15px rgba(255,255,255,0.8),0 0 25px rgba(255,255,255,0.4); } }
 
-/* PHOTOBOOTH */
-#strip {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-}
-#strip img {
-  width:130px;
-  border:3px solid #fff;
-  opacity:0;
-  transform:translateY(-40px);
-  animation:slide 0.6s forwards;
-}
-@keyframes slide {
-  to { opacity:1; transform:translateY(0); }
-}
+/* ===== QUIZ ===== */
+#quiz h2 { font-family: 'Brush Script MT', cursive; font-weight:900; font-size:32px; color:#ff9fb7; margin-bottom:20px; text-align:center; }
+#quiz .quiz-images img { animation:bounceQuiz 1s infinite; }
+@keyframes bounceQuiz { 0%,100{transform:translateY(0);} 50%{transform:translateY(-15px);} }
 
-/* ENVELOPE FIX */
-#envelopeBox {
-  position:relative;
-  width:280px;
-  height:180px;
-  margin:auto;
-}
+/* ===== NEW Envelope Styles ===== */
+#envelopeBox { position:relative; width:280px; height:200px; margin:auto; }
+.envelope { position:relative; width:100%; height:100%; }
+.envelope-front { width:100%; height:100%; background:#b03a4b; border-radius:6px; position:relative; z-index:2; }
+.letter { position:absolute; width:260px; height:140px; left:50%; transform:translateX(-50%) translateY(100%); background:white; border-radius:6px; padding:15px; font-family:'Brush Script MT',cursive; font-weight:900; color:#800020; transition: transform 0.7s ease; z-index:1; overflow-y:auto; }
 
-.envelope-body {
-  position:absolute;
-  bottom:0;
-  width:100%;
-  height:120px;
-  background:#b03a4b;
-  border-radius:0 0 10px 10px;
-  z-index:2;
-}
+/* Slide letter when open */
+#envelopeBox.open .letter { transform:translateX(-50%) translateY(-10px); }
 
-.envelope-flap {
-  position:absolute;
-  top:0;
-  width:100%;
-  height:100px;
-  background:#ff4d4d;
-  clip-path:polygon(0 0,100% 0,50% 100%);
-  transform-origin:top;
-  transition:transform 0.7s ease;
-  z-index:3;
-}
-
-.letter {
-  position:absolute;
-  bottom:10px;
-  left:5%;
-  width:90%;
-  height:150px;
-  background:white;
-  padding:15px;
-  font-family:'Brush Script MT', cursive;
-  font-weight:900;
-  color:#800020;
-  border-radius:6px;
-  transform:translateY(80px);
-  transition:transform 0.7s ease;
-  z-index:4;
-  overflow-y:auto;
-}
-
-#envelopeBox.open .envelope-flap {
-  transform:rotateX(180deg);
-}
-#envelopeBox.open .letter {
-  transform:translateY(-40px);
-}
-
-.close {
-  position:absolute;
-  top:5px;
-  right:8px;
-  background:none;
-  border:none;
-  font-size:18px;
-  cursor:pointer;
-}
 </style>
 </head>
-
 <body>
 
+<!-- ===== QUIZ ===== -->
 <section id="quiz" class="active">
   <div class="card">
     <h2>Unlock to continue 🔓</h2>
@@ -189,23 +81,26 @@ button {
   </div>
 </section>
 
+<!-- ===== VALENTINE ===== -->
 <section id="valentine">
   <div class="card">
     <h2>Will you be my Valentine?</h2>
-    <button onclick="yes()">YES</button>
-    <button onclick="nope()">NO</button>
+    <button class="yes" onclick="yes()">YES</button>
+    <button class="no" onclick="nope()">NO</button>
     <div id="noText"></div>
   </div>
 </section>
 
+<!-- ===== YAAAY ===== -->
 <section id="yay">
   <div class="card">
     <h2>YAAAY 🎉</h2>
     <img src="kissing_bears.gif" width="180">
-    <button onclick="next('gifts')">Next</button>
+    <button class="next" onclick="next('gifts')">Next</button>
   </div>
 </section>
 
+<!-- ===== GIFTS ===== -->
 <section id="gifts">
   <div class="card">
     <h2>Gifts for you 💝</h2>
@@ -218,45 +113,53 @@ button {
   </div>
 </section>
 
+<!-- ===== BEAR ===== -->
 <section id="bear">
   <div class="card">
     <h2>Bear for you 🐻</h2>
     <img src="bear.png" width="200">
     <p>I know your stomach hurts when you eat chocolate so here’s a virtual one 💖</p>
-    <button onclick="next('gifts')">Back</button>
+    <button class="next" onclick="next('gifts')">Back</button>
   </div>
 </section>
 
+<!-- ===== BOUQUET ===== -->
 <section id="bouquet">
   <div class="card">
     <h2>Bouquet for you 💐</h2>
     <img src="bouquet.png" width="200">
-    <button onclick="next('gifts')">Back</button>
+    <button class="next" onclick="next('gifts')">Back</button>
   </div>
 </section>
 
+<!-- ===== PHOTObooth ===== -->
 <section id="camera">
   <div class="card">
     <h2>Photobooth 📸</h2>
     <div id="strip"></div>
-    <button onclick="next('gifts')">Back</button>
+    <button class="next" onclick="next('gifts')">Back</button>
   </div>
 </section>
 
+<!-- ===== ENVELOPE ===== -->
 <section id="envelope">
   <div class="card">
     <h2>You’re my main branch 💻❤️</h2>
     <div id="envelopeBox">
-      <div class="envelope-body"></div>
-      <div class="envelope-flap"></div>
-      <div class="letter">
-        <button class="close" onclick="closeLetter()">✖</button>
-        I know things aren’t simple,<br>
-        but you are always special to me.<br><br>
-        Happy Valentine’s Day, my love 💖<br>
-        <b>P.S. You’re the HTML to my CSS</b>
+      <div class="envelope">
+        <div class="envelope-front"></div>
+        <div class="letter">
+          I know things aren’t simple,<br>
+          but you are always special to me.<br><br>
+          I wish I was next to you right now.<br><br>
+          I miss your kisses, I miss your hugs,<br>
+          but most of all I miss you.<br><br>
+          Happy Valentine’s Day, my love 💖<br>
+          <b>P.S. You’re the HTML to my CSS</b>
+        </div>
       </div>
     </div>
+    <!-- Buttons below envelope -->
     <button onclick="openLetter()">Open</button>
     <button onclick="closeLetter()">Close</button>
     <button onclick="next('gifts')">Back</button>
@@ -266,33 +169,16 @@ button {
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script>
 const screens=document.querySelectorAll('section');
-function next(id){
-  screens.forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
+function next(id){ screens.forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
 function wrong(){ alert("Oopsie Try again 😅"); }
+const noMsgs=["Hey 😐","Pookie stoppp🥺","your playing boo..","Be serious","Just say yes 🙄🖤"];
+let ni=0;
+function nope(){ document.getElementById('noText').innerText=noMsgs[ni++%noMsgs.length]; }
+function yes(){ next('yay'); confetti({particleCount:150,spread:70,origin:{y:0.6}}); }
+const photos=["IMG_1799.jpeg","IMG_4866.jpeg","IMG_4974.jpeg","IMG_4979.jpeg"];
+function openGift(id){ if(id==='camera'){ next('camera'); const strip=document.getElementById('strip'); strip.innerHTML=''; photos.forEach((p,i)=>{ const img=document.createElement('img'); img.src=p; img.style.animationDelay=i*0.25+'s'; strip.appendChild(img); }); } else next(id); }
 
-function yes(){
-  next('yay');
-  confetti({particleCount:150,spread:70,origin:{y:0.6}});
-}
-
-const photos=["IMG_1799.jpeg","IMG_4866.jpeg","IMG_4974.jpeg"];
-function openGift(id){
-  if(id==='camera'){
-    next('camera');
-    const strip=document.getElementById('strip');
-    strip.innerHTML='';
-    photos.forEach((p,i)=>{
-      const img=document.createElement('img');
-      img.src=p;
-      img.style.animationDelay=i*0.25+'s';
-      strip.appendChild(img);
-    });
-  } else next(id);
-}
-
+// ===== Envelope functions =====
 const env=document.getElementById('envelopeBox');
 function openLetter(){ env.classList.add('open'); }
 function closeLetter(){ env.classList.remove('open'); }
