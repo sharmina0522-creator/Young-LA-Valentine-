@@ -214,24 +214,23 @@ button {
   width: 280px;
   height: 190px;
   margin: auto;
-  overflow: visibile;
+  overflow: hidden;
   background-color: #a83245;
   border-radius: 6px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
-/* Envelope flap */
+/* Envelope flap with heart stamp */
 .flap {
   position: absolute;
-  top: -70px;
+  top: 0;
   width: 0;
   height: 0;
-  border-left: 140px solid transparent;
-  border-right: 140px solid transparent;
-  border-bottom: 90px solid #ff4d4d;
-  transform-origin: top center;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-bottom: 70px solid #ff4d4d;
+  transform-origin: bottom;
   transition: transform 0.8s ease;
-  z-index: 4;
+  z-index: 3;
 }
 
 /* Envelope pocket */
@@ -263,7 +262,7 @@ button {
   border-radius: 6px;
   transform: translateY(110%); /* hidden initially */
   transition: transform 0.8s ease;
-  z-index: 3;
+  z-index: 1;
   overflow: hidden;
   box-sizing: border-box;
   opacity: 0;
@@ -448,7 +447,7 @@ button {
 <!-- ENVELOPE -->
 <section id="envelope">
   <div class="card">
-    <h2>You’re my main branch 💻🖤</h2>
+    <h2>You’re my main branch 💻❤️</h2>
     <div class="envelope-wrapper">
       <div id="envelopeBox">
         <div class="flap"></div>
@@ -478,8 +477,7 @@ function next(id){
   document.getElementById(id).classList.add('active');
 }
 
-function wrong(){ 
-  alert("Oopsie Try again 😅"); }
+function wrong(){ alert("Oopsie Try again 😅"); }
 
 const noMsgs=["Hey 😐","Pookie stoppp🥺","your playing boo..","Be serious","Just say yes 🙄🖤"];
 let ni=0;
@@ -513,7 +511,7 @@ function openGift(id){
 }
 
 const env=document.getElementById('envelopeBox');
-function openLetter(){ 
+function openLetter(){ env.classList.add('open'); }
   env.classList.add('open'); 
   }
 function closeLetter(){ env.classList.remove('open'); }
