@@ -294,12 +294,14 @@ const photos=["IMG_1799.jpeg","IMG_4866.jpeg","IMG_4974.jpeg","IMG_4979.jpeg","I
 function openGift(id){ if(id==='camera'){ next('camera'); const strip=document.getElementById('strip'); strip.innerHTML=''; photos.forEach((p,i)=>{ const img=document.createElement('img'); img.src=p; img.style.animationDelay=i*0.25+'s'; strip.appendChild(img); }); } else next(id); }
 
 // ===== Envelope functions =====
-let t1 = gsap.timeline({ paused: true }); 
-// Animate the letter sliding up
-t1.to('.letter', { translateY: -180, duration: 0.8, ease: "back.inOut(1.5)" });
+let t1 = gsap.timeline({ paused: true });
 
-let t2 = gsap.timeline({ paused: true }); 
-t2.to('.shadow', { delay: 0.5, width: 450, boxShadow: "-75px 150px 10px 5px #eeeef3", ease: "back.out(.2)", duration: 0.7 }); 
+// flap rotates back and letter slides up
+t1.to(".flap", { rotateX: -180, duration: 0.6, ease: "power2.inOut" })
+  .to(".letter", { translateY: -180, duration: 0.9, ease: "back.out(1.5)" }, "-=0.4");
+
+let t2 = gsap.timeline({ paused: true });
+t2.to(".shadow", { delay: 0.5, width: 450, boxShadow: "-75px 150px 10px 5px #eeeef3", ease: "back.out(.2)", duration: 0.7 });
 
 function openCard() { 
   t1.play(); 
@@ -310,6 +312,9 @@ function closeCard() {
   t1.reverse(); 
   t2.reverse(); 
 }
+
+// Make clicking the envelope also open/close
+document.querySelector(".envelope").addEventListener("click", openCard);
 </script>
 
 </body>
