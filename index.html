@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
 
 <style>
-/* gifts font */
+/* ===== ORIGINAL STYLES UNTOUCHED ===== */
 #noText { font-family: 'Pacifico', cursive; font-size: 22px; color: #ffffff; text-align: center; margin-top: 20px;}
 #noText:hover { transform: scale(1.05); }
 
@@ -37,7 +37,7 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
 .gifts { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; width:260px; margin:auto; }
 .gift { display:flex; justify-content:center; align-items:center; }
 .gift img { width:90px; height:90px; object-fit:contain; cursor:pointer; }
-.gifts .gift:nth-child(4) img { width:120px; height:120px; }
+.gifts .gift:nth-child(4) img { width:120px; height:120px; } /* 4th bigger */
 
 /* ===== PHOTObooth ===== */
 #strip { display:flex; flex-direction:column; align-items:center; gap:8px; margin-top:10px; }
@@ -55,14 +55,89 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
 #quiz .quiz-images img { animation:bounceQuiz 1s infinite; }
 @keyframes bounceQuiz { 0%,100{transform:translateY(0);} 50%{transform:translateY(-15px);} }
 
-/* ===== NEW Envelope Styles ===== */
-#envelopeBox { position:relative; width:280px; height:200px; margin:auto; }
-.envelope { position:relative; width:100%; height:100%; }
-.envelope-front { width:100%; height:100%; background:#b03a4b; border-radius:6px; position:relative; z-index:2; }
-.letter { position:absolute; width:260px; height:140px; left:50%; transform:translateX(-50%) translateY(100%); background:white; border-radius:6px; padding:15px; font-family:'Brush Script MT',cursive; font-weight:900; color:#800020; transition: transform 0.7s ease; z-index:1; overflow-y:auto; }
+/* ===== NEW ENVELOPE ONLY ===== */
+:root {
+  --base: #800020;        /* burgundy */
+  --base-light: #a83245;  /* lighter burgundy */
+  --base-dark: #4d0014;   /* darker burgundy */
+  --shadow: #3a0010;
+  --letter: #ffccd5;       /* light pink */
+}
 
-/* Slide letter when open */
-#envelopeBox.open .letter { transform:translateX(-50%) translateY(-10px); }
+.container {
+  min-height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.envelope {
+  position: relative;
+  width: 300px; 
+  height: 180px; 
+  background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px);
+  cursor: pointer;
+}
+
+.envelope::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;  
+  border-top: 115px solid var(--base-light);
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent;
+  box-sizing: border-box;
+  z-index: 30; 
+  transform-origin: top;
+}
+
+.envelope::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 300px; 
+  height: 180px; 
+  z-index: 25;
+  background: 
+    linear-gradient(30deg, var(--base-dark) 47%, var(--shadow) 50%, var(--base) 50%) 150px 90px/ 150px 90px no-repeat,
+    linear-gradient(31deg, var(--base) 49%, var(--shadow) 50%, transparent 50%) 0px 0px/ 152px 90px no-repeat,
+    linear-gradient(150deg, var(--base) 50%, var(--shadow) 50%, var(--base-dark) 53%) 0px 90px/ 151px 90px no-repeat,
+    linear-gradient(148.7deg, transparent 50%, var(--shadow) 50%, var(--base) 51%) 150px 0px/ 150px 90px no-repeat; 
+}
+
+.letter {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  width: 260px;
+  height: auto;
+  max-height: 150px;
+  background: var(--letter);
+  padding: 15px;
+  color: #fff; /* text white */
+  border-radius: 6px;
+  font-family: 'Brush Script MT', cursive;
+  font-weight: 900;
+  overflow-y: auto;
+  transition: transform 0.7s ease;
+}
+
+.shadow {
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+}
+
+.letter .close {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  cursor: pointer;
+}
 
 </style>
 </head>
@@ -145,28 +220,36 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
 <section id="envelope">
   <div class="card">
     <h2>You’re my main branch 💻❤️</h2>
-    <div id="envelopeBox">
-      <div class="envelope">
-        <div class="envelope-front"></div>
+    <div class="container">
+      <div class="content">
+        <div class="envelope"></div>
         <div class="letter">
-          I know things aren’t simple,<br>
-          but you are always special to me.<br><br>
-          I wish I was next to you right now.<br><br>
-          I miss your kisses, I miss your hugs,<br>
-          but most of all I miss you.<br><br>
-          Happy Valentine’s Day, my love 💖<br>
-          <b>P.S. You’re the HTML to my CSS</b>
+          <div class="body">
+            <span class="close" onclick="closeCard()">✖</span>
+            <div class="message">
+              I know things aren’t simple,<br>
+              but you are always special to me.<br><br>
+              I wish I was next to you right now.<br><br>
+              I miss your kisses, I miss your hugs,<br>
+              but most of all I miss you.<br><br>
+              Happy Valentine’s Day, my love 💖<br>
+              <b>P.S. You’re the HTML to my CSS</b>
+            </div>
+          </div>
         </div>
+        <div class="shadow"></div>
       </div>
     </div>
-    <!-- Buttons below envelope -->
-    <button onclick="openLetter()">Open</button>
-    <button onclick="closeLetter()">Close</button>
+    <button onclick="openCard()">Open</button>
+    <button onclick="closeCard()">Close</button>
     <button onclick="next('gifts')">Back</button>
   </div>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.0/CSSRulePlugin.min.js"></script>
+
 <script>
 const screens=document.querySelectorAll('section');
 function next(id){ screens.forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
@@ -174,14 +257,25 @@ function wrong(){ alert("Oopsie Try again 😅"); }
 const noMsgs=["Hey 😐","Pookie stoppp🥺","your playing boo..","Be serious","Just say yes 🙄🖤"];
 let ni=0;
 function nope(){ document.getElementById('noText').innerText=noMsgs[ni++%noMsgs.length]; }
-function yes(){ next('yay'); confetti({particleCount:150,spread:70,origin:{y:0.6}}); }
+function yes(){ next('yay'); confetti({particleCount:150,spread:70,origin:{y:0.6},colors:['#ff3d68','#ff9fb7']}); }
 const photos=["IMG_1799.jpeg","IMG_4866.jpeg","IMG_4974.jpeg","IMG_4979.jpeg"];
 function openGift(id){ if(id==='camera'){ next('camera'); const strip=document.getElementById('strip'); strip.innerHTML=''; photos.forEach((p,i)=>{ const img=document.createElement('img'); img.src=p; img.style.animationDelay=i*0.25+'s'; strip.appendChild(img); }); } else next(id); }
 
 // ===== Envelope functions =====
-const env=document.getElementById('envelopeBox');
-function openLetter(){ env.classList.add('open'); }
-function closeLetter(){ env.classList.remove('open'); }
+let t1 = gsap.timeline({ paused: true }); 
+let flap = CSSRulePlugin.getRule(".envelope:before"); 
+
+t1.to(flap, { duration: 0.5, cssRule: { rotateX: 180 } })
+  .set(flap, { cssRule: { zIndex: 10 } })
+  .to('.letter', { translateY: -180, duration: 0.9, ease: "back.inOut(1.5)" })
+  .set('.letter', { zIndex: 40 })
+  .to('.letter', { duration: 0.7, ease: "back.out(.4)", translateY: -5, translateZ: 250 });
+
+let t2 = gsap.timeline({ paused: true }); 
+t2.to('.shadow', { delay: 1.4, width: 450, boxShadow: "-75px 150px 10px 5px #eeeef3", ease: "back.out(.2)", duration: 0.7 }); 
+
+function openCard() { t1.play(); t2.play(); }
+function closeCard() { t1.reverse(); t2.reverse(); }
 </script>
 
 </body>
