@@ -225,9 +225,9 @@ button {
   top: 0;
   width: 0;
   height: 0;
-  border-left: 140px solid transparent;
-  border-right: 140px solid transparent;
-  border-bottom: 90px solid #a83245;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-bottom: 70px solid #ff4d4d;
   transform-origin: bottom;
   transition: transform 0.8s ease;
   z-index: 3;
@@ -407,7 +407,7 @@ button {
 </section>
   <style>
   .gifts .gift:nth-child(4) img {
-    width: 300px;
+    width: 250px;
     margin-top: 5px;  
   }
     
@@ -512,6 +512,8 @@ function openGift(id){
 
 const env=document.getElementById('envelopeBox');
 function openLetter(){ env.classList.add('open'); }
+  env.classList.add('open'); 
+  }
 function closeLetter(){ env.classList.remove('open'); }
 </script>
 
