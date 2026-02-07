@@ -22,8 +22,10 @@ section { display:none; min-height:100vh; justify-content:center; align-items:ce
 section.active { display:flex; }
 .card { background:#7a1f32; border-radius:28px; padding:30px; width:90%; max-width:520px; text-align:center; }
 button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; font-size:16px; }
-.yes, .no, .next { background:#ff9fb7; color:#800020; font-weight:bold; font-family:'Pacifico', cursive; font-size:20px; border-radius:20px; margin-top:15px; cursor:pointer; }
+.yes, .no, .next { background:#ff9fb7; color:#800020; font-weight:bold; font-family:'Pacifico', cursive; border-radius:20px; margin-top:15px; cursor:pointer; }
+.yes, .no { font-size:20px; padding:12px 22px; }
 .next { font-size:16px; padding:10px 18px; }
+
 #yay .card { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:15px; text-align:center; }
 #yay h2 { font-family:'Pacifico', cursive; font-size:40px; color:#ffffff; text-align:center; text-shadow: -2px -2px 0 #800020,2px -2px 0 #800020,-2px 2px 0 #800020,2px 2px 0 #800020,0 0 6px #800020; }
 
@@ -34,7 +36,7 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
 @keyframes fall { to { transform:translateY(110vh) rotate(360deg); } }
 
 /* ===== Gifts grid ===== */
-.gifts { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; width:260px; margin:auto; }
+.gifts { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; justify-content:center; }
 .gift { display:flex; justify-content:center; align-items:center; }
 .gift img { width:90px; height:90px; object-fit:contain; cursor:pointer; }
 .gifts .gift:nth-child(4) img { width:120px; height:120px; } /* 4th bigger */
@@ -52,10 +54,11 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
 
 /* ===== QUIZ ===== */
 #quiz h2 { font-family: 'Brush Script MT', cursive; font-weight:900; font-size:32px; color:#ff9fb7; margin-bottom:20px; text-align:center; }
-#quiz .quiz-images img { animation:bounceQuiz 1s infinite; }
-@keyframes bounceQuiz { 0%,100{transform:translateY(0);} 50%{transform:translateY(-15px);} }
+.quiz-images { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; }
+.quiz-images img { width:90px; cursor:pointer; animation:bounceQuiz 1s infinite; }
+@keyframes bounceQuiz { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
 
-/* ===== NEW ENVELOPE ONLY ===== */
+/* ===== NEW ENVELOPE ===== */
 :root {
   --base: #800020;        /* burgundy */
   --base-light: #a83245;  /* lighter burgundy */
@@ -64,86 +67,21 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   --letter: #ffccd5;       /* light pink */
 }
 
-.container {
-  min-height: 220px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+.container { min-height: 220px; display: flex; justify-content: center; align-items: center; }
+.envelope { position: relative; width: 300px; height: 180px; background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px); cursor:pointer; }
+.envelope::before { content: ''; position:absolute; top:0; left:0; width:300px; border-top:115px solid var(--base-light); border-left:150px solid transparent; border-right:150px solid transparent; box-sizing:border-box; z-index:30; transform-origin: top; }
+.envelope::after { content: ''; position:absolute; top:0; width:300px; height:180px; z-index:25; background: linear-gradient(30deg, var(--base-dark) 47%, var(--shadow) 50%, var(--base) 50%) 150px 90px/150px 90px no-repeat, linear-gradient(31deg, var(--base) 49%, var(--shadow) 50%, transparent 50%) 0px 0px/152px 90px no-repeat, linear-gradient(150deg, var(--base) 50%, var(--shadow) 50%, var(--base-dark) 53%) 0px 90px/151px 90px no-repeat, linear-gradient(148.7deg, transparent 50%, var(--shadow) 50%, var(--base) 51%) 150px 0px/150px 90px no-repeat; }
 
-.envelope {
-  position: relative;
-  width: 300px; 
-  height: 180px; 
-  background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px);
-  cursor: pointer;
-}
-
-.envelope::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 300px;  
-  border-top: 115px solid var(--base-light);
-  border-left: 150px solid transparent;
-  border-right: 150px solid transparent;
-  box-sizing: border-box;
-  z-index: 30; 
-  transform-origin: top;
-}
-
-.envelope::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 300px; 
-  height: 180px; 
-  z-index: 25;
-  background: 
-    linear-gradient(30deg, var(--base-dark) 47%, var(--shadow) 50%, var(--base) 50%) 150px 90px/ 150px 90px no-repeat,
-    linear-gradient(31deg, var(--base) 49%, var(--shadow) 50%, transparent 50%) 0px 0px/ 152px 90px no-repeat,
-    linear-gradient(150deg, var(--base) 50%, var(--shadow) 50%, var(--base-dark) 53%) 0px 90px/ 151px 90px no-repeat,
-    linear-gradient(148.7deg, transparent 50%, var(--shadow) 50%, var(--base) 51%) 150px 0px/ 150px 90px no-repeat; 
-}
-
-.letter {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%) translateY(100%);
-  width: 260px;
-  height: auto;
-  max-height: 150px;
-  background: var(--letter);
-  padding: 15px;
-  color: #fff; /* text white */
-  border-radius: 6px;
-  font-family: 'Brush Script MT', cursive;
-  font-weight: 900;
-  overflow-y: auto;
-  transition: transform 0.7s ease;
-}
-
-.shadow {
-  position: absolute;
-  bottom: 0;
-  width: 0;
-  height: 0;
-}
-
-.letter .close {
-  position: absolute;
-  top: 5px;
-  right: 8px;
-  cursor: pointer;
-}
+.letter { position:absolute; bottom:0; left:50%; transform:translateX(-50%) translateY(100%); width:260px; max-height:150px; background:var(--letter); padding:15px; color:#fff; border-radius:6px; font-family:'Brush Script MT', cursive; font-weight:900; overflow-y:auto; transition: transform 0.7s ease; }
+.shadow { position:absolute; bottom:0; width:0; height:0; }
+.letter .close { position:absolute; top:5px; right:8px; cursor:pointer; }
 
 </style>
 </head>
+
 <body>
 
-<!-- ===== QUIZ ===== -->
+<!-- QUIZ -->
 <section id="quiz" class="active">
   <div class="card">
     <h2>Unlock to continue 🔓</h2>
@@ -156,7 +94,7 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   </div>
 </section>
 
-<!-- ===== VALENTINE ===== -->
+<!-- VALENTINE -->
 <section id="valentine">
   <div class="card">
     <h2>Will you be my Valentine?</h2>
@@ -166,7 +104,7 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   </div>
 </section>
 
-<!-- ===== YAAAY ===== -->
+<!-- YAAAY SCREEN -->
 <section id="yay">
   <div class="card">
     <h2>YAAAY 🎉</h2>
@@ -175,7 +113,7 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   </div>
 </section>
 
-<!-- ===== GIFTS ===== -->
+<!-- GIFTS -->
 <section id="gifts">
   <div class="card">
     <h2>Gifts for you 💝</h2>
@@ -188,7 +126,7 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   </div>
 </section>
 
-<!-- ===== BEAR ===== -->
+<!-- BEAR -->
 <section id="bear">
   <div class="card">
     <h2>Bear for you 🐻</h2>
@@ -198,7 +136,7 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   </div>
 </section>
 
-<!-- ===== BOUQUET ===== -->
+<!-- BOUQUET -->
 <section id="bouquet">
   <div class="card">
     <h2>Bouquet for you 💐</h2>
@@ -207,7 +145,7 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   </div>
 </section>
 
-<!-- ===== PHOTObooth ===== -->
+<!-- PHOTObooth -->
 <section id="camera">
   <div class="card">
     <h2>Photobooth 📸</h2>
@@ -216,7 +154,7 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   </div>
 </section>
 
-<!-- ===== ENVELOPE ===== -->
+<!-- ENVELOPE -->
 <section id="envelope">
   <div class="card">
     <h2>You’re my main branch 💻❤️</h2>
@@ -258,13 +196,13 @@ const noMsgs=["Hey 😐","Pookie stoppp🥺","your playing boo..","Be serious","
 let ni=0;
 function nope(){ document.getElementById('noText').innerText=noMsgs[ni++%noMsgs.length]; }
 function yes(){ next('yay'); confetti({particleCount:150,spread:70,origin:{y:0.6},colors:['#ff3d68','#ff9fb7']}); }
-const photos=["IMG_1799.jpeg","IMG_4866.jpeg","IMG_4974.jpeg","IMG_4979.jpeg"];
+
+const photos=["IMG_1799.jpeg","IMG_4866.jpeg","IMG_4974.jpeg","IMG_4979.jpeg","IMG_4984.jpeg","IMG_5008.jpeg","IMG_5009.jpeg","IMG_5011.jpeg","IMG_5730.jpeg","IMG_5743.jpeg"];
 function openGift(id){ if(id==='camera'){ next('camera'); const strip=document.getElementById('strip'); strip.innerHTML=''; photos.forEach((p,i)=>{ const img=document.createElement('img'); img.src=p; img.style.animationDelay=i*0.25+'s'; strip.appendChild(img); }); } else next(id); }
 
 // ===== Envelope functions =====
 let t1 = gsap.timeline({ paused: true }); 
 let flap = CSSRulePlugin.getRule(".envelope:before"); 
-
 t1.to(flap, { duration: 0.5, cssRule: { rotateX: 180 } })
   .set(flap, { cssRule: { zIndex: 10 } })
   .to('.letter', { translateY: -180, duration: 0.9, ease: "back.inOut(1.5)" })
