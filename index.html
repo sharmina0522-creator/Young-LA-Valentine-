@@ -61,9 +61,18 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
              }
 .quiz-images img { width:90px; cursor:pointer; animation:bounceQuiz 1s infinite; }
 @keyframes bounceQuiz { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
-
-/* ===== NEW ENVELOPE ===== */
-:root {
+  
+</style>
+     <style>
+       #envelope h2 {
+  font-family: 'Pacifico', cursive;
+  font-size: 24px;       /* adjust if needed to fit one line */
+  color: #ffccd5;        /* pink like your buttons */
+  text-align: center;
+  margin-bottom: 20px;   /* space between heading and envelope */
+  white-space: nowrap;    /* prevents it from wrapping to two lines */
+}
+      :root {
   --base: #800020;        /* burgundy */
   --base-light: #a83245;  /* lighter burgundy */
   --base-dark: #4d0014;   /* darker burgundy */
@@ -71,18 +80,95 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   --letter: #ffccd5;       /* light pink */
 }
 
-.container { min-height: 220px; display: flex; justify-content: center; align-items: center; }
-.envelope { position: relative; width: 300px; height: 180px; background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px); cursor:pointer; }
-.envelope::before { content: ''; position:absolute; top:0; left:0; width:300px; border-top:115px solid var(--base-light); border-left:150px solid transparent; border-right:150px solid transparent; box-sizing:border-box; z-index:30; transform-origin: top; }
-.envelope::after { content: ''; position:absolute; top:0; width:300px; height:180px; z-index:25; background: linear-gradient(30deg, var(--base-dark) 47%, var(--shadow) 50%, var(--base) 50%) 150px 90px/150px 90px no-repeat, linear-gradient(31deg, var(--base) 49%, var(--shadow) 50%, transparent 50%) 0px 0px/152px 90px no-repeat, linear-gradient(150deg, var(--base) 50%, var(--shadow) 50%, var(--base-dark) 53%) 0px 90px/151px 90px no-repeat, linear-gradient(148.7deg, transparent 50%, var(--shadow) 50%, var(--base) 51%) 150px 0px/150px 90px no-repeat; }
+.container {
+  min-height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-.letter { position:absolute; bottom:0; left:50%; transform:translateX(-50%) translateY(100%); width:260px; max-height:150px; background:var(--letter); padding:15px; color:#fff; border-radius:6px; font-family:'Brush Script MT', cursive; font-weight:900; overflow-y:auto; transition: transform 0.7s ease; }
-.shadow { position:absolute; bottom:0; width:0; height:0; }
-.letter .close { position:absolute; top:5px; right:8px; cursor:pointer; }
+.envelope {
+  position: relative;
+  width: 300px;
+  height: 180px;
+  background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px);
+  cursor: pointer;
+}
 
+.envelope::before {
+  content: '';
+  position:absolute;
+  top:0;
+  left:0;
+  width:300px;
+  border-top:115px solid var(--base-light);
+  border-left:150px solid transparent;
+  border-right:150px solid transparent;
+  box-sizing:border-box;
+  z-index:30;
+  transform-origin: top;
+}
+
+.envelope::after {
+  content: '';
+  position:absolute;
+  top:0;
+  width:300px;
+  height:180px;
+  z-index:25;
+  background: linear-gradient(30deg, var(--base-dark) 47%, var(--shadow) 50%, var(--base) 50%) 150px 90px/150px 90px no-repeat,
+              linear-gradient(31deg, var(--base) 49%, var(--shadow) 50%, transparent 50%) 0px 0px/152px 90px no-repeat,
+              linear-gradient(150deg, var(--base) 50%, var(--shadow) 50%, var(--base-dark) 53%) 0px 90px/151px 90px no-repeat,
+              linear-gradient(148.7deg, transparent 50%, var(--shadow) 50%, var(--base) 51%) 150px 0px/150px 90px no-repeat;
+}
+
+.letter {
+  position:absolute;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%) translateY(100%);
+  width:260px;
+  max-height:150px;
+  background:var(--letter);
+  padding:15px;
+  color:#fff;
+  border-radius:6px;
+  font-family:'Brush Script MT', cursive;
+  font-weight:900;
+  overflow-y:auto;
+  transition: transform 0.7s ease;
+}
+
+.shadow {
+  position:absolute;
+  bottom:0;
+  width:0;
+  height:0;
+}
+
+.letter .close {
+  position:absolute;
+  top:5px;
+  right:8px;
+  cursor:pointer;
+} 
+ .envelope-btn {
+  background: #800020;      /* burgundy */
+  color: #ffccd5;           /* light pink */
+  font-family: 'Pacifico', cursive;
+  font-weight: bold;
+  border: none;
+  border-radius: 20px;
+  padding: 12px 22px;
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 16px;
+}
+.envelope-btn:hover {
+  transform: scale(1.05);
+}
 </style>
 </head>
-
 <body>
 
 <!-- QUIZ -->
@@ -163,28 +249,27 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   <div class="card">
     <h2>You’re my main branch 💻❤️</h2>
     <div class="container">
-      <div class="content">
-        <div class="envelope"></div>
-        <div class="letter">
-          <div class="body">
-            <span class="close" onclick="closeCard()">✖</span>
-            <div class="message">
-              I know things aren’t simple,<br>
-              but you are always special to me.<br><br>
-              I wish I was next to you right now.<br><br>
-              I miss your kisses, I miss your hugs,<br>
-              but most of all I miss you.<br><br>
-              Happy Valentine’s Day, my love 💖<br>
-              <b>P.S. You’re the HTML to my CSS</b>
-            </div>
-          </div>
-        </div>
-        <div class="shadow"></div>
+  <div class="content">
+    <div class="envelope" onclick="openCard()"></div>
+    <div class="letter">
+      <div class="body">
+        <span class="close" onclick="event.stopPropagation(); closeCard()">x</span>
+        <div class="message">I know things aren’t simple,<br>
+          but you are always special to me.<br><br>
+          I wish I was next to you right now.<br><br>
+          I miss your kisses, I miss your hugs,<br>
+          but most of all I miss you.<br><br>
+          Happy Valentine’s Day, my love 💖<br>
+          <b>P.S. You’re the HTML to my CSS</b>.</div>
       </div>
     </div>
-    <button onclick="openCard()">Open</button>
-    <button onclick="closeCard()">Close</button>
-    <button onclick="next('gifts')">Back</button>
+    <div class="shadow"></div>
+  </div>
+</div>  
+
+<button class="envelope-btn" onclick="openCard()">Open</button>
+<button class="envelope-btn" onclick="closeCard()">Close</button>
+<button class="envelope-btn" onclick="next('gifts')">Back</button>
   </div>
 </section>
 
