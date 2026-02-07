@@ -14,7 +14,7 @@
   color: #ffffff;   
   text-align: center; 
   margin-top: 20px;  
-  
+
 }
 
 #noText:hover {
@@ -176,7 +176,7 @@ button {
   grid-template-columns: repeat(2, 1fr);
   justify-content:center;
 }
-  
+
 .gift img {
   width:80px;
   cursor:pointer;
@@ -380,7 +380,7 @@ button {
     <h2>Will you be my Valentine?</h2>
     <button class="yes" onclick="yes()">YES</button>
     <button class="no" onclick="nope()">NO</button>
-    
+
   <div id="noText"></div>
   </div>
 </section>
@@ -410,7 +410,7 @@ button {
     width: 250px;
     margin-top: 5px;  
   }
-    
+
 </style>
 
 <!-- BEAR -->
@@ -512,6 +512,7 @@ function openGift(id){
 
 const env=document.getElementById('envelopeBox');
 function openLetter(){ env.classList.add('open'); }
+function openLetter(){ 
   env.classList.add('open'); 
   }
 function closeLetter(){ env.classList.remove('open'); }
