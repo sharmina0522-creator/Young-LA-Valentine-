@@ -85,6 +85,7 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   display: flex;
   justify-content: center;
   align-items: center;
+  perspective: 800px
 }
 
 .envelope {
@@ -113,6 +114,7 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
   content: '';
   position:absolute;
   top:0;
+  left:0;
   width:300px;
   height:180px;
   z-index:25;
@@ -124,9 +126,9 @@ button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; fon
 
 .letter {
   position:absolute;
-  bottom:0;
+  bottom:15px;
   left:50%;
-  transform:translateX(-50%) translateY(100%);
+  transform:translateX(-50%) translateY(0);
   width:260px;
   max-height:150px;
   background:var(--letter);
@@ -292,9 +294,9 @@ function openGift(id){ if(id==='camera'){ next('camera'); const strip=document.g
 // ===== Envelope functions =====
 let t1 = gsap.timeline({ paused: true }); 
 let flap = CSSRulePlugin.getRule(".envelope:before"); 
-t1.to(flap, { duration: 0.5, cssRule: { rotateX: 180 } })
+t1.to(flap, { duration: 0.5, cssRule: { rotateX: -180 } })
   .set(flap, { cssRule: { zIndex: 10 } })
-  .to('.letter', { translateY: -180, duration: 0.9, ease: "back.inOut(1.5)" })
+  .to('.letter', { translateY: -120, duration: 0.9, ease: "back.inOut(1.5)" })
   .set('.letter', { zIndex: 40 })
   .to('.letter', { duration: 0.7, ease: "back.out(.4)", translateY: -5, translateZ: 250 });
 
