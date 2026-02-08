@@ -145,7 +145,7 @@ z-index: 5;
 }
 .letter.open {
     transform: translateY(-120px);	
-
+}
 .shadow {
 position:absolute;
 bottom:0;
@@ -317,7 +317,7 @@ if (isOpen) return;
 
 const flap = CSSRulePlugin.getRule("#envelope .envelope::before"); // target flap
 gsap.to(flap, { duration: 0.5, cssRule:{ rotateX:-160 }, ease:"power2.inOut" });  
-letter.classList.add('open');
+ letter.style.transform = 'translateX(0) translateY(-120px)';
   shadow.style.width = '450px';
   shadow.style.boxShadow = '-75px 150px 10px 5px #eeeef3';
   shadow.style.transition = 'all 0.7s ease-out';
@@ -329,7 +329,7 @@ if (!isOpen) return;
 const flap = CSSRulePlugin.getRule("#envelope .envelope::before"); // target flap
 gsap.to(flap, { duration: 0.5, cssRule:{ rotateX:0 }, ease:"power2.inOut" });
   envelope.style.transform = 'rotateX(0deg)';
-  letter.classList.remove('open');
+  letter.style.transform = 'translateX(0) translateY(0)';
   shadow.style.width = '0';
   shadow.style.boxShadow = 'none';
 }
