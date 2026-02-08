@@ -316,7 +316,9 @@ if (isOpen) return;
   isOpen = true;
 const flap = CSSRulePlugin.getRule("#envelope .envelope::before"); // target flap
 gsap.to(flap, { duration: 0.6, cssRule:{ rotateX:-160 }, ease:"power2.inOut" });  
-gsap.to(letter, { y: -130, duration: 0.7, ease: "power2.out",zIndex: 35 });
+gsap.to(letter,
+		{ y: 0 },
+		{ y: -120, duration: 0.7, ease: "power2.out",zIndex: 35 });
 gsap.to(shadow, { width: 450, boxShadow: '-75px 150px 10px 5px #eeeef3', duration: 0.7, ease: "power2.out" });  
 }
 
