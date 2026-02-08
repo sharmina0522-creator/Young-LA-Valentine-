@@ -124,9 +124,9 @@ linear-gradient(148.7deg, transparent 50%, var(--shadow) 50%, var(--base) 51%) 1
 
 .letter {
 position:absolute;
-bottom:10px;
+top:90px;
 left:50%;
-transform: translate(-50%, 0);	
+transform: translate(-50%);	
 width:260px;
 max-height:150px;
 background:var(--letter);
@@ -136,25 +136,13 @@ border-radius:6px;
 font-family:'Brush Script MT', cursive;
 font-weight:900;
 overflow-y:auto;
-z-index: 5; 	
+z-index: 10; 
+transition: top 0.5s ease-in-out;	
 }
 /* ===== Letter Flip */
 .letterOpen { top: -100px; transition: .3s ease-in; }
 .letterClose { top: 0px; transition: .3s ease-in; }
 
-.open .envelope { animation: flipOpen .4s ease-in forwards; }
-.close .envelope { animation: flipClose .4s ease-in forwards; }
-
-@keyframes flipOpen {
-  0% { transform: rotateX(0deg); transform-origin: center top; }
-  100% { transform: rotateX(180deg); transform-origin: center top; }
-}
-
-@keyframes flipClose {
-  0% { transform: rotateX(180deg); transform-origin: center top; }
-  100% { transform: rotateX(0deg); transform-origin: center top; }
-}	
-/* Flap flip */
 .flap {
   position: absolute;
   top: 0;
