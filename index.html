@@ -1,489 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Valentine 💌</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<head>
+	<meta charset="UTF-8">
+	<title>Valentine 💌</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
 
-  <style>
-    /* ===== ORIGINAL STYLES UNTOUCHED ===== */
-    #noText {
-      font-family: 'Pacifico', cursive;
-      font-size: 22px;
-      color: #ffffff;
-      text-align: center;
-      margin-top: 20px;
-    }
+		<style>
+		/* ===== ORIGINAL STYLES UNTOUCHED ===== */
+	#noText { font-family: 'Pacifico', cursive; font-size: 22px; color: #ffffff; text-align: center; margin-top: 20px;}
+	#noText:hover { transform: scale(1.05); }
 
-    #noText:hover {
-      transform: scale(1.05);
-    }
+	#gifts h2, #bear h2, #bouquet h2 { font-family:'Pacifico', cursive; color:#ff9fb7; font-weight:950; padding:10px; text-align:center; }
+	#bear p { font-family: 'Satisfy', cursive; color: #ffffff; font-weight: 925; }
 
-    #gifts h2,
-    #bear h2,
-    #bouquet h2 {
-      font-family: 'Pacifico', cursive;
-      color: #ff9fb7;
-      font-weight: 950;
-      padding: 10px;
-      text-align: center;
-    }
+	* { box-sizing:border-box; }
+	body { margin:0; font-family:'Poppins',sans-serif; background:#5b1a28; color:#fff; }
+	section { display:none; min-height:100vh; justify-content:center; align-items:center; }
+	section.active { display:flex; }
+	.card { background:#7a1f32; border-radius:28px; padding:30px; width:90%; max-width:520px; text-align:center; }
+	button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; font-size:16px; }
+	.yes, .no, .next { background:#ff9fb7; color:#800020; font-weight:bold; font-family:'Pacifico', cursive; border-radius:20px; margin-top:15px; cursor:pointer; }
+	.yes, .no { font-size:20px; padding:12px 22px; }
+	.next { font-size:16px; padding:10px 18px; }
 
-    #bear p {
-      font-family: 'Satisfy', cursive;
-      color: #ffffff;
-      font-weight: 925;
-    }
+	#yay .card { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:15px; text-align:center; }
+	#yay h2 { font-family:'Pacifico', cursive; font-size:40px; color:#ffffff; text-align:center; text-shadow: -2px -2px 0 #800020,2px -2px 0 #800020,-2px 2px 0 #800020,2px 2px 0 #800020,0 0 6px #800020; }
 
-    * {
-      box-sizing: border-box;
-    }
+	#valentine h2 { font-family: 'Brush Script MT', cursive; font-weight:900; font-size:32px; color:#ff9fb7; margin-bottom:20px; text-align:center; }
 
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #5b1a28;
-      color: #fff;
-    }
+		/* ===== Confetti ===== */
+	.confetti { position:fixed; width:8px; height:8px; top:-10px; animation:fall 3s linear forwards; }
+	@keyframes fall { to { transform:translateY(110vh) rotate(360deg); } }
 
-    section {
-      display: none;
-      min-height: 100vh;
-      justify-content: center;
-      align-items: center;
-    }
+		/* ===== Gifts grid ===== */
+	.gifts { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; justify-content:center; }
+	.gift { display:flex; justify-content:center; align-items:center; }
+	.gift img { width:90px; height:90px; object-fit:contain; cursor:pointer; }
+	.gifts .gift:nth-child(4) img { width:120px; height:120px; } /* 4th bigger */
 
-    section.active {
-      display: flex;
-    }
+	/* ===== PHOTObooth ===== */
+	#strip { display:flex; flex-direction:column; align-items:center; gap:8px; margin-top:10px; }
+	#strip img { width:130px; border:3px solid #fff; opacity:0; transform:translateY(-40px); animation:slide 0.6s forwards; }
+	@keyframes slide { to { opacity:1; transform:translateY(0); } }
 
-    .card {
-      background: #7a1f32;
-      border-radius: 28px;
-      padding: 30px;
-      width: 90%;
-      max-width: 520px;
-      text-align: center;
-    }
+		/* ===== Bounce Bouquet ===== */
+	#bouquet img { display:block; margin:0 auto; width:200px; animation:bounce 3s infinite,sparkle 8s infinite alternate,glow 2s ease-in-out infinite; position:relative; border:none; box-shadow:none; }
+	@keyframes bounce { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-20px); } }
+	@keyframes glow { 0%,100%{ box-shadow:0 0 5px rgba(255,255,255,0.5),0 0 15px rgba(255,255,255,0.3); } 50%{ box-shadow:0 0 15px rgba(255,255,255,0.8),0 0 25px rgba(255,255,255,0.5); } }
+	@keyframes sparkle { 0%{ box-shadow:0 0 5px rgba(255,255,255,0.7),0 0 10px rgba(255,255,255,0.3); } 100%{ box-shadow:0 0 15px rgba(255,255,255,0.8),0 0 25px rgba(255,255,255,0.4); } }
 
-    button {
-      padding: 12px 22px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 16px;
-    }
+/* ===== QUIZ ===== */
+#quiz h2 { font-family: 'Brush Script MT', cursive; font-weight:900; font-size:32px; color:#ff9fb7; margin-bottom:20px; text-align:center; }
+.quiz-images { display:flex;            justify-content:center;
+gap:20px; 
+flex-wrap:nowrap; 
+}
+.quiz-images img { width:90px; cursor:pointer; animation:bounceQuiz 1s infinite; }
+@keyframes bounceQuiz { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
 
-    .yes,
-    .no,
-    .next {
-      background: #ff9fb7;
-      color: #800020;
-      font-weight: bold;
-      font-family: 'Pacifico', cursive;
-      border-radius: 20px;
-      margin-top: 15px;
-      cursor: pointer;
-    }
+</style>
+<style>
+#envelope h2 {
+font-family: 'Pacifico', cursive;
+font-size: 22px;       /* adjust if needed to fit one line */
+color: #ffccd5;        /* pink like your buttons */
+text-align: center;
+margin-bottom: 15px;   /* space between heading and envelope */
+white-space: nowrap;    
+/* prevents it from wrapping to two lines */
+}
+:root {
+--base: #800020;        /* burgundy */
+--base-light: #a83245;  /* lighter burgundy */
+--base-dark: #4d0014;   /* darker burgundy */
+--shadow: #3a0010;
+--letter: #ffccd5;       /* light pink */
+}
 
-    .yes,
-    .no {
-      font-size: 20px;
-      padding: 12px 22px;
-    }
+.container {
+min-height: 220px;
+display: flex;
+justify-content: center;
+align-items: center;
+perspective: 800px;
+}
 
-    .next {
-      font-size: 16px;
-      padding: 10px 18px;
-    }
+.envelope {
+position: relative;
+width: 300px;
+height: 180px;
+background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px);
+cursor: pointer;
+}
 
-    #yay .card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
-      text-align: center;
-    }
+.envelope::before {
+content: '';
+position:absolute;
+top:0;
+left:0;
+width:300px;
+border-top:115px solid var(--base-light);
+border-left:150px solid transparent;
+border-right:150px solid transparent;
+box-sizing:border-box;
+z-index:30;
+transform-origin: top;
+transform-style: preserve-3d;
+}
 
-    #yay h2 {
-      font-family: 'Pacifico', cursive;
-      font-size: 40px;
-      color: #ffffff;
-      text-align: center;
-      text-shadow: -2px -2px 0 #800020, 2px -2px 0 #800020, -2px 2px 0 #800020, 2px 2px 0 #800020, 0 0 6px #800020;
-    }
+.envelope::after {
+content: '';
+position:absolute;
+top:0;
+left:0;
+width:300px;
+height:180px;
+z-index:25;
+background:
+linear-gradient(30deg, var(--base-dark) 50%, var(--shadow) 50%, var(--base) 50%) 150px 90px/150px 90px no-repeat,
+linear-gradient(31deg, var(--base) 50%, var(--shadow) 50%, transparent 50%) 0px 0px/152px 90px no-repeat,
+linear-gradient(150deg, var(--base) 50%, var(--shadow) 50%, var(--base-dark) 53%) 0px 90px/151px 90px no-repeat,
+linear-gradient(148.7deg, transparent 50%, var(--shadow) 50%, var(--base) 51%) 150px 0px/150px 90px no-repeat;
+}
 
-    #valentine h2 {
-      font-family: 'Brush Script MT', cursive;
-      font-weight: 900;
-      font-size: 32px;
-      color: #ff9fb7;
-      margin-bottom: 20px;
-      text-align: center;
-    }
+.letter {
+position:absolute;
+bottom:10px;
+left:50%;
+transform:translateX(-50%) translateY(0);
+width:260px;
+max-height:150px;
+background:var(--letter);
+padding:15px;
+color:#fff;
+border-radius:6px;
+font-family:'Brush Script MT', cursive;
+font-weight:900;
+overflow-y:auto;
+transition: transform 0.7s ease;
+}
 
-    /* ===== Confetti ===== */
-    .confetti {
-      position: fixed;
-      width: 8px;
-      height: 8px;
-      top: -10px;
-      animation: fall 3s linear forwards;
-    }
+.shadow {
+position:absolute;
+bottom:0;
+width:0;
+height:0;
+}
 
-    @keyframes fall {
-      to {
-        transform: translateY(110vh) rotate(360deg);
-      }
-    }
-
-    /* ===== Gifts grid ===== */
-    .gifts {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-      justify-content: center;
-    }
-
-    .gift {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .gift img {
-      width: 90px;
-      height: 90px;
-      object-fit: contain;
-      cursor: pointer;
-    }
-
-    .gifts .gift:nth-child(4) img {
-      width: 120px;
-      height: 120px;
-    }
-
-    /* 4th bigger */
-
-    /* ===== PHOTObooth ===== */
-    #strip {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    #strip img {
-      width: 130px;
-      border: 3px solid #fff;
-      opacity: 0;
-      transform: translateY(-40px);
-      animation: slide 0.6s forwards;
-    }
-
-    @keyframes slide {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* ===== Bounce Bouquet ===== */
-    #bouquet img {
-      display: block;
-      margin: 0 auto;
-      width: 200px;
-      animation: bounce 3s infinite, sparkle 8s infinite alternate, glow 2s ease-in-out infinite;
-      position: relative;
-      border: none;
-      box-shadow: none;
-    }
-
-    @keyframes bounce {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-20px);
-      }
-    }
-
-    @keyframes glow {
-
-      0%,
-      100% {
-        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 255, 255, 0.3);
-      }
-
-      50% {
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 25px rgba(255, 255, 255, 0.5);
-      }
-    }
-
-    @keyframes sparkle {
-      0% {
-        box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.3);
-      }
-
-      100% {
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 25px rgba(255, 255, 255, 0.4);
-      }
-    }
-
-    /* ===== QUIZ ===== */
-    #quiz h2 {
-      font-family: 'Brush Script MT', cursive;
-      font-weight: 900;
-      font-size: 32px;
-      color: #ff9fb7;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .quiz-images {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: nowrap;
-    }
-
-    .quiz-images img {
-      width: 90px;
-      cursor: pointer;
-      animation: bounceQuiz 1s infinite;
-    }
-
-    @keyframes bounceQuiz {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-15px);
-      }
-    }
-  </style>
-  <style>
-    #envelope h2 {
-      font-family: 'Pacifico', cursive;
-      font-size: 22px;
-      /* adjust if needed to fit one line */
-      color: #ffccd5;
-      /* pink like your buttons */
-      text-align: center;
-      margin-bottom: 15px;
-      /* space between heading and envelope */
-      white-space: nowrap;
-      /* prevents it from wrapping to two lines */
-    }
-
-    :root {
-      --base: #800020;
-      /* burgundy */
-      --base-light: #a83245;
-      /* lighter burgundy */
-      --base-dark: #4d0014;
-      /* darker burgundy */
-      --shadow: #3a0010;
-      --letter: #ffccd5;
-      /* light pink */
-    }
-
-    .container {
-      min-height: 220px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      perspective: 800px;
-    }
-
-    .envelope {
-      position: relative;
-      width: 300px;
-      height: 180px;
-      background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px);
-      cursor: pointer;
-      transition: transform 0.5s; /* Added transition for smooth animation */
-    }
-
-    .envelope::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 300px;
-      border-top: 115px solid var(--base-light);
-      border-left: 150px solid transparent;
-      border-right: 150px solid transparent;
-      box-sizing: border-box;
-      z-index: 30;
-      transform-origin: top;
-      transform-style: preserve-3d;
-      transition: transform 0.5s; /* Added transition for smooth animation */
-    }
-
-    .envelope::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 300px;
-      height: 180px;
-      z-index: 25;
-      background: linear-gradient(30deg, var(--base-dark) 50%, var(--shadow) 50%, var(--base) 50%) 150px 90px/150px 90px no-repeat, linear-gradient(31deg, var(--base) 50%, var(--shadow) 50%, transparent 50%) 0px 0px/152px 90px no-repeat, linear-gradient(150deg, var(--base) 50%, var(--shadow) 50%, var(--base-dark) 53%) 0px 90px/151px 90px no-repeat, linear-gradient(148.7deg, transparent 50%, var(--shadow) 50%, var(--base) 51%) 150px 0px/150px 90px no-repeat;
-    }
-
-    .letter {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px); /* Initially hidden below */
-      width: 260px;
-      max-height: 150px;
-      background: var(--letter);
-      padding: 15px;
-      color: #fff;
-      border-radius: 6px;
-      font-family: 'Brush Script MT', cursive;
-      font-weight: 900;
-      overflow-y: auto;
-      transition: transform 0.7s ease;
-      z-index: 35; /* Ensure it's above the envelope */
-    }
-
-    .shadow {
-      position: absolute;
-      bottom: 0;
-      width: 0;
-      height: 0;
-      transition: all 0.7s ease-out; /* Added transition for smooth animation */
-    }
-
-    .letter .close {
-      position: absolute;
-      top: 5px;
-      right: 8px;
-      cursor: pointer;
-    }
-
-    .envelope-btn {
-      background: #800020;
-      /* burgundy */
-      color: #ffccd5;
-      /* light pink */
-      font-family: 'Pacifico', cursive;
-      font-weight: bold;
-      border: none;
-      border-radius: 20px;
-      padding: 12px 22px;
-      cursor: pointer;
-      margin-top: 15px;
-      font-size: 16px;
-    }
-
-    .envelope-btn:hover {
-      transform: scale(1.05);
-    }
-  </style>
+.letter .close {
+position:absolute;
+top:5px;
+right:8px;
+cursor:pointer;
+} 
+.envelope-btn {
+background: #800020;      /* burgundy */
+color: #ffccd5;           /* light pink */
+font-family: 'Pacifico', cursive;
+font-weight: bold;
+border: none;
+border-radius: 20px;
+padding: 12px 22px;
+cursor: pointer;
+margin-top: 15px;
+font-size: 16px;
+}
+.envelope-btn:hover {
+	transform: scale(1.05);
+}
+</style>
 </head>
-
 <body>
 
-  <!-- QUIZ -->
-  <section id="quiz" class="active">
-    <div class="card">
-      <h2>Unlock to continue 🔓</h2>
-      <div class="quiz-images">
-        <img src="pizza.png" onclick="next('valentine')">
-        <img src="waffle.png" onclick="wrong()">
-        <img src="IMG_6593.png" onclick="wrong()">
-      </div>
-      <p>___ for life</p>
-    </div>
-  </section>
+		<!-- QUIZ -->
+<section id="quiz" class="active">
+<div class="card">
+<h2>Unlock to continue 🔓</h2>
+<div class="quiz-images">
+<img src="pizza.png" onclick="next('valentine')">
+<img src="waffle.png" onclick="wrong()">
+<img src="IMG_6593.png" onclick="wrong()">
+</div>
+<p>___ for life</p>
+</div>
+</section>
 
-  <!-- VALENTINE -->
-  <section id="valentine">
-    <div class="card">
-      <h2>Will you be my Valentine?</h2>
-      <button class="yes" onclick="yes()">YES</button>
-      <button class="no" onclick="nope()">NO</button>
-      <div id="noText"></div>
-    </div>
-  </section>
+		<!-- VALENTINE -->
+<section id="valentine">
+<div class="card">
+<h2>Will you be my Valentine?</h2>
+<button class="yes" onclick="yes()">YES</button>
+<button class="no" onclick="nope()">NO</button>
+<div id="noText"></div>
+</div>
+</section>
 
-  <!-- YAAAY SCREEN -->
-  <section id="yay">
-    <div class="card">
-      <h2>YAAAY 🎉</h2>
-      <img src="kissing_bears.gif" width="180">
-      <button class="next" onclick="next('gifts')">Next</button>
-    </div>
-  </section>
+		<!-- YAAAY SCREEN -->
+<section id="yay">
+<div class="card">
+<h2>YAAAY 🎉</h2>
+<img src="kissing_bears.gif" width="180">
+<button class="next" onclick="next('gifts')">Next</button>
+</div>
+</section>
 
-  <!-- GIFTS -->
-  <section id="gifts">
-    <div class="card">
-      <h2>Gifts for you 💝</h2>
-      <div class="gifts">
-        <div class="gift" onclick="openGift('camera')"><img src="camera-logo.png"></div>
-        <div class="gift" onclick="openGift('bear')"><img src="bear-logo.png"></div>
-        <div class="gift" onclick="openGift('bouquet')"><img src="bouquet-logo.png"></div>
-        <div class="gift" onclick="openGift('envelope')"><img src="envelope-logo.png"></div>
-      </div>
-    </div>
-  </section>
+		<!-- GIFTS -->
+<section id="gifts">
+<div class="card">
+<h2>Gifts for you 💝</h2>
+<div class="gifts">
+<div class="gift" onclick="openGift('camera')"><img src="camera-logo.png"></div>
+<div class="gift" onclick="openGift('bear')"><img src="bear-logo.png"></div>
+<div class="gift" onclick="openGift('bouquet')"><img src="bouquet-logo.png"></div>
+<div class="gift" onclick="openGift('envelope')"><img src="envelope-logo.png"></div>
+</div>
+</div>
+</section>
 
-  <!-- BEAR -->
-  <section id="bear">
-    <div class="card">
-      <h2>Bear for you 🐻</h2>
-      <img src="bear.png" width="200">
-      <p>I know your stomach hurts when you eat chocolate so here’s a virtual one 💖</p>
-      <button class="next" onclick="next('gifts')">Back</button>
-    </div>
-  </section>
+		<!-- BEAR -->
+<section id="bear">
+<div class="card">
+<h2>Bear for you 🐻</h2>
+<img src="bear.png" width="200">
+<p>I know your stomach hurts when you eat chocolate so here’s a virtual one 💖</p>
+<button class="next" onclick="next('gifts')">Back</button>
+</div>
+</section>
 
-  <!-- BOUQUET -->
-  <section id="bouquet">
-    <div class="card">
-      <h2>Bouquet for you 💐</h2>
-      <img src="bouquet.png" width="200">
-      <button class="next" onclick="next('gifts')">Back</button>
-    </div>
-  </section>
+		<!-- BOUQUET -->
+<section id="bouquet">
+<div class="card">
+<h2>Bouquet for you 💐</h2>
+<img src="bouquet.png" width="200">
+<button class="next" onclick="next('gifts')">Back</button>
+</div>
+</section>
 
-  <!-- PHOTObooth -->
-  <section id="camera">
-    <div class="card">
-      <h2>Photobooth 📸</h2>
-      <div id="strip"></div>
-      <button class="next" onclick="next('gifts')">Back</button>
-    </div>
-  </section>
+		<!-- PHOTObooth -->
+<section id="camera">
+<div class="card">
+<h2>Photobooth 📸</h2>
+<div id="strip"></div>
+<button class="next" onclick="next('gifts')">Back</button>
+</div>
+</section>
 
-  <!-- ENVELOPE -->
-  <section id="envelope">
-    <div class="card">
-      <h2 class="envelope-title">You’re my main branch 💻🖤</h2>
-      <div class="container">
-        <div class="content" style="position: relative;">
-          <!-- ONLY ONE ENVELOPE -->
-          <div class="envelope"></div>
+<!-- ENVELOPE -->
+<section id="envelope">
+  <div class="card">
+    <h2 class="envelope-title">You’re my main branch 💻🖤</h2>
+    <div class="container">
+      <div class="content" style="position: relative;">
+        <!-- ONLY ONE ENVELOPE -->
+        <div class="envelope" onclick="openCard()"></div>
 
-          <!-- LETTER -->
-          <div class="letter">
-            <span class="close" onclick="closeCard()">x</span>
+        <!-- LETTER -->
+        <div class="letter">
+          <div class="body">
+            <span class="close" onclick="event.stopPropagation(); closeCard()">x</span>
             <div class="message">
               I know things aren’t simple,<br>
               but you are always special to me.<br><br>
@@ -494,97 +271,66 @@
               <b>P.S. You’re the HTML to my CSS</b>.
             </div>
           </div>
-
-          <!-- SHADOW -->
-          <div class="shadow"></div>
         </div>
+
+        <!-- SHADOW -->
+        <div class="shadow"></div>
       </div>
-
-      <!-- BUTTONS -->
-      <button class="envelope-btn" onclick="openCard()">Open</button>
-      <button class="envelope-btn" onclick="closeCard()">Close</button>
-      <button class="envelope-btn" onclick="next('gifts')">Back</button>
     </div>
-  </section>
 
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.0/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.0/CSSRulePlugin.min.js"></script>
+    <!-- BUTTONS -->
+    <button class="envelope-btn" onclick="openCard()">Open</button>
+    <button class="envelope-btn" onclick="closeCard()">Close</button>
+    <button class="envelope-btn" onclick="next('gifts')">Back</button>
+  </div>
+</section>
 
-  <script>
-    const screens = document.querySelectorAll('section');
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.0/CSSRulePlugin.min.js"></script>
 
-    function next(id) {
-      screens.forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
+<script>
+const screens=document.querySelectorAll('section');
+function next(id){ screens.forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+function wrong(){ alert("Oopsie Try again 😅"); }
+const noMsgs=["Hey 😐","Pookie stoppp🥺","your playing boo..","Be serious","Just say yes 🙄🖤"];
+let ni=0;
+function nope(){ document.getElementById('noText').innerText=noMsgs[ni++%noMsgs.length]; }
+function yes(){ next('yay'); confetti({particleCount:150,spread:70,origin:{y:0.6},colors:['#ff3d68','#ff9fb7']}); }
 
-    function wrong() {
-      alert("Oopsie Try again 😅");
-    }
+const photos=["IMG_1799.jpeg","IMG_4866.jpeg","IMG_4974.jpeg","IMG_4979.jpeg","IMG_4984.jpeg","IMG_5008.jpeg","IMG_5009.jpeg","IMG_5011.jpeg","IMG_5730.jpeg","IMG_5743.jpeg"];
+function openGift(id){ if(id==='camera'){ next('camera'); const strip=document.getElementById('strip'); strip.innerHTML=''; photos.forEach((p,i)=>{ const img=document.createElement('img'); img.src=p; img.style.animationDelay=i*0.25+'s'; strip.appendChild(img); }); } else next(id); }
 
-    const noMsgs = ["Hey 😐", "Pookie stoppp🥺", "your playing boo..", "Be serious", "Just say yes 🙄🖤"];
-    let ni = 0;
+// ===== Envelope open/close =====
+const envelope = document.querySelector('#envelope .envelope');
+const letter = document.querySelector('#envelope .letter');
+const shadow = document.querySelector('#envelope .shadow');
 
-    function nope() {
-      document.getElementById('noText').innerText = noMsgs[ni++ % noMsgs.length];
-    }
+let isOpen = false;
 
-    function yes() {
-      next('yay');
-      confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: {
-          y: 0.6
-        },
-        colors: ['#ff3d68', '#ff9fb7']
-      });
-    }
+function openCard() {  
+if (isOpen) return;
+  isOpen = true;
 
-    const photos = ["IMG_1799.jpeg", "IMG_4866.jpeg", "IMG_4974.jpeg", "IMG_4979.jpeg", "IMG_4984.jpeg", "IMG_5008.jpeg", "IMG_5009.jpeg", "IMG_5011.jpeg", "IMG_5730.jpeg", "IMG_5743.jpeg"];
+  envelope.style.transform = 'rotateX(180deg)';
+  envelope.style.transition = 'transform 0.5s';
 
-    function openGift(id) {
-      if (id === 'camera') {
-        next('camera');
-        const strip = document.getElementById('strip');
-        strip.innerHTML = '';
-        photos.forEach((p, i) => {
-          const img = document.createElement('img');
-          img.src = p;
-          img.style.animationDelay = i * 0.25 + 's';
-          strip.appendChild(img);
-        });
-      } else next(id);
-    }
+  letter.style.transform = 'translateY(-120px)';
+  letter.style.transition = 'transform 0.7s ease-out';
 
-    // ===== Envelope open/close =====
-    const envelope = document.querySelector('#envelope .envelope');
-    const letter = document.querySelector('#envelope .letter');
-    const shadow = document.querySelector('#envelope .shadow');
+  shadow.style.width = '450px';
+  shadow.style.boxShadow = '-75px 150px 10px 5px #eeeef3';
+  shadow.style.transition = 'all 0.7s ease-out';
+}
 
-    let isOpen = false;
+function closeCard() {
+if (!isOpen) return;
+  isOpen = false;
 
-    function openCard() {
-      if (isOpen) return;
-      isOpen = true;
-
-      envelope.style.transform = 'rotateX(180deg)';
-      letter.style.transform = 'translateX(-50%) translateY(0)'; /* Slide up */
-      shadow.style.width = '450px';
-      shadow.style.boxShadow = '-75px 150px 10px 5px #eeeef3';
-    }
-
-    function closeCard() {
-      if (!isOpen) return;
-      isOpen = false;
-
-      envelope.style.transform = 'rotateX(0deg)';
-      letter.style.transform = 'translateX(-50%) translateY(100px)'; /* Slide back down */
-      shadow.style.width = '0';
-      shadow.style.boxShadow = 'none';
-    }
-  </script>
-</body>
-
-</html>
+  envelope.style.transform = 'rotateX(0deg)';
+  letter.style.transform = 'translateY(0)';
+  shadow.style.width = '0';
+  shadow.style.boxShadow = 'none';
+}
+</script>
+</body>  
