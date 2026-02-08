@@ -94,7 +94,8 @@ height: 180px;
 justify-content: center;
 align-items: center;
 perspective: 800px;
-margin: 0 auto; 		
+margin: 0 auto; 
+overflow: visible;
 }
 
 .envelope {
@@ -103,23 +104,8 @@ width: 300px;
 height: 180px;
 background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px);
 cursor: pointer;
-persoective: 600px
-}
-
-.envelope::before {
-content: '';
-position:absolute;
-top:0;
-left:0;
-width:300px;
-border-top:115px solid var(--base-light);
-border-left:150px solid transparent;
-border-right:150px solid transparent;
-box-sizing:border-box;
-z-index:30;
-transform-origin: top;
-transform-style: preserve-3d;
-}
+perspective: 600px;
+}	
 
 .envelope::after {
 content: '';
@@ -152,8 +138,8 @@ font-weight:900;
 overflow-y:auto;
 z-index: 5; 	
 }
-/* ===== Letter Flip Animations ===== */
-.letterOpen { top: -40px; transition: .3s ease-in; }
+/* ===== Letter Flip */
+.letterOpen { top: -100px; transition: .3s ease-in; }
 .letterClose { top: 0px; transition: .3s ease-in; }
 
 .open .envelope { animation: flipOpen .4s ease-in forwards; }
@@ -167,6 +153,35 @@ z-index: 5;
 @keyframes flipClose {
   0% { transform: rotateX(180deg); transform-origin: center top; }
   100% { transform: rotateX(0deg); transform-origin: center top; }
+}	
+/* Flap flip */
+.flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 90px; /* top half of envelope */
+  background: linear-gradient(30deg, var(--base-dark) 50%, var(--shadow) 50%, var(--base) 50%);
+  transform-origin: top center;
+  z-index: 30;
+}
+
+.open .flap {
+  animation: flapOpen 0.4s forwards ease-in;
+}
+
+.close .flap {
+  animation: flapClose 0.4s forwards ease-in;
+}
+
+@keyframes flapOpen {
+  0% { transform: rotateX(0deg); }
+  100% { transform: rotateX(-180deg); }
+}
+
+@keyframes flapClose {
+  0% { transform: rotateX(-180deg); }
+  100% { transform: rotateX(0deg); }
 }	
 .shadow {
 position:absolute;
@@ -282,7 +297,6 @@ font-size: 16px;
     <h2 class="envelope-title">You’re my main branch 💻🖤</h2>
     <div class="container">
       <div class="content" >
-        <!-- ONLY ONE ENVELOPE -->
         <div class="envelope" onclick="openCard()"></div>
 
         <!-- LETTER -->
