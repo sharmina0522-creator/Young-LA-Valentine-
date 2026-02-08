@@ -124,7 +124,7 @@ linear-gradient(148.7deg, transparent 50%, var(--shadow) 50%, var(--base) 51%) 1
 
 .letter {
 position:absolute;
-bottom: -120px;
+bottom: -160px;
 left:50%;
 transform: translate(-50%);	
 width:260px;
@@ -139,8 +139,9 @@ overflow-y:auto;
 z-index: 5; 
 transition: transform 0.6s ease;	
 }
-.envelope.letter.open {
+.letter.open {
   transform: translate(-50%, -170px);
+ z-index: 20;	
 }
 
 .flap {
@@ -287,8 +288,9 @@ font-size: 16px;
     <h2 class="envelope-title">You’re my main branch 💻🖤</h2>
     <div class="container">
       <div class="content" >
-        <div class="envelope" onclick="openCard()"></div>
-	  <div class="flap"></div>	  
+        <div class="envelope" onclick="openCard()">
+	  <div class="flap"></div>
+	  </div>	  
 
         <!-- LETTER -->
         <div class="letter">
