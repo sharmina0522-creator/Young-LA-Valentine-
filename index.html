@@ -139,7 +139,8 @@ linear-gradient(148.7deg, transparent 50%, var(--shadow) 50%, var(--base) 51%) 1
 .letter {
 position:absolute;
 bottom:10px;
-left:0;
+left:50%;
+transform: translate(-50%, 0);	
 width:260px;
 max-height:150px;
 background:var(--letter);
@@ -149,8 +150,7 @@ border-radius:6px;
 font-family:'Brush Script MT', cursive;
 font-weight:900;
 overflow-y:auto;
-z-index: 5;
-transform: translateY(0); 	
+z-index: 5; 	
 }
 	
 }
@@ -325,30 +325,50 @@ function openCard() {
   if (isOpen) return;
   isOpen = true;
 
-  // flap open
+  // animate envelope flap
   const flap = CSSRulePlugin.getRule("#envelope .envelope::before");
   gsap.to(flap, { duration: 0.6, cssRule: { rotateX: -160 }, ease: "power2.inOut" });
 
-  // letter slides up
-  gsap.to(letter, { yPercent: 0, duration: 0.7, ease: "power2.out", zIndex: 35 });
+  // slide the letter up
+  gsap.to(letter, {
+    y: "-130px",           // slide up 130px
+    duration: 0.7,
+    ease: "power2.out",
+    zIndex: 35
+  });
 
-  // shadow expand
-  gsap.to(shadow, { width: 450, boxShadow: "-75px 150px 10px 5px #eeeef3", duration: 0.7, ease: "power2.out" });
+  // expand the shadow
+  gsap.to(shadow, {
+    width: 450,
+    boxShadow: "-75px 150px 10px 5px #eeeef3",
+    duration: 0.7,
+    ease: "power2.out"
+  });
 }
 
 function closeCard() {
   if (!isOpen) return;
   isOpen = false;
 
-  // flap close
+  // animate envelope flap back down
   const flap = CSSRulePlugin.getRule("#envelope .envelope::before");
   gsap.to(flap, { duration: 0.5, cssRule: { rotateX: 0 }, ease: "power2.inOut" });
 
-  // letter slides down
-  gsap.to(letter, { y: 0, duration: 0.7, ease: "power2.inOut", zIndex: 5 });
+  // slide the letter back down
+  gsap.to(letter, {
+    y: "0px",
+    duration: 0.7,
+    ease: "power2.inOut",
+    zIndex: 5
+  });
 
-  // shadow shrink
-  gsap.to(shadow, { width: 0, boxShadow: "none", duration: 0.7, ease: "power2.inOut" });
+  // shrink shadow
+  gsap.to(shadow, {
+    width: 0,
+    boxShadow: "none",
+    duration: 0.7,
+    ease: "power2.inOut"
+  });
 }
 </script>
 </body>  
