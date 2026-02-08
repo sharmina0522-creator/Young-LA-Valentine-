@@ -14,7 +14,7 @@
 	#noText:hover 
 	#noText:active { transform: scale(1.05); }
 
-	#gifts h2, #bear h2, #bouquet h2 { font-family:'Pacifico', cursive; color:#ff9fb7; font-weight:950; padding:10px; text-align:center; }
+	#gifts h2, #bear h2, #bouquet h2 #Photobooth h2{ font-family:'Pacifico', cursive; color:#ff9fb7; font-weight:950; padding:10px; text-align:center; }
 	#bear p { font-family: 'Satisfy', cursive; color: #ffffff; font-weight: 925; }
 
 	* { box-sizing:border-box; }
@@ -24,11 +24,11 @@
   min-height: 100vh; 
   justify-content: center; 
   align-items: center; 
-  pointer-events: none;   /* ✨ add this */
+  pointer-events: none;   
 }
 section.active { 
   display: flex; 
-  pointer-events: auto;   /* ✨ add this */
+  pointer-events: auto;   
 }
 	.card { background:#7a1f32; border-radius:28px; padding:30px; width:90%; max-width:520px; text-align:center; }
 	button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; font-size:16px; }
@@ -104,7 +104,6 @@ width: 300px;
 height: 180px;
 background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px);
 cursor: pointer;
-perspective: 600px;
 overflow: hidden;
 }	
 
@@ -125,7 +124,7 @@ linear-gradient(148.7deg, transparent 50%, var(--shadow) 50%, var(--base) 51%) 1
 
 .letter {
 position:absolute;
-bottom: -140px;
+bottom: -120px;
 left:50%;
 transform: translate(-50%);	
 width:260px;
@@ -137,22 +136,25 @@ border-radius:6px;
 font-family:'Brush Script MT', cursive;
 font-weight:900;
 overflow-y:auto;
-z-index: 10; 
+z-index: 5; 
 transition: transform 0.6s ease;	
 }
-.letter.open {
+.envelope.letter.open {
   transform: translate(-50%, -170px);
 }
 
-.envelope.flap {
+.flap {
   position: absolute;
   top: 0;
   left: 0;
-  width: 300px;
-  height: 90px; /* top half of envelope */
-  background: linear-gradient(30deg, var(--base-dark) 50%, var(--shadow) 50%, var(--base) 50%);
+  width: 0;
+  height: 0;
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent;
+  border-top: 90px solid var(--base-dark);
+  transform-origin: top center;
+  z-index: 10;
   transform: rotateX(0deg);
-  z-index: 30;
 }
 
 .envelope.open .flap {
@@ -300,6 +302,7 @@ font-size: 16px;
               Happy Valentine’s Day, my love 💖<br>
               <b>P.S. You’re the HTML to my CSS</b>.
             </div>
+			 <div class="flap"></div>
           </div>
         </div>
 
