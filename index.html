@@ -143,6 +143,8 @@ overflow-y:auto;
 transition: transform 0.7s ease;
 z-index: 5;
 }
+.letter.open {
+    transform: translateY(-120px);	
 
 .shadow {
 position:absolute;
@@ -262,7 +264,6 @@ font-size: 16px;
         <!-- LETTER -->
         <div class="letter">
           <div class="body">
-            <span class="close" onclick="event.stopPropagation(); closeCard()">x</span>
             <div class="message">
               I know things aren’t simple,<br>
               but you are always special to me.<br><br>
@@ -316,10 +317,7 @@ if (isOpen) return;
 
 const flap = CSSRulePlugin.getRule("#envelope .envelope::before"); // target flap
 gsap.to(flap, { duration: 0.5, cssRule:{ rotateX:-160 }, ease:"power2.inOut" });  
-
-  letter.style.transform = 'translateY(-120px)';
-  letter.style.transition = 'transform 0.7s ease-out';
-
+letter.classList.add('open');
   shadow.style.width = '450px';
   shadow.style.boxShadow = '-75px 150px 10px 5px #eeeef3';
   shadow.style.transition = 'all 0.7s ease-out';
@@ -328,9 +326,10 @@ gsap.to(flap, { duration: 0.5, cssRule:{ rotateX:-160 }, ease:"power2.inOut" });
 function closeCard() {
 if (!isOpen) return;
   isOpen = false;
-
+const flap = CSSRulePlugin.getRule("#envelope .envelope::before"); // target flap
+gsap.to(flap, { duration: 0.5, cssRule:{ rotateX:0 }, ease:"power2.inOut" });
   envelope.style.transform = 'rotateX(0deg)';
-  letter.style.transform = 'translateY(0)';
+  letter.classList.remove('open');
   shadow.style.width = '0';
   shadow.style.boxShadow = 'none';
 }
