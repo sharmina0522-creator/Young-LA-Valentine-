@@ -19,8 +19,17 @@
 
 	* { box-sizing:border-box; }
 	body { margin:0; font-family:'Poppins',sans-serif; background:#5b1a28; color:#fff; }
-	section { display:none; min-height:100vh; justify-content:center; align-items:center; }
-	section.active { display:flex; }
+	section { 
+  display: none; 
+  min-height: 100vh; 
+  justify-content: center; 
+  align-items: center; 
+  pointer-events: none;   /* ✨ add this */
+}
+section.active { 
+  display: flex; 
+  pointer-events: auto;   /* ✨ add this */
+}
 	.card { background:#7a1f32; border-radius:28px; padding:30px; width:90%; max-width:520px; text-align:center; }
 	button { padding:12px 22px; border:none; border-radius:20px; cursor:pointer; font-size:16px; }
 	.yes, .no, .next { background:#ff9fb7; color:#800020; font-weight:bold; font-family:'Pacifico', cursive; border-radius:20px; margin-top:15px; cursor:pointer; }
@@ -141,6 +150,7 @@ font-family:'Brush Script MT', cursive;
 font-weight:900;
 overflow-y:auto;
 z-index: 5;
+transform: translateY(0); 	
 }
 	
 }
@@ -320,7 +330,7 @@ function openCard() {
   gsap.to(flap, { duration: 0.6, cssRule: { rotateX: -160 }, ease: "power2.inOut" });
 
   // letter slides up
-  gsap.to(letter, { y: -130, duration: 0.7, ease: "power2.out", zIndex: 35 });
+  gsap.to(letter, { yPercent: 0, duration: 0.7, ease: "power2.out", zIndex: 35 });
 
   // shadow expand
   gsap.to(shadow, { width: 450, boxShadow: "-75px 150px 10px 5px #eeeef3", duration: 0.7, ease: "power2.out" });
@@ -339,7 +349,6 @@ function closeCard() {
 
   // shadow shrink
   gsap.to(shadow, { width: 0, boxShadow: "none", duration: 0.7, ease: "power2.inOut" });
-}
 }
 </script>
 </body>  
