@@ -108,6 +108,7 @@ border-right:150px solid transparent;
 box-sizing:border-box;
 z-index:30;
 transform-origin: top;
+transform-style: preserve-3d;
 }
 		
 .envelope::after {
@@ -294,7 +295,7 @@ function openGift(id){ if(id==='camera'){ next('camera'); const strip=document.g
 		
 		// ===== Envelope functions =====
 let t1 = gsap.timeline({ paused: true }); 
-let flap = CSSRulePlugin.getRule(".envelope:before"); 
+let flap = CSSRulePlugin.getRule(".envelope::before"); 
 t1.to(flap, { duration: 0.5, cssRule: { rotateX: -180 } })  // change rotation to -180
  .set(flap, { cssRule: { zIndex: 10 } })
  .to('.letter', { translateY: -120, duration: 0.9, ease: "back.inOut(1.5)" }) // adjust so letter lifts correctly
