@@ -130,9 +130,12 @@ white-space: nowrap;
   background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px);
   cursor: pointer;
   overflow: hidden;
-  z-index: 2;              /* on top of letter */
+  z-index: 2;     
 }
 
+#envelope {
+  position: relative; /* instead of absolute or fixed */
+  z-index: 0;         /* ensures it’s below quiz when not 	
 /* Flap */
 .flap {
   position: absolute;
@@ -278,7 +281,6 @@ font-size: 16px;
 <section id="envelope">
   <div class="card">
     <h2 class="envelope-title">You’re my main branch 💻🖤</h2>
-
     <div class="container">
       <div class="envelope-area">
         <div class="envelope">
@@ -294,7 +296,6 @@ font-size: 16px;
           </div>
         </div>
       </div>
-    </div>
 
     <button class="envelope-btn" onclick="openCard()">Open</button>
     <button class="envelope-btn" onclick="closeCard()">Close</button>
