@@ -88,62 +88,29 @@ white-space: nowrap;
 --base-dark: #4d0014;   /* darker burgundy */
 --shadow: #3a0010;
 --letter: #ffccd5;       /* light*/
-	.container {
-width: 300px;
-height: 180px;		
-justify-content: center;
-align-items: center;
-perspective: 800px;
-margin: 0 auto; 
-overflow: hidden;
+.container {
+  width: 300px;
+  height: 180px;
+  margin: 0 auto;
+  perspective: 800px;
+}
+
+.envelope-area {
+  position: relative;
+  width: 300px;
+  height: 180px;
 }
 
 .envelope {
-position: relative;
-width: 300px;
-height: 180px;
-background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px);
-cursor: pointer;
-overflow: hidden;
-transform-style: preserve-3d;
-}	
-
-.envelope::after {
-content: '';
-position:absolute;
-top:0;
-left:0;
-width:300px;
-height:180px;
-z-index:25;
-background:
-linear-gradient(30deg, var(--base-dark) 50%, var(--shadow) 50%, var(--base) 50%) 150px 90px/150px 90px no-repeat,
-linear-gradient(31deg, var(--base) 50%, var(--shadow) 50%, transparent 50%) 0px 0px/152px 90px no-repeat,
-linear-gradient(150deg, var(--base) 50%, var(--shadow) 50%, var(--base-dark) 53%) 0px 90px/151px 90px no-repeat,
-linear-gradient(148.7deg, transparent 50%, var(--shadow) 50%, var(--base) 51%) 150px 0px/150px 90px no-repeat;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px);
+  overflow: hidden;
+  transform-style: preserve-3d;
 }
 
-.letter {
-position:absolute;
-bottom: -160px;
-left:50%;
-transform: translate(-50%);	
-width:260px;
-height: 160px;
-background:var(--letter);
-padding:15px;
-color:#fff;
-border-radius:6px;
-font-family:'Brush Script MT', cursive;
-font-weight:900;
-overflow-y:auto;
-z-index: 5; 
-transition: transform 0.6s ease;	
-}
-.letter.open {
-  transform: translate(-50%, -170px);	
-}
-
+/* FLAP */
 .flap {
   position: absolute;
   top: 0;
@@ -154,12 +121,35 @@ transition: transform 0.6s ease;
   border-right: 150px solid transparent;
   border-top: 90px solid var(--base-dark);
   transform-origin: top center;
-  z-index: 10;
   transform: rotateX(0deg);
+  transition: transform 0.5s ease;
+  z-index: 20;
 }
 
+/* LETTER */
+.letter {
+  position: absolute;
+  bottom: -170px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  padding: 15px;
+  background: var(--letter);
+  border-radius: 6px;
+  font-family: 'Brush Script MT', cursive;
+  font-weight: 900;
+  color: #800020;
+  transition: transform 0.6s ease;
+  z-index: 10;
+}
+
+/* OPEN STATES */
 .envelope.open .flap {
-  animation: flapOpen 0.4s forwards ease-in;
+  transform: rotateX(-160deg);
+}
+
+.envelope.open .letter {
+  transform: translate(-50%, -200px);
 }
 
 .envelope:not(.open) .flap {
@@ -283,29 +273,32 @@ font-size: 16px;
 </section>
 
 <!-- ENVELOPE -->
-<section id="envelope">	
+<section id="envelope">
   <div class="card">
     <h2 class="envelope-title">You’re my main branch 💻🖤</h2>
-    <div class="container">
-      <div class="content" >
-        <div class="envelope" onclick="openCard()">
-	  <div class="flap"></div>
-	  </div>	  
 
-        <!-- LETTER -->
-        <div class="letter">
-          <div class="body">
-            <div class="message">
-              I know things aren’t simple,<br>
-              but you are always special to me.<br><br>
-              I wish I was next to you right now.<br><br>
-              I miss your kisses, I miss your hugs,<br>
-              but most of all I miss you.<br><br>
-              Happy Valentine’s Day, my love 💖<br>
-              <b>P.S. You’re the HTML to my CSS</b>.
-            </div>
+    <div class="container">
+      <div class="envelope-area">
+        <div class="envelope">
+          <div class="flap"></div>
+          <div class="letter">
+            I know things aren’t simple,<br><br>
+            but you are always special to me.<br><br>
+            I wish I was next to you right now.<br><br>
+            I miss your kisses, I miss your hugs,<br>
+            but most of all I miss you.<br><br>
+            Happy Valentine’s Day, my love 💖<br>
+            <b>P.S. You’re the HTML to my CSS</b>.
           </div>
         </div>
+      </div>
+    </div>
+
+    <button class="envelope-btn" onclick="openCard()">Open</button>
+    <button class="envelope-btn" onclick="closeCard()">Close</button>
+    <button class="envelope-btn" onclick="next('gifts')">Back</button>
+  </div>
+</section>
 
         <!-- SHADOW -->
         <div class="shadow"></div>
@@ -336,31 +329,27 @@ const photos=["IMG_1799.jpeg","IMG_4866.jpeg","IMG_4974.jpeg","IMG_4979.jpeg","I
 function openGift(id){ if(id==='camera'){ next('camera'); const strip=document.getElementById('strip'); strip.innerHTML=''; photos.forEach((p,i)=>{ const img=document.createElement('img'); img.src=p; img.style.animationDelay=i*0.25+'s'; strip.appendChild(img); }); } else next(id); }
 
 // ===== Envelope open/close =====
-const envelope = document.querySelector('#envelope .envelope');
-const letter = document.querySelector('#envelope .letter');
-const shadow = document.querySelector('#envelope .shadow');
+document.addEventListener('DOMContentLoaded', () => {
+  const envelope = document.querySelector('#envelope .envelope');
+  const letter = document.querySelector('#envelope .letter');
+  const flap = document.querySelector('#envelope .flap');
+  let isOpen = false;
 
-let isOpen = false;
+  window.openCard = function() {
+    if (isOpen) return;
+    isOpen = true;
+    envelope.classList.add('open');
+    letter.classList.add('open');
+    flap.classList.add('open');
+  }
 
-  // animate envelope flap
- const flap = document.querySelector('#envelope .flap');
-
-window.openCard = function() {
-  if (isOpen) return;
-  isOpen = true;
-
-  flap.classList.add('open');       // flap opens
-  letter.classList.add('open');     // letter slides out
-  envelope.classList.add('open');   // envelope flip
-}
-
-window.closeCard = function() {
-  if (!isOpen) return;
-  isOpen = false;
-
-  flap.classList.remove('open');    // flap closes
-  letter.classList.remove('open');  // letter slides back in
-  envelope.classList.remove('open'); // envelope flips back
-}
+  window.closeCard = function() {
+    if (!isOpen) return;
+    isOpen = false;
+    envelope.classList.remove('open');
+    letter.classList.remove('open');
+    flap.classList.remove('open');
+  }
+});
 </script>
 </body>  
