@@ -105,6 +105,7 @@ height: 180px;
 background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px);
 cursor: pointer;
 overflow: hidden;
+transform-style: preserve-3d;
 }	
 
 .envelope::after {
@@ -344,7 +345,7 @@ let isOpen = false;
   // animate envelope flap
  const flap = document.querySelector('#envelope .flap');
 
-function openCard() {
+window.openCard = function() {
   if (isOpen) return;
   isOpen = true;
 
@@ -353,7 +354,7 @@ function openCard() {
   envelope.classList.add('open');   // envelope flip
 }
 
-function closeCard() {
+window.closeCard = function() {
   if (!isOpen) return;
   isOpen = false;
 
