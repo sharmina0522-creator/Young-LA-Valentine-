@@ -41,12 +41,12 @@
 	.gift img { width:90px; height:90px; object-fit:contain; cursor:pointer; }
 	.gifts .gift:nth-child(4) img { width:120px; height:120px; } /* 4th bigger */
 
-	/* ===== PHOTObooth ===== */
+/* ===== PHOTObooth ===== */
 	#strip { display:flex; flex-direction:column; align-items:center; gap:8px; margin-top:10px; }
 	#strip img { width:130px; border:3px solid #fff; opacity:0; transform:translateY(-40px); animation:slide 0.6s forwards; }
 	@keyframes slide { to { opacity:1; transform:translateY(0); } }
 
-		/* ===== Bounce Bouquet ===== */
+/* ===== Bounce Bouquet ===== */
 	#bouquet img { display:block; margin:0 auto; width:200px; animation:bounce 3s infinite,sparkle 8s infinite alternate,glow 2s ease-in-out infinite; position:relative; border:none; box-shadow:none; }
 	@keyframes bounce { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-20px); } }
 	@keyframes glow { 0%,100%{ box-shadow:0 0 5px rgba(255,255,255,0.5),0 0 15px rgba(255,255,255,0.3); } 50%{ box-shadow:0 0 15px rgba(255,255,255,0.8),0 0 25px rgba(255,255,255,0.5); } }
@@ -77,15 +77,14 @@ white-space: nowrap;
 --base-light: #a83245;  /* lighter burgundy */
 --base-dark: #4d0014;   /* darker burgundy */
 --shadow: #3a0010;
---letter: #ffccd5;       /* light pink */
-}
-
-.container {
-min-height: 220px;
-display: flex;
+--letter: #ffccd5;       /* light*/
+	.container {
+width: 300px;
+height: 180px;		
 justify-content: center;
 align-items: center;
 perspective: 800px;
+margin: 0 auto; 		
 }
 
 .envelope {
@@ -94,6 +93,7 @@ width: 300px;
 height: 180px;
 background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px);
 cursor: pointer;
+persoective: 600px
 }
 
 .envelope::before {
@@ -129,8 +129,8 @@ linear-gradient(148.7deg, transparent 50%, var(--shadow) 50%, var(--base) 51%) 1
 .letter {
 position:absolute;
 bottom:10px;
-left:50%;
-transform:translateX(-50%) translateY(0);
+left:0;
+transform: translateY(0);
 width:260px;
 max-height:150px;
 background:var(--letter);
@@ -141,6 +141,7 @@ font-family:'Brush Script MT', cursive;
 font-weight:900;
 overflow-y:auto;
 transition: transform 0.7s ease;
+z-index: 5;
 }
 
 .shadow {
@@ -250,10 +251,11 @@ font-size: 16px;
 
 <!-- ENVELOPE -->
 <section id="envelope">
+ <div class="flap"></div>	
   <div class="card">
     <h2 class="envelope-title">You’re my main branch 💻🖤</h2>
     <div class="container">
-      <div class="content" style="position: relative;">
+      <div class="content" >
         <!-- ONLY ONE ENVELOPE -->
         <div class="envelope" onclick="openCard()"></div>
 
@@ -312,8 +314,8 @@ function openCard() {
 if (isOpen) return;
   isOpen = true;
 
-  envelope.style.transform = 'rotateX(180deg)';
-  envelope.style.transition = 'transform 0.5s';
+const flap = CSSRulePlugin.getRule("#envelope .envelope::before"); // target flap
+gsap.to(flap, { duration: 0.5, cssRule:{ rotateX:-160 }, ease:"power2.inOut" });  
 
   letter.style.transform = 'translateY(-120px)';
   letter.style.transition = 'transform 0.7s ease-out';
