@@ -88,31 +88,52 @@ white-space: nowrap;
 --base-dark: #4d0014;   /* darker burgundy */
 --shadow: #3a0010;
 --letter: #ffccd5;       /* light*/
+/* Envelope container */
 .container {
   width: 300px;
-  height: 180px;
-  margin: 0 auto;
+  height: 180px;		
+  margin: 0 auto; 
   perspective: 800px;
   position: relative;
+  overflow: visible; /* so letter can slide out */
 }
 
-.envelope-area {
-  position: relative;
+/* Letter */
+.letter {
+  position: absolute;
+  bottom: 0;               /* start hidden at bottom */
+  left: 50%;
+  transform: translateX(-50%) translateY(0);	
+  width: 260px;
+  height: 160px;
+  background: var(--letter);
+  padding: 15px;
+  color: #fff;
+  border-radius: 6px;
+  font-family: 'Brush Script MT', cursive;
+  font-weight: 900;
+  overflow-y: auto;
+  z-index: 1;              /* under envelope */
+  transition: transform 0.6s ease;	
+}
+
+/* Letter slides up when open */
+.letter.open {
+  transform: translateX(-50%) translateY(-180px); /* adjust -180px if needed */
+}
+
+/* Envelope */
+.envelope {
+  position: absolute;
   width: 300px;
   height: 180px;
-}
-
-.envelope {
-  position: absolute; 
-  width: 100%;
-  height: 100%;
   background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px);
+  cursor: pointer;
   overflow: hidden;
-  transform-style: preserve-3d;
- z-index: 20;
+  z-index: 2;              /* on top of letter */
 }
 
-/* FLAP */
+/* Flap */
 .flap {
   position: absolute;
   top: 0;
@@ -123,37 +144,14 @@ white-space: nowrap;
   border-right: 150px solid transparent;
   border-top: 90px solid var(--base-dark);
   transform-origin: top center;
-  transform-style:preserve-3d;
-  backface-visibility: hidden;
-  z-index: 30;
+  z-index: 3;              /* flap on top */
+  transform: rotateX(0deg);
+  transition: transform 0.4s ease-in;
 }
 
-/* LETTER */
-.letter {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%, 100%);
-  width: 260px;
- height: 160px;
-  padding: 15px;
-  background: var(--letter);
-  border-radius: 6px;
-  font-family: 'Brush Script MT', cursive;
-  font-weight: 900;
-  color: #800020;
-	overflow-y: auto;
-  transition: transform 0.6s ease;
-  z-index: 10;
-}
-
-/* OPEN STATES */
+/* Flap animation */
 .envelope.open .flap {
-  transform: rotateX(-160deg);
-}
-
-.envelope.open .letter {
-  transform: translate(-50%, -10px);
+  transform: rotateX(-160deg); /* flap flips open */
 }
 
 .envelope:not(.open) .flap {
@@ -334,24 +332,29 @@ function openGift(id){ if(id==='camera'){ next('camera'); const strip=document.g
 
 // ===== Envelope open/close =====
 document.addEventListener('DOMContentLoaded', () => {
-  const envelope = document.querySelector('#envelope .envelope');
-  const letter = document.querySelector('#envelope .letter');
-  const flap = document.querySelector('#envelope .flap');
-  let isOpen = false;
+const envelope = document.querySelector('#envelope .envelope');
+const letter = document.querySelector('#envelope .letter');
+const flap = document.querySelector('#envelope .flap');
 
-  window.openCard = function() {
-    if (isOpen) return;
-    isOpen = true;
-    envelope.classList.add('open');
-    letter.classList.add('open');
-  }
+let isOpen = false;
 
-  window.closeCard = function() {
-    if (!isOpen) return;
-    isOpen = false;
-    envelope.classList.remove('open');
-    letter.classList.remove('open');
-  }
-});
+function openCard() {
+  if (isOpen) return;
+  isOpen = true;
+
+  flap.classList.add('open');      // flap opens
+  letter.classList.add('open');    // letter slides up
+  envelope.classList.add('open');  // optional envelope animation
+}
+
+function closeCard() {
+  if (!isOpen) return;
+  isOpen = false;
+
+  flap.classList.remove('open');   // flap closes
+  letter.classList.remove('open'); // letter slides back
+  envelope.classList.remove('open');
+}
+
 </script>
 </body>  
