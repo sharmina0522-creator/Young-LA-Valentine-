@@ -272,8 +272,8 @@ font-size: 16px;
   </div> 
 </div>  
 		
-<button class="envelope-btn" onclick="openCard()">Open</button>
-<button class="envelope-btn" onclick="closeCard()">Close</button>
+<button class="envelope-btn" onclick="openCard(e)">Open</button>
+<button class="envelope-btn" onclick="closeCard(e)">Close</button>
 <button class="envelope-btn" onclick="next('gifts')">Back</button>
 </div>
 </section>
@@ -305,12 +305,12 @@ t1.to(flap, { duration: 0.5, cssRule: { rotateX: -180 } })  // change rotation t
 let t2 = gsap.timeline({ paused: true }); 
 t2.to('.shadow', { delay: 1.4, width: 450, boxShadow: "-75px 150px 10px 5px #eeeef3", ease: "back.out(.2)", duration: 0.7 }); 
 		
-function openEnvelope(e) {
+function openCard() {
 console.log("Opening the card");	
 gsap.set('.letter', {visibility: 'visible',opacity: 1, 'translateY: (0), translateZ (0)' });
 t1.play(); t2.play();					
 }
-function closeEnvelope(e) { 
+function closeCard() { 
 console.log("Closing the card");
 t1.reverse(); t2.reverse();
 gsap.set('.letter', {visibility:'hidden',opacity: 0,'translateY: (0), translateZ (0)' });					 
