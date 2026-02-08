@@ -152,8 +152,22 @@ font-weight:900;
 overflow-y:auto;
 z-index: 5; 	
 }
-	
+/* ===== Letter Flip Animations ===== */
+.letterOpen { top: -40px; transition: .3s ease-in; }
+.letterClose { top: 0px; transition: .3s ease-in; }
+
+.open .envelope { animation: flipOpen .4s ease-in forwards; }
+.close .envelope { animation: flipClose .4s ease-in forwards; }
+
+@keyframes flipOpen {
+  0% { transform: rotateX(0deg); transform-origin: center top; }
+  100% { transform: rotateX(180deg); transform-origin: center top; }
 }
+
+@keyframes flipClose {
+  0% { transform: rotateX(180deg); transform-origin: center top; }
+  100% { transform: rotateX(0deg); transform-origin: center top; }
+}	
 .shadow {
 position:absolute;
 bottom:0;
@@ -321,54 +335,27 @@ const shadow = document.querySelector('#envelope .shadow');
 
 let isOpen = false;
 
-function openCard() {  
+  // animate envelope flap
+  function openCard() {  
   if (isOpen) return;
   isOpen = true;
 
-  // animate envelope flap
-  const flap = CSSRulePlugin.getRule("#envelope .envelope::before");
-  gsap.to(flap, { duration: 0.6, cssRule: { rotateX: -160 }, ease: "power2.inOut" });
+  letter.classList.add('letterOpen');
+  letter.classList.remove('letterClose');
 
-  // slide the letter up
-  gsap.to(letter, {
-    y: "-130px",           // slide up 130px
-    duration: 0.7,
-    ease: "power2.out",
-    zIndex: 35
-  });
-
-  // expand the shadow
-  gsap.to(shadow, {
-    width: 450,
-    boxShadow: "-75px 150px 10px 5px #eeeef3",
-    duration: 0.7,
-    ease: "power2.out"
-  });
+  envelope.classList.add('open');
+  envelope.classList.remove('close');
 }
 
 function closeCard() {
   if (!isOpen) return;
   isOpen = false;
 
-  // animate envelope flap back down
-  const flap = CSSRulePlugin.getRule("#envelope .envelope::before");
-  gsap.to(flap, { duration: 0.5, cssRule: { rotateX: 0 }, ease: "power2.inOut" });
+  letter.classList.add('letterClose');
+  letter.classList.remove('letterOpen');
 
-  // slide the letter back down
-  gsap.to(letter, {
-    y: "0px",
-    duration: 0.7,
-    ease: "power2.inOut",
-    zIndex: 5
-  });
-
-  // shrink shadow
-  gsap.to(shadow, {
-    width: 0,
-    boxShadow: "none",
-    duration: 0.7,
-    ease: "power2.inOut"
-  });
+  envelope.classList.add('close');
+  envelope.classList.remove('open');
 }
 </script>
 </body>  
