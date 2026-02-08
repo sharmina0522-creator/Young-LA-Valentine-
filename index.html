@@ -130,7 +130,6 @@ linear-gradient(148.7deg, transparent 50%, var(--shadow) 50%, var(--base) 51%) 1
 position:absolute;
 bottom:10px;
 left:0;
-transform: translateY(0);
 width:260px;
 max-height:150px;
 background:var(--letter);
@@ -140,18 +139,16 @@ border-radius:6px;
 font-family:'Brush Script MT', cursive;
 font-weight:900;
 overflow-y:auto;
-transition: transform 0.7s ease;
 z-index: 5;
 }
 	
-.letter.open {
-    transform: translateY(-120px);	
 }
 .shadow {
 position:absolute;
 bottom:0;
 width:0;
 height:0;
+z-index: 1;
 }
 
 .letter .close {
@@ -315,10 +312,9 @@ let isOpen = false;
 function openCard() {  
 if (isOpen) return;
   isOpen = true;
-
 const flap = CSSRulePlugin.getRule("#envelope .envelope::before"); // target flap
 gsap.to(flap, { duration: 0.6, cssRule:{ rotateX:-160 }, ease:"power2.inOut" });  
-gsap.to(letter, { y: -120, duration: 0.7, ease: "power2.out" });
+gsap.to(letter, { y: -130, duration: 0.7, ease: "power2.out",clearProps: "transform" });
 gsap.to(shadow, { width: 450, boxShadow: '-75px 150px 10px 5px #eeeef3', duration: 0.7, ease: "power2.out" });  
 }
 
