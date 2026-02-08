@@ -105,6 +105,7 @@ height: 180px;
 background: linear-gradient(#a83245 0.5px, var(--base-light) 0.5px);
 cursor: pointer;
 perspective: 600px;
+overflow: hidden;
 }	
 
 .envelope::after {
@@ -124,10 +125,11 @@ linear-gradient(148.7deg, transparent 50%, var(--shadow) 50%, var(--base) 51%) 1
 
 .letter {
 position:absolute;
-bottom: 10pc;
+bottom: -140px;
 left:50%;
 transform: translate(-50%);	
 width:260px;
+height: 160px;
 background:var(--letter);
 padding:15px;
 color:#fff;
@@ -135,29 +137,29 @@ border-radius:6px;
 font-family:'Brush Script MT', cursive;
 font-weight:900;
 overflow-y:auto;
-z-index: 2; 
-transition: top 0.5s ease-in-out;	
+z-index: 10; 
+transition: transform 0.6s ease;	
 }
 .letter.open {
-  transform: translate(-50%, -180px);
+  transform: translate(-50%, -170px);
 }
 
-.flap {
+.envelope.flap {
   position: absolute;
   top: 0;
   left: 0;
   width: 300px;
   height: 90px; /* top half of envelope */
   background: linear-gradient(30deg, var(--base-dark) 50%, var(--shadow) 50%, var(--base) 50%);
-  transform-origin: top center;
+  transform: rotateX(0deg);
   z-index: 30;
 }
 
-.open .flap {
+.envelope.open .flap {
   animation: flapOpen 0.4s forwards ease-in;
 }
 
-.close .flap {
+.envelope:not(.open) .flap {
   animation: flapClose 0.4s forwards ease-in;
 }
 
@@ -217,7 +219,7 @@ font-size: 16px;
 </div>
 </section>
 
-		<!-- VALENTINE -->
+<!-- VALENTINE -->
 <section id="valentine">
 <div class="card">
 <h2>Will you be my Valentine?</h2>
@@ -278,13 +280,13 @@ font-size: 16px;
 </section>
 
 <!-- ENVELOPE -->
-<section id="envelope">
- <div class="flap"></div>	
+<section id="envelope">	
   <div class="card">
     <h2 class="envelope-title">You’re my main branch 💻🖤</h2>
     <div class="container">
       <div class="content" >
         <div class="envelope" onclick="openCard()"></div>
+	  <div class="flap"></div>	  
 
         <!-- LETTER -->
         <div class="letter">
