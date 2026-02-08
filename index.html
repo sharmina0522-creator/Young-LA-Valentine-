@@ -95,7 +95,7 @@ justify-content: center;
 align-items: center;
 perspective: 800px;
 margin: 0 auto; 
-overflow: visible;
+overflow: hidden;
 }
 
 .envelope {
@@ -124,11 +124,10 @@ linear-gradient(148.7deg, transparent 50%, var(--shadow) 50%, var(--base) 51%) 1
 
 .letter {
 position:absolute;
-top:90px;
+bottom: 10pc;
 left:50%;
 transform: translate(-50%);	
 width:260px;
-max-height:150px;
 background:var(--letter);
 padding:15px;
 color:#fff;
@@ -136,12 +135,12 @@ border-radius:6px;
 font-family:'Brush Script MT', cursive;
 font-weight:900;
 overflow-y:auto;
-z-index: 10; 
+z-index: 2; 
 transition: top 0.5s ease-in-out;	
 }
-/* ===== Letter Flip */
-.letterOpen { top: -100px; transition: .3s ease-in; }
-.letterClose { top: 0px; transition: .3s ease-in; }
+.letter.open {
+  transform: translate(-50%, -180px);
+}
 
 .flap {
   position: absolute;
@@ -338,26 +337,24 @@ const shadow = document.querySelector('#envelope .shadow');
 let isOpen = false;
 
   // animate envelope flap
-  function openCard() {  
+ const flap = document.querySelector('#envelope .flap');
+
+function openCard() {
   if (isOpen) return;
   isOpen = true;
 
-  letter.classList.add('letterOpen');
-  letter.classList.remove('letterClose');
-
-  envelope.classList.add('open');
-  envelope.classList.remove('close');
+  flap.classList.add('open');       // flap opens
+  letter.classList.add('open');     // letter slides out
+  envelope.classList.add('open');   // envelope flip
 }
 
 function closeCard() {
   if (!isOpen) return;
   isOpen = false;
 
-  letter.classList.add('letterClose');
-  letter.classList.remove('letterOpen');
-
-  envelope.classList.add('close');
-  envelope.classList.remove('open');
+  flap.classList.remove('open');    // flap closes
+  letter.classList.remove('open');  // letter slides back in
+  envelope.classList.remove('open'); // envelope flips back
 }
 </script>
 </body>  
