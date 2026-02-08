@@ -307,13 +307,13 @@ t2.to('.shadow', { delay: 1.4, width: 450, boxShadow: "-75px 150px 10px 5px #eee
 		
 function openCard() {
 console.log("Opening the card");	
-gsap.set('.letter', { opacity: 1,transorm: 'translateY: (0), translateZ (0)' });
+gsap.set('.letter', {visibility: 'visible',opacity: 1, 'translateY: (0), translateZ (0)' });
 t1.play(); t2.play();					
 }
 function closeCard() { 
 console.log("Closing the card");
 t1.reverse(); t2.reverse();
-gsap.set('.letter', { opacity: 0,transorm: 'translateY: (0), translateZ (0)' });					 
+gsap.set('.letter', {visibility:'hidden',opacity: 0,'translateY: (0), translateZ (0)' });					 
 }
 </script>
 </body>
