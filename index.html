@@ -143,6 +143,7 @@ overflow-y:auto;
 transition: transform 0.7s ease;
 z-index: 5;
 }
+	
 .letter.open {
     transform: translateY(-120px);	
 }
@@ -316,11 +317,9 @@ if (isOpen) return;
   isOpen = true;
 
 const flap = CSSRulePlugin.getRule("#envelope .envelope::before"); // target flap
-gsap.to(flap, { duration: 0.5, cssRule:{ rotateX:-160 }, ease:"power2.inOut" });  
- letter.style.transform = 'translateX(0) translateY(-120px)';
-  shadow.style.width = '450px';
-  shadow.style.boxShadow = '-75px 150px 10px 5px #eeeef3';
-  shadow.style.transition = 'all 0.7s ease-out';
+gsap.to(flap, { duration: 0.6, cssRule:{ rotateX:-160 }, ease:"power2.inOut" });  
+gsap.to(letter, { y: -120, duration: 0.7, ease: "power2.out" });
+gsap.to(shadow, { width: 450, boxShadow: '-75px 150px 10px 5px #eeeef3', duration: 0.7, ease: "power2.out" });  
 }
 
 function closeCard() {
@@ -328,10 +327,8 @@ if (!isOpen) return;
   isOpen = false;
 const flap = CSSRulePlugin.getRule("#envelope .envelope::before"); // target flap
 gsap.to(flap, { duration: 0.5, cssRule:{ rotateX:0 }, ease:"power2.inOut" });
-  envelope.style.transform = 'rotateX(0deg)';
-  letter.style.transform = 'translateX(0) translateY(0)';
-  shadow.style.width = '0';
-  shadow.style.boxShadow = 'none';
+gsap.to(letter, { y: 0, duration: 0.7, ease: "power2.inOut" });
+gsap.to(shadow, { width: 0, boxShadow: 'none', duration: 0.7, ease: "power2.inOut" });  
 }
 </script>
 </body>  
