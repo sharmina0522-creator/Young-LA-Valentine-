@@ -95,7 +95,17 @@ white-space: nowrap;
   margin: 0 auto; 
   perspective: 800px;
   position: relative;
-  overflow: visible; /* so letter can slide out */
+  overflow: visible;
+	#envelope {
+  display: none;
+  pointer-events: none;  /* already good */
+  z-index: 0;            
+}
+
+#envelope.active {
+  display: flex;
+  pointer-events: auto;
+  z-index: 10;           /* only on top when active */
 }
 
 /* Letter */
@@ -176,6 +186,7 @@ bottom:0;
 width:0;
 height:0;
 z-index: 1;
+pointer-events: none;	
 }
 
 .letter .close {
